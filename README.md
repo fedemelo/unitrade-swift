@@ -8,4 +8,4 @@ This repository hosts the iOS UniTrade application developed in Swift.
 
 All contributions to the repository must comply with the guidelines stated in the [Contribution Guide](https://github.com/fedemelo/Team-15-Wiki/wiki/Contribution-Guide).
 
-Documentation regarding the project can be found on the [Wiki repository](https://github.com/fedemelo/Team-15-Wiki).
+Access to other repositories and documentation regarding the project can be found on the [central repository](https://github.com/fedemelo/Team-15-Wiki).
