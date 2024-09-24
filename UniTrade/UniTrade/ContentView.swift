@@ -37,6 +37,12 @@ struct ContentView: View {
         } detail: {
             Text("Select an item")
         }
+        .overlay(
+            VStack {
+                Spacer()
+                BottomMenu()
+            }
+        )
     }
 
     private func addItem() {

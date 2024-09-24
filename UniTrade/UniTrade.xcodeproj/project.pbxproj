@@ -15,6 +15,7 @@
 		F1D5BEB52CA316A300C9DA71 /* UniTradeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEB42CA316A300C9DA71 /* UniTradeTests.swift */; };
 		F1D5BEBF2CA316A300C9DA71 /* UniTradeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEBE2CA316A300C9DA71 /* UniTradeUITests.swift */; };
 		F1D5BEC12CA316A300C9DA71 /* UniTradeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEC02CA316A300C9DA71 /* UniTradeUITestsLaunchTests.swift */; };
+		F1D5BECE2CA3183100C9DA71 /* BottomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BECD2CA3183100C9DA71 /* BottomMenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		F1D5BEBA2CA316A300C9DA71 /* UniTradeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UniTradeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1D5BEBE2CA316A300C9DA71 /* UniTradeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniTradeUITests.swift; sourceTree = "<group>"; };
 		F1D5BEC02CA316A300C9DA71 /* UniTradeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniTradeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F1D5BECD2CA3183100C9DA71 /* BottomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				F1D5BEA12CA316A100C9DA71 /* UniTradeApp.swift */,
+				F1D5BECD2CA3183100C9DA71 /* BottomMenu.swift */,
 				F1D5BEA32CA316A100C9DA71 /* ContentView.swift */,
 				F1D5BEA52CA316A100C9DA71 /* Item.swift */,
 				F1D5BEA72CA316A200C9DA71 /* Assets.xcassets */,
@@ -261,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1D5BEA42CA316A100C9DA71 /* ContentView.swift in Sources */,
+				F1D5BECE2CA3183100C9DA71 /* BottomMenu.swift in Sources */,
 				F1D5BEA62CA316A100C9DA71 /* Item.swift in Sources */,
 				F1D5BEA22CA316A100C9DA71 /* UniTradeApp.swift in Sources */,
 			);
