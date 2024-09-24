@@ -6,53 +6,37 @@
 //
 
 import SwiftUI
+import DesignSystem
 
 struct BottomMenu: View {
+    // You could have a state variable here to manage which screen is active
+    @State private var selectedScreen: String = "home"
+    
     var body: some View {
         HStack {
             Spacer()
-            Button(action: {
-                // TODO: Go home
-            }) {
-                VStack {
-                    Image(systemName: "house")
-                }
+            BottomMenuIcon(icon: "house") {
+                // TODO: selectedScreen = "home"
             }
             Spacer()
-            Button(action: {
-                // TODO: Go to cart
-            }) {
-                VStack {
-                    Image(systemName: "cart")
-                }
+            BottomMenuIcon(icon: "cart") {
+                // TODO: selectedScreen = "cart"
             }
             Spacer()
-            Button(action: {
-                // TODO: Add listing
-            }) {
-                VStack {
-                    Image(systemName: "plus.circle")
-                }
+            BottomMenuIcon(icon: "plus.circle") {
+                // TODO: selectedScreen = "addListing"
             }
             Spacer()
-            Button(action: {
-                // TODO: Notifications
-            }) {
-                VStack {
-                    Image(systemName: "bell")
-                }
+            BottomMenuIcon(icon: "bell") {
+                // TODO: selectedScreen = "notifications"
             }
             Spacer()
-            Button(action: {
-                // TODO: Profile
-            }) {
-                VStack {
-                    Image(systemName: "person")
-                }
+            BottomMenuIcon(icon: "person") {
+                // TODO: selectedScreen = "profile"
             }
             Spacer()
         }
-        .padding(10)
-        .background(Color(UIColor.systemGray6))
+        .padding(.top, 30)
+        .background(Color.DesignSystem.primary900Default)
     }
 }

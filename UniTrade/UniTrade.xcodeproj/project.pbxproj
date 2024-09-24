@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,15 @@
 		F1D5BEBF2CA316A300C9DA71 /* UniTradeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEBE2CA316A300C9DA71 /* UniTradeUITests.swift */; };
 		F1D5BEC12CA316A300C9DA71 /* UniTradeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEC02CA316A300C9DA71 /* UniTradeUITestsLaunchTests.swift */; };
 		F1D5BECE2CA3183100C9DA71 /* BottomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BECD2CA3183100C9DA71 /* BottomMenu.swift */; };
+		F1D5BED02CA31CFF00C9DA71 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BECF2CA31CFF00C9DA71 /* Header.swift */; };
+		F1D5BED22CA31DE700C9DA71 /* UploadProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BED12CA31DE700C9DA71 /* UploadProductView.swift */; };
+		F1D5BED42CA3412C00C9DA71 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BED32CA3412C00C9DA71 /* IconButton.swift */; };
+		F1D5BED82CA343A000C9DA71 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = F1D5BED72CA343A000C9DA71 /* DesignSystem */; };
+		F1D5BEDA2CA3477600C9DA71 /* BottomMenuIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BED92CA3477600C9DA71 /* BottomMenuIcon.swift */; };
+		F1D5BEEF2CA34BEE00C9DA71 /* Urbanist-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1D5BEDD2CA34BED00C9DA71 /* Urbanist-Bold.ttf */; };
+		F1D5BEFA2CA34BEE00C9DA71 /* Urbanist-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1D5BEE82CA34BED00C9DA71 /* Urbanist-SemiBold.ttf */; };
+		F1D5BEFD2CA34BEE00C9DA71 /* Urbanist-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1D5BEEB2CA34BEE00C9DA71 /* Urbanist-Regular.ttf */; };
+		F1D5BF512CA34C1200C9DA71 /* Inter_24pt-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1D5BF1B2CA34C1100C9DA71 /* Inter_24pt-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +57,15 @@
 		F1D5BEBE2CA316A300C9DA71 /* UniTradeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniTradeUITests.swift; sourceTree = "<group>"; };
 		F1D5BEC02CA316A300C9DA71 /* UniTradeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniTradeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		F1D5BECD2CA3183100C9DA71 /* BottomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenu.swift; sourceTree = "<group>"; };
+		F1D5BECF2CA31CFF00C9DA71 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		F1D5BED12CA31DE700C9DA71 /* UploadProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProductView.swift; sourceTree = "<group>"; };
+		F1D5BED32CA3412C00C9DA71 /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
+		F1D5BED92CA3477600C9DA71 /* BottomMenuIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuIcon.swift; sourceTree = "<group>"; };
+		F1D5BEDD2CA34BED00C9DA71 /* Urbanist-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Urbanist-Bold.ttf"; sourceTree = "<group>"; };
+		F1D5BEE82CA34BED00C9DA71 /* Urbanist-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Urbanist-SemiBold.ttf"; sourceTree = "<group>"; };
+		F1D5BEEB2CA34BEE00C9DA71 /* Urbanist-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Urbanist-Regular.ttf"; sourceTree = "<group>"; };
+		F1D5BF1B2CA34C1100C9DA71 /* Inter_24pt-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter_24pt-SemiBold.ttf"; sourceTree = "<group>"; };
+		F1D5BF6C2CA34FAA00C9DA71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1D5BED82CA343A000C9DA71 /* DesignSystem in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +97,7 @@
 		F1D5BE952CA316A100C9DA71 = {
 			isa = PBXGroup;
 			children = (
+				F1D5BEDB2CA34B8200C9DA71 /* Fonts */,
 				F1D5BEA02CA316A100C9DA71 /* UniTrade */,
 				F1D5BEB32CA316A300C9DA71 /* UniTradeTests */,
 				F1D5BEBD2CA316A300C9DA71 /* UniTradeUITests */,
@@ -98,12 +118,17 @@
 		F1D5BEA02CA316A100C9DA71 /* UniTrade */ = {
 			isa = PBXGroup;
 			children = (
+				F1D5BF6C2CA34FAA00C9DA71 /* Info.plist */,
 				F1D5BEA12CA316A100C9DA71 /* UniTradeApp.swift */,
+				F1D5BECF2CA31CFF00C9DA71 /* Header.swift */,
 				F1D5BECD2CA3183100C9DA71 /* BottomMenu.swift */,
 				F1D5BEA32CA316A100C9DA71 /* ContentView.swift */,
 				F1D5BEA52CA316A100C9DA71 /* Item.swift */,
+				F1D5BED12CA31DE700C9DA71 /* UploadProductView.swift */,
 				F1D5BEA72CA316A200C9DA71 /* Assets.xcassets */,
 				F1D5BEA92CA316A200C9DA71 /* Preview Content */,
+				F1D5BED32CA3412C00C9DA71 /* IconButton.swift */,
+				F1D5BED92CA3477600C9DA71 /* BottomMenuIcon.swift */,
 			);
 			path = UniTrade;
 			sourceTree = "<group>";
@@ -133,6 +158,17 @@
 			path = UniTradeUITests;
 			sourceTree = "<group>";
 		};
+		F1D5BEDB2CA34B8200C9DA71 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				F1D5BEDD2CA34BED00C9DA71 /* Urbanist-Bold.ttf */,
+				F1D5BF1B2CA34C1100C9DA71 /* Inter_24pt-SemiBold.ttf */,
+				F1D5BEEB2CA34BEE00C9DA71 /* Urbanist-Regular.ttf */,
+				F1D5BEE82CA34BED00C9DA71 /* Urbanist-SemiBold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -149,6 +185,9 @@
 			dependencies = (
 			);
 			name = UniTrade;
+			packageProductDependencies = (
+				F1D5BED72CA343A000C9DA71 /* DesignSystem */,
+			);
 			productName = UniTrade;
 			productReference = F1D5BE9E2CA316A100C9DA71 /* UniTrade.app */;
 			productType = "com.apple.product-type.application";
@@ -221,6 +260,9 @@
 				Base,
 			);
 			mainGroup = F1D5BE952CA316A100C9DA71;
+			packageReferences = (
+				F1D5BED62CA343A000C9DA71 /* XCLocalSwiftPackageReference "DesignSystem" */,
+			);
 			productRefGroup = F1D5BE9F2CA316A100C9DA71 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -237,8 +279,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1D5BEFA2CA34BEE00C9DA71 /* Urbanist-SemiBold.ttf in Resources */,
+				F1D5BF512CA34C1200C9DA71 /* Inter_24pt-SemiBold.ttf in Resources */,
 				F1D5BEAB2CA316A200C9DA71 /* Preview Assets.xcassets in Resources */,
 				F1D5BEA82CA316A200C9DA71 /* Assets.xcassets in Resources */,
+				F1D5BEFD2CA34BEE00C9DA71 /* Urbanist-Regular.ttf in Resources */,
+				F1D5BEEF2CA34BEE00C9DA71 /* Urbanist-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,10 +309,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1D5BED02CA31CFF00C9DA71 /* Header.swift in Sources */,
 				F1D5BEA42CA316A100C9DA71 /* ContentView.swift in Sources */,
+				F1D5BEDA2CA3477600C9DA71 /* BottomMenuIcon.swift in Sources */,
+				F1D5BED42CA3412C00C9DA71 /* IconButton.swift in Sources */,
 				F1D5BECE2CA3183100C9DA71 /* BottomMenu.swift in Sources */,
 				F1D5BEA62CA316A100C9DA71 /* Item.swift in Sources */,
 				F1D5BEA22CA316A100C9DA71 /* UniTradeApp.swift in Sources */,
+				F1D5BED22CA31DE700C9DA71 /* UploadProductView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +483,7 @@
 				DEVELOPMENT_TEAM = 6MG8GCGFUH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = UniTrade/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -462,6 +513,7 @@
 				DEVELOPMENT_TEAM = 6MG8GCGFUH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = UniTrade/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -596,6 +648,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		F1D5BED62CA343A000C9DA71 /* XCLocalSwiftPackageReference "DesignSystem" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = DesignSystem;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F1D5BED72CA343A000C9DA71 /* DesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignSystem;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F1D5BE962CA316A100C9DA71 /* Project object */;
 }
