@@ -1,0 +1,597 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F1D5BEA22CA316A100C9DA71 /* UniTradeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEA12CA316A100C9DA71 /* UniTradeApp.swift */; };
+		F1D5BEA42CA316A100C9DA71 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEA32CA316A100C9DA71 /* ContentView.swift */; };
+		F1D5BEA62CA316A100C9DA71 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEA52CA316A100C9DA71 /* Item.swift */; };
+		F1D5BEA82CA316A200C9DA71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1D5BEA72CA316A200C9DA71 /* Assets.xcassets */; };
+		F1D5BEAB2CA316A200C9DA71 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1D5BEAA2CA316A200C9DA71 /* Preview Assets.xcassets */; };
+		F1D5BEB52CA316A300C9DA71 /* UniTradeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEB42CA316A300C9DA71 /* UniTradeTests.swift */; };
+		F1D5BEBF2CA316A300C9DA71 /* UniTradeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEBE2CA316A300C9DA71 /* UniTradeUITests.swift */; };
+		F1D5BEC12CA316A300C9DA71 /* UniTradeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEC02CA316A300C9DA71 /* UniTradeUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F1D5BEB12CA316A300C9DA71 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1D5BE962CA316A100C9DA71 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F1D5BE9D2CA316A100C9DA71;
+			remoteInfo = UniTrade;
+		};
+		F1D5BEBB2CA316A300C9DA71 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1D5BE962CA316A100C9DA71 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F1D5BE9D2CA316A100C9DA71;
+			remoteInfo = UniTrade;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F1D5BE9E2CA316A100C9DA71 /* UniTrade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UniTrade.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1D5BEA12CA316A100C9DA71 /* UniTradeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniTradeApp.swift; sourceTree = "<group>"; };
+		F1D5BEA32CA316A100C9DA71 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F1D5BEA52CA316A100C9DA71 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		F1D5BEA72CA316A200C9DA71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F1D5BEAA2CA316A200C9DA71 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F1D5BEB02CA316A300C9DA71 /* UniTradeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UniTradeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1D5BEB42CA316A300C9DA71 /* UniTradeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniTradeTests.swift; sourceTree = "<group>"; };
+		F1D5BEBA2CA316A300C9DA71 /* UniTradeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UniTradeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1D5BEBE2CA316A300C9DA71 /* UniTradeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniTradeUITests.swift; sourceTree = "<group>"; };
+		F1D5BEC02CA316A300C9DA71 /* UniTradeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniTradeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F1D5BE9B2CA316A100C9DA71 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1D5BEAD2CA316A300C9DA71 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1D5BEB72CA316A300C9DA71 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F1D5BE952CA316A100C9DA71 = {
+			isa = PBXGroup;
+			children = (
+				F1D5BEA02CA316A100C9DA71 /* UniTrade */,
+				F1D5BEB32CA316A300C9DA71 /* UniTradeTests */,
+				F1D5BEBD2CA316A300C9DA71 /* UniTradeUITests */,
+				F1D5BE9F2CA316A100C9DA71 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F1D5BE9F2CA316A100C9DA71 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F1D5BE9E2CA316A100C9DA71 /* UniTrade.app */,
+				F1D5BEB02CA316A300C9DA71 /* UniTradeTests.xctest */,
+				F1D5BEBA2CA316A300C9DA71 /* UniTradeUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F1D5BEA02CA316A100C9DA71 /* UniTrade */ = {
+			isa = PBXGroup;
+			children = (
+				F1D5BEA12CA316A100C9DA71 /* UniTradeApp.swift */,
+				F1D5BEA32CA316A100C9DA71 /* ContentView.swift */,
+				F1D5BEA52CA316A100C9DA71 /* Item.swift */,
+				F1D5BEA72CA316A200C9DA71 /* Assets.xcassets */,
+				F1D5BEA92CA316A200C9DA71 /* Preview Content */,
+			);
+			path = UniTrade;
+			sourceTree = "<group>";
+		};
+		F1D5BEA92CA316A200C9DA71 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				F1D5BEAA2CA316A200C9DA71 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F1D5BEB32CA316A300C9DA71 /* UniTradeTests */ = {
+			isa = PBXGroup;
+			children = (
+				F1D5BEB42CA316A300C9DA71 /* UniTradeTests.swift */,
+			);
+			path = UniTradeTests;
+			sourceTree = "<group>";
+		};
+		F1D5BEBD2CA316A300C9DA71 /* UniTradeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F1D5BEBE2CA316A300C9DA71 /* UniTradeUITests.swift */,
+				F1D5BEC02CA316A300C9DA71 /* UniTradeUITestsLaunchTests.swift */,
+			);
+			path = UniTradeUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F1D5BE9D2CA316A100C9DA71 /* UniTrade */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1D5BEC42CA316A300C9DA71 /* Build configuration list for PBXNativeTarget "UniTrade" */;
+			buildPhases = (
+				F1D5BE9A2CA316A100C9DA71 /* Sources */,
+				F1D5BE9B2CA316A100C9DA71 /* Frameworks */,
+				F1D5BE9C2CA316A100C9DA71 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UniTrade;
+			productName = UniTrade;
+			productReference = F1D5BE9E2CA316A100C9DA71 /* UniTrade.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F1D5BEAF2CA316A300C9DA71 /* UniTradeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1D5BEC72CA316A300C9DA71 /* Build configuration list for PBXNativeTarget "UniTradeTests" */;
+			buildPhases = (
+				F1D5BEAC2CA316A300C9DA71 /* Sources */,
+				F1D5BEAD2CA316A300C9DA71 /* Frameworks */,
+				F1D5BEAE2CA316A300C9DA71 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F1D5BEB22CA316A300C9DA71 /* PBXTargetDependency */,
+			);
+			name = UniTradeTests;
+			productName = UniTradeTests;
+			productReference = F1D5BEB02CA316A300C9DA71 /* UniTradeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F1D5BEB92CA316A300C9DA71 /* UniTradeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1D5BECA2CA316A300C9DA71 /* Build configuration list for PBXNativeTarget "UniTradeUITests" */;
+			buildPhases = (
+				F1D5BEB62CA316A300C9DA71 /* Sources */,
+				F1D5BEB72CA316A300C9DA71 /* Frameworks */,
+				F1D5BEB82CA316A300C9DA71 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F1D5BEBC2CA316A300C9DA71 /* PBXTargetDependency */,
+			);
+			name = UniTradeUITests;
+			productName = UniTradeUITests;
+			productReference = F1D5BEBA2CA316A300C9DA71 /* UniTradeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F1D5BE962CA316A100C9DA71 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					F1D5BE9D2CA316A100C9DA71 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					F1D5BEAF2CA316A300C9DA71 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = F1D5BE9D2CA316A100C9DA71;
+					};
+					F1D5BEB92CA316A300C9DA71 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = F1D5BE9D2CA316A100C9DA71;
+					};
+				};
+			};
+			buildConfigurationList = F1D5BE992CA316A100C9DA71 /* Build configuration list for PBXProject "UniTrade" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F1D5BE952CA316A100C9DA71;
+			productRefGroup = F1D5BE9F2CA316A100C9DA71 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F1D5BE9D2CA316A100C9DA71 /* UniTrade */,
+				F1D5BEAF2CA316A300C9DA71 /* UniTradeTests */,
+				F1D5BEB92CA316A300C9DA71 /* UniTradeUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F1D5BE9C2CA316A100C9DA71 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1D5BEAB2CA316A200C9DA71 /* Preview Assets.xcassets in Resources */,
+				F1D5BEA82CA316A200C9DA71 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1D5BEAE2CA316A300C9DA71 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1D5BEB82CA316A300C9DA71 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F1D5BE9A2CA316A100C9DA71 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1D5BEA42CA316A100C9DA71 /* ContentView.swift in Sources */,
+				F1D5BEA62CA316A100C9DA71 /* Item.swift in Sources */,
+				F1D5BEA22CA316A100C9DA71 /* UniTradeApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1D5BEAC2CA316A300C9DA71 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1D5BEB52CA316A300C9DA71 /* UniTradeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1D5BEB62CA316A300C9DA71 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1D5BEC12CA316A300C9DA71 /* UniTradeUITestsLaunchTests.swift in Sources */,
+				F1D5BEBF2CA316A300C9DA71 /* UniTradeUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F1D5BEB22CA316A300C9DA71 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F1D5BE9D2CA316A100C9DA71 /* UniTrade */;
+			targetProxy = F1D5BEB12CA316A300C9DA71 /* PBXContainerItemProxy */;
+		};
+		F1D5BEBC2CA316A300C9DA71 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F1D5BE9D2CA316A100C9DA71 /* UniTrade */;
+			targetProxy = F1D5BEBB2CA316A300C9DA71 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		F1D5BEC22CA316A300C9DA71 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F1D5BEC32CA316A300C9DA71 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F1D5BEC52CA316A300C9DA71 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"UniTrade/Preview Content\"";
+				DEVELOPMENT_TEAM = 6MG8GCGFUH;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.uniandes.UniTrade;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F1D5BEC62CA316A300C9DA71 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"UniTrade/Preview Content\"";
+				DEVELOPMENT_TEAM = 6MG8GCGFUH;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.uniandes.UniTrade;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F1D5BEC82CA316A300C9DA71 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6MG8GCGFUH;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.uniandes.UniTradeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UniTrade.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/UniTrade";
+			};
+			name = Debug;
+		};
+		F1D5BEC92CA316A300C9DA71 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6MG8GCGFUH;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.uniandes.UniTradeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UniTrade.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/UniTrade";
+			};
+			name = Release;
+		};
+		F1D5BECB2CA316A300C9DA71 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6MG8GCGFUH;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.uniandes.UniTradeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = UniTrade;
+			};
+			name = Debug;
+		};
+		F1D5BECC2CA316A300C9DA71 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6MG8GCGFUH;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.uniandes.UniTradeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = UniTrade;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F1D5BE992CA316A100C9DA71 /* Build configuration list for PBXProject "UniTrade" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1D5BEC22CA316A300C9DA71 /* Debug */,
+				F1D5BEC32CA316A300C9DA71 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1D5BEC42CA316A300C9DA71 /* Build configuration list for PBXNativeTarget "UniTrade" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1D5BEC52CA316A300C9DA71 /* Debug */,
+				F1D5BEC62CA316A300C9DA71 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1D5BEC72CA316A300C9DA71 /* Build configuration list for PBXNativeTarget "UniTradeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1D5BEC82CA316A300C9DA71 /* Debug */,
+				F1D5BEC92CA316A300C9DA71 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1D5BECA2CA316A300C9DA71 /* Build configuration list for PBXNativeTarget "UniTradeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1D5BECB2CA316A300C9DA71 /* Debug */,
+				F1D5BECC2CA316A300C9DA71 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F1D5BE962CA316A100C9DA71 /* Project object */;
+}
