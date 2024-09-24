@@ -25,6 +25,7 @@
 		F1D5BEFA2CA34BEE00C9DA71 /* Urbanist-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1D5BEE82CA34BED00C9DA71 /* Urbanist-SemiBold.ttf */; };
 		F1D5BEFD2CA34BEE00C9DA71 /* Urbanist-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1D5BEEB2CA34BEE00C9DA71 /* Urbanist-Regular.ttf */; };
 		F1D5BF512CA34C1200C9DA71 /* Inter_24pt-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1D5BF1B2CA34C1100C9DA71 /* Inter_24pt-SemiBold.ttf */; };
+		F1D5BF6E2CA35B1100C9DA71 /* JustifiedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BF6D2CA35B1100C9DA71 /* JustifiedText.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		F1D5BEEB2CA34BEE00C9DA71 /* Urbanist-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Urbanist-Regular.ttf"; sourceTree = "<group>"; };
 		F1D5BF1B2CA34C1100C9DA71 /* Inter_24pt-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter_24pt-SemiBold.ttf"; sourceTree = "<group>"; };
 		F1D5BF6C2CA34FAA00C9DA71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F1D5BF6D2CA35B1100C9DA71 /* JustifiedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustifiedText.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 				F1D5BEA92CA316A200C9DA71 /* Preview Content */,
 				F1D5BED32CA3412C00C9DA71 /* IconButton.swift */,
 				F1D5BED92CA3477600C9DA71 /* BottomMenuIcon.swift */,
+				F1D5BF6D2CA35B1100C9DA71 /* JustifiedText.swift */,
 			);
 			path = UniTrade;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1D5BED02CA31CFF00C9DA71 /* Header.swift in Sources */,
+				F1D5BF6E2CA35B1100C9DA71 /* JustifiedText.swift in Sources */,
 				F1D5BEA42CA316A100C9DA71 /* ContentView.swift in Sources */,
 				F1D5BEDA2CA3477600C9DA71 /* BottomMenuIcon.swift in Sources */,
 				F1D5BED42CA3412C00C9DA71 /* IconButton.swift in Sources */,

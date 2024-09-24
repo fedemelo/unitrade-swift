@@ -18,12 +18,12 @@ struct IconButton: View {
             HStack {
                 Image(systemName: icon)
                 Text(text)
-                    .bold()
             }
-            .padding()
+            .padding(.vertical, 17)
+            .padding(.horizontal, 22)
             .background(Color.DesignSystem.primary900Default)
-            .foregroundColor(.white)
             .font(Font.DesignSystem.headline400)
+            .foregroundColor(.white)
             .cornerRadius(100)
         }
     }

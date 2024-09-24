@@ -25,17 +25,13 @@ struct UploadProductView: View {
         
         VStack(alignment: .leading, spacing: 30) {
             
-            
-            
             Text(TextConstants.contentTitle)
                 .font(Font.DesignSystem.headline600)
                 .foregroundColor(Color.DesignSystem.dark500Default)
-                .bold()
 
             Text(TextConstants.explanation)
                 .font(Font.DesignSystem.bodyText300)
                 .foregroundColor(Color.DesignSystem.light400)
-                .bold()
             
             HStack(spacing: 16) {
                 IconButton(text: TextConstants.sellButtonText,
