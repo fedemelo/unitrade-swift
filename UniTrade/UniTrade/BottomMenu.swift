@@ -9,34 +9,42 @@ import SwiftUI
 import DesignSystem
 
 struct BottomMenu: View {
-    // You could have a state variable here to manage which screen is active
-    @State private var selectedScreen: String = "home"
-    
+    var onMenuSelected: (BottomMenuScreenEnum) -> Void
+
     var body: some View {
         HStack {
             Spacer()
             BottomMenuIcon(icon: "house") {
-                // TODO: selectedScreen = "home"
+                onMenuSelected(.home)
             }
             Spacer()
             BottomMenuIcon(icon: "cart") {
-                // TODO: selectedScreen = "cart"
+                onMenuSelected(.cart)
             }
             Spacer()
             BottomMenuIcon(icon: "plus.circle") {
-                // TODO: selectedScreen = "addListing"
+                onMenuSelected(.uploadProduct)
             }
             Spacer()
             BottomMenuIcon(icon: "bell") {
-                // TODO: selectedScreen = "notifications"
+                onMenuSelected(.notifications)
             }
             Spacer()
             BottomMenuIcon(icon: "person") {
-                // TODO: selectedScreen = "profile"
+                onMenuSelected(.profile)
             }
             Spacer()
         }
         .padding(.top, 30)
         .background(Color.DesignSystem.primary900Default)
     }
+}
+
+
+enum BottomMenuScreenEnum: Hashable {
+    case home
+    case cart
+    case uploadProduct
+    case notifications
+    case profile
 }

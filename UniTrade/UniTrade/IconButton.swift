@@ -28,7 +28,3 @@ struct IconButton: View {
         }
     }
 }
-
-#Preview {
-    IconButton(text: "BOTONSITO", icon: "smiley", action: {})
-}

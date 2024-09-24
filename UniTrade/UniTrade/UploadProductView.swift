@@ -16,6 +16,8 @@ struct TextConstants {
 }
 
 struct UploadProductView: View {
+    @State private var selectedScreen: BottomMenuScreenEnum?
+    
     var body: some View {
         Header(title: TextConstants.headerTitle
                // TODO: onBack: <#T##() -> Void#>
@@ -53,16 +55,5 @@ struct UploadProductView: View {
         }
         .padding()
         .padding(.horizontal)
-        .overlay(
-            VStack {
-                Spacer()
-                BottomMenu()
-            }
-        )
     }
-}
-
-
-#Preview {
-    UploadProductView()
 }

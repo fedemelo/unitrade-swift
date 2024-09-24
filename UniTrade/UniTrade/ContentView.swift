@@ -5,6 +5,14 @@
 //  Created by Federico Melo Barrero on 24/09/24.
 //
 
+// This is the default example view that was automatically built
+// when I created the Swift project.
+//
+// I won't delete it just yet, as it may prove to be a usefull reference
+// while we become genuine experts in Swift.
+//
+// - Fede.
+
 import SwiftUI
 import SwiftData
 
@@ -37,12 +45,6 @@ struct ContentView: View {
         } detail: {
             Text("Select an item")
         }
-        .overlay(
-            VStack {
-                Spacer()
-                BottomMenu()
-            }
-        )
     }
 
     private func addItem() {

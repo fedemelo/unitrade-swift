@@ -22,5 +22,3 @@ struct BottomMenuIcon: View {
         
     }
 }
-
-

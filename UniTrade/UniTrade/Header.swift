@@ -19,6 +19,7 @@ struct Header: View {
                     LeftArrow(color: Color.DesignSystem.dark900)
                 }
                 .padding(.leading, 16)
+                
                 Spacer()
 
                 Text(title)
@@ -26,6 +27,7 @@ struct Header: View {
                     .font(Font.DesignSystem.headline500)
 
                 Spacer()
+                
                 // Another identical but hidden arrow for symmetry
                 LeftArrow(color: .clear).padding(.leading, 16)
             }
