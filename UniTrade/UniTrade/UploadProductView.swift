@@ -16,14 +16,12 @@ struct TextConstants {
 }
 
 struct UploadProductView: View {
-    @State private var selectedScreen: BottomMenuScreenEnum?
+    var onBack: () -> Void
     
     var body: some View {
-        Header(title: TextConstants.headerTitle
-               // TODO: onBack: <#T##() -> Void#>
-        ) {
-            print("Back button tapped")
-        }
+        Header(title: TextConstants.headerTitle, onBack: {
+            onBack()
+        })
         
         VStack(alignment: .leading, spacing: 30) {
             

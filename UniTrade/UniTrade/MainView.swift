@@ -19,7 +19,9 @@ struct MainView: View {
                     case .cart:
                         TemplateView(name: "Cart")
                     case .uploadProduct:
-                        UploadProductView()
+                        UploadProductView(onBack: {
+                            selectedScreen = .home
+                        })
                     case .notifications:
                         TemplateView(name: "Notifications")
                     case .profile:
