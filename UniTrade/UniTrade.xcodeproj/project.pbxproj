@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		F18F18ED2CA4840C005C4A78 /* TabViewIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */; };
+		F18F18EF2CA4A253005C4A78 /* UploadSelling.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18F18EE2CA4A253005C4A78 /* UploadSelling.swift */; };
+		F18F18F12CA4A268005C4A78 /* UploadRenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18F18F02CA4A268005C4A78 /* UploadRenting.swift */; };
 		F1D5BEA22CA316A100C9DA71 /* UniTradeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEA12CA316A100C9DA71 /* UniTradeApp.swift */; };
 		F1D5BEA42CA316A100C9DA71 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEA32CA316A100C9DA71 /* ContentView.swift */; };
 		F1D5BEA62CA316A100C9DA71 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEA52CA316A100C9DA71 /* Item.swift */; };
@@ -46,6 +48,8 @@
 
 /* Begin PBXFileReference section */
 		F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewIcon.swift; sourceTree = "<group>"; };
+		F18F18EE2CA4A253005C4A78 /* UploadSelling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadSelling.swift; sourceTree = "<group>"; };
+		F18F18F02CA4A268005C4A78 /* UploadRenting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadRenting.swift; sourceTree = "<group>"; };
 		F1D5BE9E2CA316A100C9DA71 /* UniTrade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UniTrade.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1D5BEA12CA316A100C9DA71 /* UniTradeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniTradeApp.swift; sourceTree = "<group>"; };
 		F1D5BEA32CA316A100C9DA71 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -129,6 +133,8 @@
 				F1D5BEA92CA316A200C9DA71 /* Preview Content */,
 				F1D5BED32CA3412C00C9DA71 /* IconButton.swift */,
 				F1D5BF732CA36A9E00C9DA71 /* TemplateView.swift */,
+				F18F18EE2CA4A253005C4A78 /* UploadSelling.swift */,
+				F18F18F02CA4A268005C4A78 /* UploadRenting.swift */,
 			);
 			path = UniTrade;
 			sourceTree = "<group>";
@@ -313,7 +319,9 @@
 				F1D5BEA42CA316A100C9DA71 /* ContentView.swift in Sources */,
 				F1D5BF722CA369D200C9DA71 /* MainView.swift in Sources */,
 				F1D5BF742CA36A9E00C9DA71 /* TemplateView.swift in Sources */,
+				F18F18F12CA4A268005C4A78 /* UploadRenting.swift in Sources */,
 				F1D5BED42CA3412C00C9DA71 /* IconButton.swift in Sources */,
+				F18F18EF2CA4A253005C4A78 /* UploadSelling.swift in Sources */,
 				F1D5BEA62CA316A100C9DA71 /* Item.swift in Sources */,
 				F1D5BEA22CA316A100C9DA71 /* UniTradeApp.swift in Sources */,
 				F1D5BED22CA31DE700C9DA71 /* UploadProductView.swift in Sources */,

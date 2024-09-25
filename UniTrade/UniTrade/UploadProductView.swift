@@ -7,57 +7,45 @@
 
 import SwiftUI
 
-struct TextConstants {
-    static let headerTitle = "Upload Product"
-    static let contentTitle = "Select your path"
-    static let explanation = "Choose how you want to manage your product. You can either sell it outright or offer it for rent."
-    static let sellButtonText = "SELL"
-    static let rentButtonText = "LIST FOR RENT"
-}
-
-
-import SwiftUI
-
 struct UploadProductView: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: 30) {
-            Text(TextConstants.contentTitle)
-                .font(Font.DesignSystem.headline600)
-                .foregroundColor(Color.DesignSystem.dark500Default)
-            
-            Text(TextConstants.explanation)
-                .font(Font.DesignSystem.bodyText300)
-                .foregroundColor(Color.DesignSystem.light400)
-            
-            HStack(spacing: 16) {
-                IconButton(text: TextConstants.sellButtonText,
-                           icon: "dollarsign.circle") {
-                    // TODO: Action for SELL
-                    print("Sell button tapped")
+        NavigationView {
+            VStack(alignment: .leading, spacing: 30) {
+                Text("Select your path")
+                    .font(Font.DesignSystem.headline600)
+                    .foregroundColor(Color.DesignSystem.dark500Default)
+                
+                Text("Choose how you want to manage your product. You can either sell it outright or offer it for rent.")
+                    .font(Font.DesignSystem.bodyText300)
+                    .foregroundColor(Color.DesignSystem.light400)
+                
+                HStack(spacing: 16) {
+                    NavigationLink(destination: UploadSelling()) {
+                        IconButton(text: "SELL", icon: "dollarsign.circle")
+                    }
+                    
+                    Spacer()
+
+                    NavigationLink(destination: UploadRenting()) {
+                        IconButton(text: "LIST FOR RENT", icon: "arrow.2.circlepath.circle")
+                    }
                 }
+                .frame(maxWidth: .infinity)
                 
                 Spacer()
-                
-                IconButton(text: TextConstants.rentButtonText,
-                           icon: "arrow.2.circlepath.circle") {
-                    // TODO: Action for LIST FOR RENT
-                    print("List for rent button tapped")
-                }
             }
-            .frame(maxWidth: .infinity)
+            .padding()
+            .padding(.horizontal)
             
-            Spacer()
         }
-        .padding()
-        .padding(.horizontal)
-        .navigationTitle(TextConstants.headerTitle)
+        .navigationTitle("Upload Product")
         .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text(TextConstants.headerTitle)
-                        .foregroundColor(Color.DesignSystem.dark500Default)
-                        .font(Font.DesignSystem.headline500)
-                }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Upload Product")
+                    .foregroundColor(Color.DesignSystem.dark500Default)
+                    .font(Font.DesignSystem.headline500)
             }
+        }
     }
 }
