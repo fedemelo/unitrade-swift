@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F18F18ED2CA4840C005C4A78 /* TabViewIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */; };
 		F1D5BEA22CA316A100C9DA71 /* UniTradeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEA12CA316A100C9DA71 /* UniTradeApp.swift */; };
 		F1D5BEA42CA316A100C9DA71 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEA32CA316A100C9DA71 /* ContentView.swift */; };
 		F1D5BEA62CA316A100C9DA71 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEA52CA316A100C9DA71 /* Item.swift */; };
@@ -15,12 +16,9 @@
 		F1D5BEB52CA316A300C9DA71 /* UniTradeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEB42CA316A300C9DA71 /* UniTradeTests.swift */; };
 		F1D5BEBF2CA316A300C9DA71 /* UniTradeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEBE2CA316A300C9DA71 /* UniTradeUITests.swift */; };
 		F1D5BEC12CA316A300C9DA71 /* UniTradeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEC02CA316A300C9DA71 /* UniTradeUITestsLaunchTests.swift */; };
-		F1D5BECE2CA3183100C9DA71 /* BottomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BECD2CA3183100C9DA71 /* BottomMenu.swift */; };
-		F1D5BED02CA31CFF00C9DA71 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BECF2CA31CFF00C9DA71 /* Header.swift */; };
 		F1D5BED22CA31DE700C9DA71 /* UploadProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BED12CA31DE700C9DA71 /* UploadProductView.swift */; };
 		F1D5BED42CA3412C00C9DA71 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BED32CA3412C00C9DA71 /* IconButton.swift */; };
 		F1D5BED82CA343A000C9DA71 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = F1D5BED72CA343A000C9DA71 /* DesignSystem */; };
-		F1D5BEDA2CA3477600C9DA71 /* BottomMenuIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BED92CA3477600C9DA71 /* BottomMenuIcon.swift */; };
 		F1D5BEEF2CA34BEE00C9DA71 /* Urbanist-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1D5BEDD2CA34BED00C9DA71 /* Urbanist-Bold.ttf */; };
 		F1D5BEFA2CA34BEE00C9DA71 /* Urbanist-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1D5BEE82CA34BED00C9DA71 /* Urbanist-SemiBold.ttf */; };
 		F1D5BEFD2CA34BEE00C9DA71 /* Urbanist-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1D5BEEB2CA34BEE00C9DA71 /* Urbanist-Regular.ttf */; };
@@ -47,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewIcon.swift; sourceTree = "<group>"; };
 		F1D5BE9E2CA316A100C9DA71 /* UniTrade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UniTrade.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1D5BEA12CA316A100C9DA71 /* UniTradeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniTradeApp.swift; sourceTree = "<group>"; };
 		F1D5BEA32CA316A100C9DA71 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,11 +57,8 @@
 		F1D5BEBA2CA316A300C9DA71 /* UniTradeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UniTradeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1D5BEBE2CA316A300C9DA71 /* UniTradeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniTradeUITests.swift; sourceTree = "<group>"; };
 		F1D5BEC02CA316A300C9DA71 /* UniTradeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniTradeUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		F1D5BECD2CA3183100C9DA71 /* BottomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenu.swift; sourceTree = "<group>"; };
-		F1D5BECF2CA31CFF00C9DA71 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		F1D5BED12CA31DE700C9DA71 /* UploadProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProductView.swift; sourceTree = "<group>"; };
 		F1D5BED32CA3412C00C9DA71 /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
-		F1D5BED92CA3477600C9DA71 /* BottomMenuIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuIcon.swift; sourceTree = "<group>"; };
 		F1D5BEDD2CA34BED00C9DA71 /* Urbanist-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Urbanist-Bold.ttf"; sourceTree = "<group>"; };
 		F1D5BEE82CA34BED00C9DA71 /* Urbanist-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Urbanist-SemiBold.ttf"; sourceTree = "<group>"; };
 		F1D5BEEB2CA34BEE00C9DA71 /* Urbanist-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Urbanist-Regular.ttf"; sourceTree = "<group>"; };
@@ -125,15 +121,13 @@
 				F1D5BF6C2CA34FAA00C9DA71 /* Info.plist */,
 				F1D5BEA12CA316A100C9DA71 /* UniTradeApp.swift */,
 				F1D5BF712CA369D200C9DA71 /* MainView.swift */,
-				F1D5BECF2CA31CFF00C9DA71 /* Header.swift */,
-				F1D5BECD2CA3183100C9DA71 /* BottomMenu.swift */,
+				F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */,
 				F1D5BEA32CA316A100C9DA71 /* ContentView.swift */,
 				F1D5BEA52CA316A100C9DA71 /* Item.swift */,
 				F1D5BED12CA31DE700C9DA71 /* UploadProductView.swift */,
 				F1D5BEA72CA316A200C9DA71 /* Assets.xcassets */,
 				F1D5BEA92CA316A200C9DA71 /* Preview Content */,
 				F1D5BED32CA3412C00C9DA71 /* IconButton.swift */,
-				F1D5BED92CA3477600C9DA71 /* BottomMenuIcon.swift */,
 				F1D5BF732CA36A9E00C9DA71 /* TemplateView.swift */,
 			);
 			path = UniTrade;
@@ -315,13 +309,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1D5BED02CA31CFF00C9DA71 /* Header.swift in Sources */,
+				F18F18ED2CA4840C005C4A78 /* TabViewIcon.swift in Sources */,
 				F1D5BEA42CA316A100C9DA71 /* ContentView.swift in Sources */,
 				F1D5BF722CA369D200C9DA71 /* MainView.swift in Sources */,
-				F1D5BEDA2CA3477600C9DA71 /* BottomMenuIcon.swift in Sources */,
 				F1D5BF742CA36A9E00C9DA71 /* TemplateView.swift in Sources */,
 				F1D5BED42CA3412C00C9DA71 /* IconButton.swift in Sources */,
-				F1D5BECE2CA3183100C9DA71 /* BottomMenu.swift in Sources */,
 				F1D5BEA62CA316A100C9DA71 /* Item.swift in Sources */,
 				F1D5BEA22CA316A100C9DA71 /* UniTradeApp.swift in Sources */,
 				F1D5BED22CA31DE700C9DA71 /* UploadProductView.swift in Sources */,

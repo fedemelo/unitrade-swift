@@ -15,20 +15,16 @@ struct TextConstants {
     static let rentButtonText = "LIST FOR RENT"
 }
 
+
+import SwiftUI
+
 struct UploadProductView: View {
-    var onBack: () -> Void
-    
     var body: some View {
-        Header(title: TextConstants.headerTitle, onBack: {
-            onBack()
-        })
-        
         VStack(alignment: .leading, spacing: 30) {
-            
             Text(TextConstants.contentTitle)
                 .font(Font.DesignSystem.headline600)
                 .foregroundColor(Color.DesignSystem.dark500Default)
-
+            
             Text(TextConstants.explanation)
                 .font(Font.DesignSystem.bodyText300)
                 .foregroundColor(Color.DesignSystem.light400)
@@ -49,9 +45,19 @@ struct UploadProductView: View {
                 }
             }
             .frame(maxWidth: .infinity)
+            
             Spacer()
         }
         .padding()
         .padding(.horizontal)
+        .navigationTitle(TextConstants.headerTitle)
+        .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text(TextConstants.headerTitle)
+                        .foregroundColor(Color.DesignSystem.dark500Default)
+                        .font(Font.DesignSystem.headline500)
+                }
+            }
     }
 }
