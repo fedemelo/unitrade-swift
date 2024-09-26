@@ -1,37 +1,161 @@
+//
+//  Color.swift
+//  UniTrade
+//
+//  Colors automatically extracted from Figma mockup with https://figmatoswift.com/
+//  Methods created by Federico Melo Barrero on 26/09/24.
+//
+
 import SwiftUI
 
 public extension Color {
-    /// Namespace to prevent naming collisions with static accessors on
-    /// SwiftUI's Color.
-    ///
-    /// Xcode's autocomplete allows for easy discovery of design system colors.
-    /// At any call site that requires a color, type `Color.DesignSystem.<esc>`
     struct DesignSystem {
-        public static let dark900 = Color(red: 0.027450980618596077, green: 0.0117647061124444, blue: 0.01568627543747425, opacity: 1)
-        public static let dark800 = Color(red: 0.03529411926865578, green: 0.019607843831181526, blue: 0.0235294122248888, opacity: 1)
-        public static let dark700 = Color(red: 0.04313725605607033, green: 0.0313725508749485, blue: 0.0313725508749485, opacity: 1)
-        public static let dark600 = Color(red: 0.05098039284348488, green: 0.04313725605607033, blue: 0.04313725605607033, opacity: 1)
-        public static let dark500Default = Color(red: 0.0625, green: 0.0625, blue: 0.0625, opacity: 1)
-        public static let light400 = Color(red: 0.43529412150382996, green: 0.43529412150382996, blue: 0.43529412150382996, opacity: 1)
-        public static let light300 = Color(red: 0.7176470756530762, green: 0.7176470756530762, blue: 0.7176470756530762, opacity: 1)
-        public static let light200 = Color(red: 0.9058823585510254, green: 0.9058823585510254, blue: 0.9058823585510254, opacity: 1)
-        public static let light100 = Color(red: 0.9529411792755127, green: 0.9529411792755127, blue: 0.9529411792755127, opacity: 1)
-        public static let white = Color(red: 1, green: 1, blue: 1, opacity: 1)
-        public static let success = Color(red: 0.5372549295425415, green: 0.8470588326454163, blue: 0.3764705955982208, opacity: 1)
-        public static let error = Color(red: 1, green: 0.4431372582912445, blue: 0.2666666805744171, opacity: 1)
-        public static let warning = Color(red: 0.9450980424880981, green: 0.8941176533699036, blue: 0.22745098173618317, opacity: 1)
-        public static let primary900Default = Color(red: 0.11372549086809158, green: 0.30588236451148987, blue: 0.5372549295425415, opacity: 1)
-        public static let primary800 = Color(red: 0.20392157137393951, green: 0.3764705955982208, blue: 0.5843137502670288, opacity: 1)
-        public static let primary700 = Color(red: 0.29019609093666077, green: 0.4431372582912445, blue: 0.6313725709915161, opacity: 1)
-        public static let primary600 = Color(red: 0.3803921639919281, green: 0.5137255191802979, blue: 0.6745098233222961, opacity: 1)
-        public static let contrast900Default = Color(red: 0.9843137264251709, green: 0.8196078538894653, blue: 0.6352941393852234, opacity: 1)
-        public static let contrast800 = Color(red: 0.9843137264251709, green: 0.8392156958580017, blue: 0.6705882549285889, opacity: 1)
-        public static let constrast700 = Color(red: 0.9882352948188782, green: 0.8549019694328308, blue: 0.7098039388656616, opacity: 1)
-        public static let constrast600 = Color(red: 0.9882352948188782, green: 0.8745098114013672, blue: 0.7411764860153198, opacity: 1)
-        public static let secondary900Default = Color(red: 0.9686274528503418, green: 0.572549045085907, blue: 0.33725491166114807, opacity: 1)
-        public static let secondary800 = Color(red: 0.9725490212440491, green: 0.615686297416687, blue: 0.40784314274787903, opacity: 1)
-        public static let secondary700 = Color(red: 0.9764705896377563, green: 0.6549019813537598, blue: 0.47058823704719543, opacity: 1)
-        public static let secondary600 = Color(red: 0.9764705896377563, green: 0.7058823704719543, blue: 0.5372549295425415, opacity: 1)
+        
+        public static func dark900(for colorScheme: ColorScheme = .light) -> Color {
+            return useComplementaryForDarkMode(for: "dark900", colorScheme: colorScheme)
+        }
+        
+        public static func dark800(for colorScheme: ColorScheme = .light) -> Color {
+            return useComplementaryForDarkMode(for: "dark800", colorScheme: colorScheme)
+        }
+        
+        public static func dark700(for colorScheme: ColorScheme = .light) -> Color {
+            return useComplementaryForDarkMode(for: "dark700", colorScheme: colorScheme)
+        }
+        
+        public static func dark600(for colorScheme: ColorScheme = .light) -> Color {
+            return useComplementaryForDarkMode(for: "dark600", colorScheme: colorScheme)
+        }
+        
+        public static func dark500(for colorScheme: ColorScheme = .light) -> Color {
+            return useComplementaryForDarkMode(for: "dark500", colorScheme: colorScheme)
+        }
+        
+        public static func light400(for colorScheme: ColorScheme = .light) -> Color {
+            return useComplementaryForDarkMode(for: "light400", colorScheme: colorScheme)
+        }
+        
+        public static func light300(for colorScheme: ColorScheme = .light) -> Color {
+            return useComplementaryForDarkMode(for: "light300", colorScheme: colorScheme)
+        }
+        
+        public static func light200(for colorScheme: ColorScheme = .light) -> Color {
+            return useComplementaryForDarkMode(for: "light200", colorScheme: colorScheme)
+        }
+        
+        public static func light100(for colorScheme: ColorScheme = .light) -> Color {
+            return useComplementaryForDarkMode(for: "light100", colorScheme: colorScheme)
+        }
+        
+        public static func success(for colorScheme: ColorScheme = .light) -> Color {
+            return createColor(from: "success")
+        }
+        
+        public static func error(for colorScheme: ColorScheme = .light) -> Color {
+            return createColor(from: "error")
+        }
+        
+        public static func warning(for colorScheme: ColorScheme = .light) -> Color {
+            return createColor(from: "warning")
+        }
+        
+        public static func primary900(for colorScheme: ColorScheme = .light) -> Color {
+            return createColor(from: "primary900")
+        }
+        
+        public static func primary800(for colorScheme: ColorScheme = .light) -> Color {
+            return createColor(from: "primary800")
+        }
+        
+        public static func primary700(for colorScheme: ColorScheme = .light) -> Color {
+            return createColor(from: "primary700")
+        }
+        
+        public static func primary600(for colorScheme: ColorScheme = .light) -> Color {
+            return createColor(from: "primary600")
+        }
+        
+        public static func contrast900(for colorScheme: ColorScheme = .light) -> Color {
+            return createColor(from: "contrast900")
+        }
+        
+        public static func contrast800(for colorScheme: ColorScheme = .light) -> Color {
+            return createColor(from: "contrast800")
+        }
+        
+        public static func contrast700(for colorScheme: ColorScheme = .light) -> Color {
+            return createColor(from: "contrast700")
+        }
+        
+        public static func contrast600(for colorScheme: ColorScheme = .light) -> Color {
+            return createColor(from: "contrast600")
+        }
+        
+        public static func secondary900(for colorScheme: ColorScheme = .light) -> Color {
+            return createColor(from: "secondary900")
+        }
+        
+        public static func secondary800(for colorScheme: ColorScheme = .light) -> Color {
+            return createColor(from: "secondary800")
+        }
+        
+        public static func secondary700(for colorScheme: ColorScheme = .light) -> Color {
+            return createColor(from: "secondary700")
+        }
+        
+        public static func secondary600(for colorScheme: ColorScheme = .light) -> Color {
+            return createColor(from: "secondary600")
+        }
+        
+        private static let colorDictionary: [String: (red: Double, green: Double, blue: Double)] = [
+            "dark900": (red: 0.027, green: 0.012, blue: 0.016),
+            "dark800": (red: 0.035, green: 0.020, blue: 0.024),
+            "dark700": (red: 0.043, green: 0.031, blue: 0.031),
+            "dark600": (red: 0.051, green: 0.043, blue: 0.043),
+            "dark500": (red: 0.063, green: 0.063, blue: 0.063),
+            "light400": (red: 0.435, green: 0.435, blue: 0.435),
+            "light300": (red: 0.718, green: 0.718, blue: 0.718),
+            "light200": (red: 0.906, green: 0.906, blue: 0.906),
+            "light100": (red: 0.953, green: 0.953, blue: 0.953),
+            "success": (red: 0.537, green: 0.847, blue: 0.376),
+            "error": (red: 1, green: 0.443, blue: 0.267),
+            "warning": (red: 0.945, green: 0.894, blue: 0.227),
+            "primary900": (red: 0.114, green: 0.306, blue: 0.537),
+            "primary800": (red: 0.204, green: 0.376, blue: 0.584),
+            "primary700": (red: 0.290, green: 0.443, blue: 0.631),
+            "primary600": (red: 0.380, green: 0.514, blue: 0.675),
+            "contrast900": (red: 0.984, green: 0.820, blue: 0.635),
+            "contrast800": (red: 0.984, green: 0.839, blue: 0.671),
+            "contrast700": (red: 0.988, green: 0.855, blue: 0.710),
+            "contrast600": (red: 0.988, green: 0.875, blue: 0.741),
+            "secondary900": (red: 0.969, green: 0.573, blue: 0.337),
+            "secondary800": (red: 0.973, green: 0.616, blue: 0.408),
+            "secondary700": (red: 0.976, green: 0.655, blue: 0.471),
+            "secondary600": (red: 0.976, green: 0.706, blue: 0.537)
+        ]
+        
+        public static func createColor(from colorName: String, opacity: Double = 1.0) -> Color {
+            let rgbValues = colorDictionary[colorName] ?? (red: 0.0, green: 0.0, blue: 0.0)
+            return Color(
+                red: rgbValues.red,
+                green: rgbValues.green,
+                blue: rgbValues.blue,
+                opacity: opacity
+            )
+        }
+        
+        private static func useComplementaryForDarkMode(for colorName: String, colorScheme: ColorScheme = .light) -> Color {
+            colorScheme == .dark ? calculateComplementary(from: colorName) : createColor(from: colorName)
+        }
+        
+        private static func calculateComplementary(from colorName: String, opacity: Double = 1.0) -> Color {
+            let rgbValues = colorDictionary[colorName] ?? (red: 1, green: 1, blue:1)
+            return Color(
+                red: 1.0 - rgbValues.red,
+                green: 1.0 - rgbValues.green,
+                blue: 1.0 - rgbValues.blue,
+                opacity: opacity
+            )
+        }
     }
 }
-

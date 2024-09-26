@@ -9,6 +9,7 @@ import SwiftUI
 
 
 struct UploadProductForm: View {
+    @Environment(\.colorScheme) var colorScheme
     var isSale: Bool
 
     @State private var name: String = ""
@@ -24,7 +25,7 @@ struct UploadProductForm: View {
                 HStack {
                     Text(isSale ? "Sale" : "Lease")
                         .font(Font.DesignSystem.headline600)
-                        .foregroundColor(Color.DesignSystem.dark500Default)
+                        .foregroundColor(Color.DesignSystem.dark500(for: colorScheme))
                     Spacer()
                 }
                 .frame(maxWidth: .infinity)
@@ -39,12 +40,11 @@ struct UploadProductForm: View {
                     ]
 
                     if !isSale {
-                        fields.insert(("Rental period", "Enter the rental period", $price), at: 3)
+                        fields.insert(("Rental period", "Enter the rental period", $rentalPeriod), at: 3)
                     }
 
                     return fields
                 }()
-
 
                 ForEach(0..<formFields.count, id: \.self) { i in
                     VStack(alignment: .leading, spacing: 10) {
@@ -77,7 +77,7 @@ struct UploadProductForm: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text("Upload Product")
-                    .foregroundColor(Color.DesignSystem.dark500Default)
+                    .foregroundColor(Color.DesignSystem.dark500(for: colorScheme))
                     .font(Font.DesignSystem.headline500)
             }
         }

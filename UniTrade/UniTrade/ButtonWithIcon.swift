@@ -12,6 +12,8 @@ import SwiftUI
 import DesignSystem
 
 struct ButtonWithIcon: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     let text: String
     let icon: String
 
@@ -22,7 +24,7 @@ struct ButtonWithIcon: View {
         }
         .padding(.vertical, 17)
         .padding(.horizontal, 22)
-        .background(Color.DesignSystem.primary900Default)
+        .background(Color.DesignSystem.primary900(for: colorScheme))
         .font(Font.DesignSystem.headline400)
         .foregroundColor(.white)
         .cornerRadius(100)

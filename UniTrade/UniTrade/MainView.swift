@@ -7,32 +7,35 @@
 import SwiftUI
 
 
-let tabsNamesAndIcons:
-[(title: String, unselectedIcon: String, selectedIcon: String, tag: BottomMenuScreenEnum)] =
-[("Home", "house", "house.fill", .home),
- ("Cart", "cart", "cart.fill", .cart),
- ("Upload", "plus.circle", "plus.circle.fill", .uploadProduct),
- ("Notifications", "bell", "bell.fill", .notifications),
- ("Profile", "person", "person.fill", .profile)
-]
+
 
 
 struct MainView: View {
+    @Environment(\.colorScheme) var colorScheme
     @State private var selectedTab: BottomMenuScreenEnum = .home
-
+    
     init() {
         let appearance = UITabBarAppearance()
 
-        appearance.backgroundColor = UIColor(Color.DesignSystem.primary900Default)
+        appearance.backgroundColor = UIColor(Color.DesignSystem.primary900(for: colorScheme))
 
-        appearance.stackedLayoutAppearance.normal.iconColor = UIColor(Color.DesignSystem.contrast900Default)
+        appearance.stackedLayoutAppearance.normal.iconColor = UIColor(Color.DesignSystem.contrast900(for: colorScheme))
 
-        appearance.stackedLayoutAppearance.selected.iconColor = UIColor(Color.DesignSystem.contrast900Default)
-        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor(Color.DesignSystem.contrast900Default)]
+        appearance.stackedLayoutAppearance.selected.iconColor = UIColor(Color.DesignSystem.contrast900(for: colorScheme))
+        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor(Color.DesignSystem.contrast900(for: colorScheme))]
 
         UITabBar.appearance().scrollEdgeAppearance = appearance
         UITabBar.appearance().standardAppearance = appearance
     }
+    
+    let tabsNamesAndIcons:
+    [(title: String, unselectedIcon: String, selectedIcon: String, tag: BottomMenuScreenEnum)] =
+    [("Home", "house", "house.fill", .home),
+     ("Cart", "cart", "cart.fill", .cart),
+     ("Upload", "plus.circle", "plus.circle.fill", .uploadProduct),
+     ("Notifications", "bell", "bell.fill", .notifications),
+     ("Profile", "person", "person.fill", .profile)
+    ]
 
     var body: some View {
         TabView(selection: $selectedTab) {
