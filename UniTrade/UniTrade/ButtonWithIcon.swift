@@ -11,7 +11,7 @@ import DesignSystem
 import SwiftUI
 import DesignSystem
 
-struct IconButton: View {
+struct ButtonWithIcon: View {
     let text: String
     let icon: String
 

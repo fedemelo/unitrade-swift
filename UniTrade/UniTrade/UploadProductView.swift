@@ -9,35 +9,32 @@ import SwiftUI
 
 struct UploadProductView: View {
     var body: some View {
-        NavigationView {
-            VStack(alignment: .leading, spacing: 30) {
-                Text("Select your path")
-                    .font(Font.DesignSystem.headline600)
-                    .foregroundColor(Color.DesignSystem.dark500Default)
-                
-                Text("Choose how you want to manage your product. You can either sell it outright or offer it for rent.")
-                    .font(Font.DesignSystem.bodyText300)
-                    .foregroundColor(Color.DesignSystem.light400)
-                
-                HStack(spacing: 16) {
-                    NavigationLink(destination: UploadSelling()) {
-                        IconButton(text: "SELL", icon: "dollarsign.circle")
-                    }
-                    
-                    Spacer()
+        VStack(alignment: .leading, spacing: 30) {
+            Text("Select your path")
+                .font(Font.DesignSystem.headline600)
+                .foregroundColor(Color.DesignSystem.dark500Default)
 
-                    NavigationLink(destination: UploadRenting()) {
-                        IconButton(text: "LIST FOR RENT", icon: "arrow.2.circlepath.circle")
-                    }
+            Text("Choose how you want to manage your product. You can either sell it outright or offer it for rent.")
+                .font(Font.DesignSystem.bodyText300)
+                .foregroundColor(Color.DesignSystem.light400)
+
+            HStack(spacing: 16) {
+                NavigationLink(destination: UploadProductForm(isSale: true)) {
+                    ButtonWithIcon(text: "SELL", icon: "dollarsign.circle")
                 }
-                .frame(maxWidth: .infinity)
-                
+
                 Spacer()
+
+                NavigationLink(destination: UploadProductForm(isSale: false)) {
+                    ButtonWithIcon(text: "LIST FOR RENT", icon: "arrow.2.circlepath.circle")
+                }
             }
-            .padding()
-            .padding(.horizontal)
-            
+            .frame(maxWidth: .infinity)
+
+            Spacer()
         }
+        .padding()
+        .padding(.horizontal)
         .navigationTitle("Upload Product")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

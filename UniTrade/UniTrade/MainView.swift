@@ -8,13 +8,13 @@ import SwiftUI
 
 
 let tabsNamesAndIcons:
-    [(title: String, unselectedIcon: String, selectedIcon: String, tag: BottomMenuScreenEnum)] =
-    [("Home", "house", "house.fill", .home),
-     ("Cart", "cart", "cart.fill", .cart),
-     ("Upload", "plus.circle", "plus.circle.fill", .uploadProduct),
-     ("Notifications", "bell", "bell.fill", .notifications),
-     ("Profile", "person", "person.fill", .profile)
-    ]
+[(title: String, unselectedIcon: String, selectedIcon: String, tag: BottomMenuScreenEnum)] =
+[("Home", "house", "house.fill", .home),
+ ("Cart", "cart", "cart.fill", .cart),
+ ("Upload", "plus.circle", "plus.circle.fill", .uploadProduct),
+ ("Notifications", "bell", "bell.fill", .notifications),
+ ("Profile", "person", "person.fill", .profile)
+]
 
 
 struct MainView: View {
@@ -31,11 +31,12 @@ struct MainView: View {
         appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor(Color.DesignSystem.contrast900Default)]
 
         UITabBar.appearance().scrollEdgeAppearance = appearance
+        UITabBar.appearance().standardAppearance = appearance
     }
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            ForEach(tabsNamesAndIcons, id: \.tag) { 
+            ForEach(tabsNamesAndIcons, id: \.tag) {
                 tab in tabView(for: tab.tag)
                     .tabItem {
                         TabViewIcon(
