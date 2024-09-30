@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4920322CA8D09800F55852 /* ExplorerView.swift */; };
+		4CF004E32CA8D33F0001FF53 /* ListingItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF004E22CA8D33F0001FF53 /* ListingItemView.swift */; };
 		F15D0DDE2CA4BFDD00CF9562 /* UploadImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15D0DDD2CA4BFDD00CF9562 /* UploadImageButton.swift */; };
 		F15D0DE02CA4C01D00CF9562 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15D0DDF2CA4C01D00CF9562 /* ImagePicker.swift */; };
 		F18F18ED2CA4840C005C4A78 /* TabViewIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */; };
@@ -46,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C4920322CA8D09800F55852 /* ExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerView.swift; sourceTree = "<group>"; };
+		4CF004E22CA8D33F0001FF53 /* ListingItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingItemView.swift; sourceTree = "<group>"; };
 		F15D0DDD2CA4BFDD00CF9562 /* UploadImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageButton.swift; sourceTree = "<group>"; };
 		F15D0DDF2CA4C01D00CF9562 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewIcon.swift; sourceTree = "<group>"; };
@@ -123,6 +127,7 @@
 				F1D5BF6C2CA34FAA00C9DA71 /* Info.plist */,
 				F1D5BEA12CA316A100C9DA71 /* UniTradeApp.swift */,
 				F1D5BF712CA369D200C9DA71 /* MainView.swift */,
+				4C4920322CA8D09800F55852 /* ExplorerView.swift */,
 				F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */,
 				F1D5BEA32CA316A100C9DA71 /* ContentView.swift */,
 				F1D5BEA52CA316A100C9DA71 /* Item.swift */,
@@ -132,6 +137,7 @@
 				F18F18F02CA4A268005C4A78 /* UploadProductForm.swift */,
 				F15D0DDD2CA4BFDD00CF9562 /* UploadImageButton.swift */,
 				F15D0DDF2CA4C01D00CF9562 /* ImagePicker.swift */,
+				4CF004E22CA8D33F0001FF53 /* ListingItemView.swift */,
 			);
 			path = UniTrade;
 			sourceTree = "<group>";
@@ -307,10 +313,12 @@
 				F1D5BF722CA369D200C9DA71 /* MainView.swift in Sources */,
 				F1D5BF742CA36A9E00C9DA71 /* TemplateView.swift in Sources */,
 				F18F18F12CA4A268005C4A78 /* UploadProductForm.swift in Sources */,
+				4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */,
 				F1D5BED42CA3412C00C9DA71 /* ButtonWithIcon.swift in Sources */,
 				F15D0DDE2CA4BFDD00CF9562 /* UploadImageButton.swift in Sources */,
 				F1D5BEA62CA316A100C9DA71 /* Item.swift in Sources */,
 				F15D0DE02CA4C01D00CF9562 /* ImagePicker.swift in Sources */,
+				4CF004E32CA8D33F0001FF53 /* ListingItemView.swift in Sources */,
 				F1D5BEA22CA316A100C9DA71 /* UniTradeApp.swift in Sources */,
 				F1D5BED22CA31DE700C9DA71 /* UploadProductView.swift in Sources */,
 			);
