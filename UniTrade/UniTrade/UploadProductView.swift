@@ -51,14 +51,6 @@ struct UploadProductView: View {
                     }
                 }
 
-                if let selectedImage = viewModel.selectedImage {
-                    Image(uiImage: selectedImage)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 200)
-                        .cornerRadius(10)
-                }
-
                 UploadImageButton(selectedImage: $viewModel.selectedImage)
 
                 Button(action: {
