@@ -14,10 +14,12 @@ struct UploadImageButton: View {
     @State private var showImagePicker = false
     @State private var sourceType: UIImagePickerController.SourceType = .photoLibrary
 
+    @State private var showActionSheet = false
+
     var body: some View {
         VStack {
             Button(action: {
-                showImagePicker = true
+                showActionSheet = true
             }) {
                 VStack (spacing: 5){
                     Image(systemName: "photo.badge.plus")
@@ -35,7 +37,7 @@ struct UploadImageButton: View {
             }
             .background(colorScheme == .light ? Color.DesignSystem.light100() : Color.DesignSystem.light300())
             .cornerRadius(25)
-            .actionSheet(isPresented: $showImagePicker) {
+            .actionSheet(isPresented: $showActionSheet) {
                 ActionSheet(title: Text("Select Image"), message: nil, buttons: [
                     .default(Text("Camera")) {
                         sourceType = .camera
