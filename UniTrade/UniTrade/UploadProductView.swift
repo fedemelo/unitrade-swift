@@ -2,49 +2,84 @@
 //  UploadProductView.swift
 //  UniTrade
 //
-//  Created by Federico Melo Barrero on 24/09/24.
+//  Created by Federico Melo Barrero on 25/09/24.
 //
 
 import SwiftUI
 
 struct UploadProductView: View {
     @Environment(\.colorScheme) var colorScheme
+    @StateObject private var viewModel: UploadProductViewModel
+
+    init(strategy: UploadProductStrategy) {
+        _viewModel = StateObject(wrappedValue: UploadProductViewModel(strategy: strategy))
+    }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 30) {
-            Text("Select your path")
-                .font(Font.DesignSystem.headline600)
-                .foregroundColor(Color.DesignSystem.dark500(for: colorScheme))
+        ScrollView {
+            VStack(alignment: .center, spacing: 30) {
+                HStack {
+                    Text(viewModel.strategy.title)
+                        .font(Font.DesignSystem.headline600)
+                        .foregroundColor(Color.DesignSystem.dark500(for: colorScheme))
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity)
 
-            Text("Choose how you want to manage your product. You can either sell it outright or offer it for rent.")
-                .font(Font.DesignSystem.bodyText300)
-                .foregroundColor(Color.DesignSystem.light400(for: colorScheme))
+                let formFields = viewModel.strategy.formFields(
+                    name: $viewModel.name,
+                    description: $viewModel.description,
+                    price: $viewModel.price,
+                    rentalPeriod: $viewModel.rentalPeriod,
+                    condition: $viewModel.condition
+                )
 
-            HStack(spacing: 16) {
-                NavigationLink(destination: UploadProductForm(strategy: SaleProductUploadStrategy())) {
-                    ButtonWithIcon(text: "SELL", icon: "dollarsign.circle")
+                let fieldErrors = viewModel.strategy.fieldErrors(viewModel: viewModel)
+
+                ForEach(0..<formFields.count, id: \.self) { i in
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text(formFields[i].label).font(Font.DesignSystem.bodyText200)
+                        TextField(formFields[i].placeholder, text: formFields[i].binding)
+                            .textFieldStyle(.plain)
+                            .font(Font.DesignSystem.bodyText100)
+                            .keyboardType(["Price", "Rental Period"].contains(formFields[i].label) ? .decimalPad : .default)
+
+
+                        if let errorMessage = fieldErrors[i] {
+                            Text(errorMessage).foregroundColor(.red).font(.caption)
+                        }
+                    }
+                }
+
+                if let selectedImage = viewModel.selectedImage {
+                    Image(uiImage: selectedImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 200)
+                        .cornerRadius(10)
+                }
+
+                UploadImageButton(selectedImage: $viewModel.selectedImage)
+
+                Button(action: {
+                    viewModel.uploadProduct { success in
+                        if success {
+                            print("Product uploaded successfully!")
+                        } else {
+                            print("Failed to upload product")
+                        }
+                    }
+                }) {
+                    ButtonWithIcon(text: "UPLOAD PRODUCT", icon: "arrow.up.to.line.square")
                 }
 
                 Spacer()
-
-                NavigationLink(destination: UploadProductForm(strategy: LeaseProductUploadStrategy())) {
-                    ButtonWithIcon(text: "LIST FOR RENT", icon: "arrow.2.circlepath.circle")
-                }
             }
-            .frame(maxWidth: .infinity)
-
-            Spacer()
+            .padding()
+            .padding(.horizontal)
         }
-        .padding()
-        .padding(.horizontal)
+        .edgesIgnoringSafeArea(.bottom)
         .navigationTitle("Upload Product")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("Upload Product")
-                    .foregroundColor(Color.DesignSystem.dark500(for: colorScheme))
-                    .font(Font.DesignSystem.headline500)
-            }
-        }
     }
 }

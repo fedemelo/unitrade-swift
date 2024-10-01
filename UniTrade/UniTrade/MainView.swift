@@ -59,7 +59,7 @@ struct MainView: View {
             TemplateView(name: "Cart")
         case .uploadProduct:
             NavigationStack {
-                UploadProductView()
+                ChooseUploadTypeView()
             }
         case .notifications:
             TemplateView(name: "Notifications")
