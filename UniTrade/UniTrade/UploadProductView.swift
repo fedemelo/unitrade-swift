@@ -48,7 +48,8 @@ struct UploadProductView: View {
                         TextField(formFields[i].placeholder, text: formFields[i].binding)
                             .textFieldStyle(.plain)
                             .font(Font.DesignSystem.bodyText100)
-                            .keyboardType(["Price", "Rental Period"].contains(formFields[i].label) ? .decimalPad : .default)                .focused($focusedField, equals: fieldForIndex(i))
+                            .keyboardType(["Price", "Rental Period"].contains(formFields[i].label) ? .decimalPad : .default)
+                            .focused($focusedField, equals: fieldForIndex(i))
                             .onTapGesture {
                                 focusedField = fieldForIndex(i)
                             }
@@ -78,7 +79,6 @@ struct UploadProductView: View {
             .padding()
             .padding(.horizontal)
         }
-        .edgesIgnoringSafeArea(.bottom)
         .navigationTitle("Upload Product")
         .navigationBarTitleDisplayMode(.inline)
     }
