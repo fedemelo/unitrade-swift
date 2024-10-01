@@ -8,7 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4920322CA8D09800F55852 /* ExplorerView.swift */; };
+		4CB6E95E2CAB85AC001CE679 /* CategoryScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6E95D2CAB85AC001CE679 /* CategoryScroll.swift */; };
+		4CB6E9642CAB8C09001CE679 /* CategoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6E9632CAB8C09001CE679 /* CategoryItemView.swift */; };
 		4CF004E32CA8D33F0001FF53 /* ListingItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF004E22CA8D33F0001FF53 /* ListingItemView.swift */; };
+		4CF004E52CAB20010001FF53 /* SearchandFilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF004E42CAB20010001FF53 /* SearchandFilterBar.swift */; };
+		4CF3C1462CAB926C0091A474 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3C1452CAB926C0091A474 /* Category.swift */; };
+		4CF3C1482CABC1950091A474 /* SortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3C1472CABC1950091A474 /* SortButton.swift */; };
+		4CF3C14A2CABC1B30091A474 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3C1492CABC1B30091A474 /* FilterView.swift */; };
+		4CF3C14C2CABC4E60091A474 /* PriceRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3C14B2CABC4E60091A474 /* PriceRangeView.swift */; };
 		F15D0DDE2CA4BFDD00CF9562 /* UploadImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15D0DDD2CA4BFDD00CF9562 /* UploadImageButton.swift */; };
 		F15D0DE02CA4C01D00CF9562 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15D0DDF2CA4C01D00CF9562 /* ImagePicker.swift */; };
 		F18F18ED2CA4840C005C4A78 /* TabViewIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */; };
@@ -49,7 +56,14 @@
 
 /* Begin PBXFileReference section */
 		4C4920322CA8D09800F55852 /* ExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerView.swift; sourceTree = "<group>"; };
+		4CB6E95D2CAB85AC001CE679 /* CategoryScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryScroll.swift; sourceTree = "<group>"; };
+		4CB6E9632CAB8C09001CE679 /* CategoryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryItemView.swift; sourceTree = "<group>"; };
 		4CF004E22CA8D33F0001FF53 /* ListingItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingItemView.swift; sourceTree = "<group>"; };
+		4CF004E42CAB20010001FF53 /* SearchandFilterBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchandFilterBar.swift; sourceTree = "<group>"; };
+		4CF3C1452CAB926C0091A474 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		4CF3C1472CABC1950091A474 /* SortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButton.swift; sourceTree = "<group>"; };
+		4CF3C1492CABC1B30091A474 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		4CF3C14B2CABC4E60091A474 /* PriceRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeView.swift; sourceTree = "<group>"; };
 		F15D0DDD2CA4BFDD00CF9562 /* UploadImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageButton.swift; sourceTree = "<group>"; };
 		F15D0DDF2CA4C01D00CF9562 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewIcon.swift; sourceTree = "<group>"; };
@@ -124,6 +138,9 @@
 		F1D5BEA02CA316A100C9DA71 /* UniTrade */ = {
 			isa = PBXGroup;
 			children = (
+				4CF3C14B2CABC4E60091A474 /* PriceRangeView.swift */,
+				4CF3C1492CABC1B30091A474 /* FilterView.swift */,
+				4CF3C1472CABC1950091A474 /* SortButton.swift */,
 				F1D5BF6C2CA34FAA00C9DA71 /* Info.plist */,
 				F1D5BEA12CA316A100C9DA71 /* UniTradeApp.swift */,
 				F1D5BF712CA369D200C9DA71 /* MainView.swift */,
@@ -138,6 +155,10 @@
 				F15D0DDD2CA4BFDD00CF9562 /* UploadImageButton.swift */,
 				F15D0DDF2CA4C01D00CF9562 /* ImagePicker.swift */,
 				4CF004E22CA8D33F0001FF53 /* ListingItemView.swift */,
+				4CF004E42CAB20010001FF53 /* SearchandFilterBar.swift */,
+				4CF3C1452CAB926C0091A474 /* Category.swift */,
+				4CB6E95D2CAB85AC001CE679 /* CategoryScroll.swift */,
+				4CB6E9632CAB8C09001CE679 /* CategoryItemView.swift */,
 			);
 			path = UniTrade;
 			sourceTree = "<group>";
@@ -311,14 +332,21 @@
 				F18F18ED2CA4840C005C4A78 /* TabViewIcon.swift in Sources */,
 				F1D5BEA42CA316A100C9DA71 /* ContentView.swift in Sources */,
 				F1D5BF722CA369D200C9DA71 /* MainView.swift in Sources */,
+				4CF004E52CAB20010001FF53 /* SearchandFilterBar.swift in Sources */,
 				F1D5BF742CA36A9E00C9DA71 /* TemplateView.swift in Sources */,
 				F18F18F12CA4A268005C4A78 /* UploadProductForm.swift in Sources */,
 				4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */,
+				4CF3C1482CABC1950091A474 /* SortButton.swift in Sources */,
 				F1D5BED42CA3412C00C9DA71 /* ButtonWithIcon.swift in Sources */,
 				F15D0DDE2CA4BFDD00CF9562 /* UploadImageButton.swift in Sources */,
+				4CF3C14C2CABC4E60091A474 /* PriceRangeView.swift in Sources */,
 				F1D5BEA62CA316A100C9DA71 /* Item.swift in Sources */,
 				F15D0DE02CA4C01D00CF9562 /* ImagePicker.swift in Sources */,
+				4CF3C1462CAB926C0091A474 /* Category.swift in Sources */,
+				4CB6E95E2CAB85AC001CE679 /* CategoryScroll.swift in Sources */,
+				4CB6E9642CAB8C09001CE679 /* CategoryItemView.swift in Sources */,
 				4CF004E32CA8D33F0001FF53 /* ListingItemView.swift in Sources */,
+				4CF3C14A2CABC1B30091A474 /* FilterView.swift in Sources */,
 				F1D5BEA22CA316A100C9DA71 /* UniTradeApp.swift in Sources */,
 				F1D5BED22CA31DE700C9DA71 /* UploadProductView.swift in Sources */,
 			);

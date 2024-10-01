@@ -14,8 +14,9 @@ struct ListingItemView: View {
                 Button(action: {
                     // Add to favorite action
                 }) {
-                    Image(systemName: "heart") // Use filled heart for better visual consistency
+                    Image(systemName: "heart")
                         .padding(6)
+                        .foregroundColor(Color.DesignSystem.primary900())
                         .background(Color.white)
                         .clipShape(Circle())
                         .shadow(radius: 2)
@@ -36,23 +37,23 @@ struct ListingItemView: View {
                     .foregroundColor(.yellow)
                 
                 Text("5")
-                    .font(Font.DesignSystem.bodyText200) // Reduced font size
+                    .font(Font.DesignSystem.bodyText200)
                 
                 Text("(10 Reviews)")
-                    .font(Font.DesignSystem.bodyText100) // Smaller subtext for reviews
+                    .font(Font.DesignSystem.bodyText100)
                     .foregroundColor(Color.DesignSystem.light300())
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
             // Price
             Text("$40.000")
-                .font(Font.DesignSystem.headline400) // Adjust for smaller font
-                .fontWeight(.bold) // Ensure bold appearance
+                .font(Font.DesignSystem.headline400)
+                .fontWeight(.bold)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             // Stock status
             Text("In stock")
-                .font(Font.DesignSystem.bodyText100) // Smaller status font
+                .font(Font.DesignSystem.bodyText100)
                 .foregroundColor(Color.DesignSystem.primary900())
                 .frame(maxWidth: .infinity, alignment: .leading)
         }

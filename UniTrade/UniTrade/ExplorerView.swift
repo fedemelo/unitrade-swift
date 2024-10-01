@@ -12,15 +12,29 @@ struct ExplorerView: View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
+    @State private var isFilterPresented: Bool = false
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 32) {
-                    ForEach(0 ... 11, id: \.self) { listing in
-                        ListingItemView()                   }
+            
+            ZStack {
+                VStack {
+                    SearchandFilterBar(isFilterPresented: $isFilterPresented)
+                    ScrollView {
+                        CategoryScroll()
+                        LazyVGrid(columns: columns, spacing: 32) {
+                            ForEach(0 ... 9, id: \.self) { listing in
+                                ListingItemView()                   }
+                        }
+                        .padding()
+                    }
                 }
-                .padding()
+            }
+            
+            if isFilterPresented {
+                                FilterView(isPresented: $isFilterPresented)
+                                    .transition(.move(edge: .bottom))
+                                    .animation(.spring(), value: isFilterPresented)
             }
         }
     }
