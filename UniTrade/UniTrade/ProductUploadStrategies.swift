@@ -15,7 +15,7 @@ protocol ProductUploadStrategy {
 
 struct SaleProductUploadStrategy: ProductUploadStrategy {
     var title: String {
-        return "Sale"
+        return "sale"
     }
 
     func formFields(name: Binding<String>, description: Binding<String>, price: Binding<String>, rentalPeriod: Binding<String>, condition: Binding<String>) -> [(label: String, placeholder: String, binding: Binding<String>)] {
@@ -30,7 +30,7 @@ struct SaleProductUploadStrategy: ProductUploadStrategy {
 
 struct LeaseProductUploadStrategy: ProductUploadStrategy {
     var title: String {
-        return "Lease"
+        return "lease"
     }
 
     func formFields(name: Binding<String>, description: Binding<String>, price: Binding<String>, rentalPeriod: Binding<String>, condition: Binding<String>) -> [(label: String, placeholder: String, binding: Binding<String>)] {

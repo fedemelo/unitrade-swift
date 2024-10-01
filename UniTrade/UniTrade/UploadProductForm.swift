@@ -9,32 +9,30 @@ import SwiftUI
 
 struct UploadProductForm: View {
     @Environment(\.colorScheme) var colorScheme
-    var strategy: ProductUploadStrategy
+    @StateObject private var viewModel: UploadProductViewModel
 
-    @State private var name: String = ""
-    @State private var description: String = ""
-    @State private var price: String = ""
-    @State private var rentalPeriod: String = ""
-    @State private var condition: String = ""
-    @State private var selectedImage: UIImage?
+    init(strategy: ProductUploadStrategy) {
+        _viewModel = StateObject(wrappedValue: UploadProductViewModel(strategy: strategy))
+    }
 
     var body: some View {
         ScrollView {
             VStack(alignment: .center, spacing: 30) {
                 HStack {
-                    Text(strategy.title)
+                    Text(viewModel.strategy.title)
                         .font(Font.DesignSystem.headline600)
                         .foregroundColor(Color.DesignSystem.dark500(for: colorScheme))
                     Spacer()
                 }
                 .frame(maxWidth: .infinity)
 
-                let formFields = strategy.formFields(
-                    name: $name,
-                    description: $description,
-                    price: $price,
-                    rentalPeriod: $rentalPeriod,
-                    condition: $condition)
+                let formFields = viewModel.strategy.formFields(
+                    name: $viewModel.name,
+                    description: $viewModel.description,
+                    price: $viewModel.price,
+                    rentalPeriod: $viewModel.rentalPeriod,
+                    condition: $viewModel.condition
+                )
 
                 ForEach(0..<formFields.count, id: \.self) { i in
                     VStack(alignment: .leading, spacing: 10) {
@@ -42,19 +40,31 @@ struct UploadProductForm: View {
                         TextField(formFields[i].placeholder, text: formFields[i].binding)
                             .textFieldStyle(.plain)
                             .font(Font.DesignSystem.bodyText100)
+                            .keyboardType(formFields[i].label == "Price" ? .decimalPad : .default)
                     }
                 }
 
-                if let selectedImage = selectedImage {
+                if let selectedImage = viewModel.selectedImage {
                     Image(uiImage: selectedImage)
                         .resizable()
                         .scaledToFit()
                         .frame(height: 200)
                         .cornerRadius(10)
                 }
-                UploadImageButton(selectedImage: $selectedImage)
 
-                ButtonWithIcon(text: "UPLOAD PRODUCT", icon: "arrow.up.to.line.square")
+                UploadImageButton(selectedImage: $viewModel.selectedImage)
+
+                Button(action: {
+                    viewModel.uploadProduct { success in
+                        if success {
+                            print("Product uploaded successfully!")
+                        } else {
+                            print("Failed to upload product")
+                        }
+                    }
+                }) {
+                    ButtonWithIcon(text: "UPLOAD PRODUCT", icon: "arrow.up.to.line.square")
+                }
 
                 Spacer()
             }
