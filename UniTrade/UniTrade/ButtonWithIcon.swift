@@ -8,9 +8,6 @@
 import SwiftUI
 import DesignSystem
 
-import SwiftUI
-import DesignSystem
-
 struct ButtonWithIcon: View {
     @Environment(\.colorScheme) var colorScheme
     
