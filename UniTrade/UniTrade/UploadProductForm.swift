@@ -7,10 +7,9 @@
 
 import SwiftUI
 
-
 struct UploadProductForm: View {
     @Environment(\.colorScheme) var colorScheme
-    var isSale: Bool
+    var strategy: ProductUploadStrategy
 
     @State private var name: String = ""
     @State private var description: String = ""
@@ -23,28 +22,19 @@ struct UploadProductForm: View {
         ScrollView {
             VStack(alignment: .center, spacing: 30) {
                 HStack {
-                    Text(isSale ? "Sale" : "Lease")
+                    Text(strategy.title)
                         .font(Font.DesignSystem.headline600)
                         .foregroundColor(Color.DesignSystem.dark500(for: colorScheme))
                     Spacer()
                 }
                 .frame(maxWidth: .infinity)
 
-
-                let formFields: [(label: String, placeholder: String, binding: Binding<String>)] = {
-                    var fields = [
-                        ("Name", "Enter product name", $name),
-                        ("Description", "Briefly describe the product", $description),
-                        ("Price", "Enter price", $price),
-                        ("Condition", "Describe the product's condition", $condition)
-                    ]
-
-                    if !isSale {
-                        fields.insert(("Rental period", "Enter the rental period", $rentalPeriod), at: 3)
-                    }
-
-                    return fields
-                }()
+                let formFields = strategy.formFields(
+                    name: $name,
+                    description: $description,
+                    price: $price,
+                    rentalPeriod: $rentalPeriod,
+                    condition: $condition)
 
                 ForEach(0..<formFields.count, id: \.self) { i in
                     VStack(alignment: .leading, spacing: 10) {

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct UploadProductView: View {
     @Environment(\.colorScheme) var colorScheme
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
             Text("Select your path")
@@ -21,13 +21,13 @@ struct UploadProductView: View {
                 .foregroundColor(Color.DesignSystem.light400(for: colorScheme))
 
             HStack(spacing: 16) {
-                NavigationLink(destination: UploadProductForm(isSale: true)) {
+                NavigationLink(destination: UploadProductForm(strategy: SaleProductUploadStrategy())) {
                     ButtonWithIcon(text: "SELL", icon: "dollarsign.circle")
                 }
 
                 Spacer()
 
-                NavigationLink(destination: UploadProductForm(isSale: false)) {
+                NavigationLink(destination: UploadProductForm(strategy: LeaseProductUploadStrategy())) {
                     ButtonWithIcon(text: "LIST FOR RENT", icon: "arrow.2.circlepath.circle")
                 }
             }

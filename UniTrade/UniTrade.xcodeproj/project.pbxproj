@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F1373C0C2CAB70E8001181DC /* ProductUploadStrategies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1373C0B2CAB70E8001181DC /* ProductUploadStrategies.swift */; };
 		F15D0DDE2CA4BFDD00CF9562 /* UploadImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15D0DDD2CA4BFDD00CF9562 /* UploadImageButton.swift */; };
 		F15D0DE02CA4C01D00CF9562 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15D0DDF2CA4C01D00CF9562 /* ImagePicker.swift */; };
 		F18F18ED2CA4840C005C4A78 /* TabViewIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F1373C0B2CAB70E8001181DC /* ProductUploadStrategies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductUploadStrategies.swift; sourceTree = "<group>"; };
 		F15D0DDD2CA4BFDD00CF9562 /* UploadImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageButton.swift; sourceTree = "<group>"; };
 		F15D0DDF2CA4C01D00CF9562 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewIcon.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				F18F18F02CA4A268005C4A78 /* UploadProductForm.swift */,
 				F15D0DDD2CA4BFDD00CF9562 /* UploadImageButton.swift */,
 				F15D0DDF2CA4C01D00CF9562 /* ImagePicker.swift */,
+				F1373C0B2CAB70E8001181DC /* ProductUploadStrategies.swift */,
 			);
 			path = UniTrade;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				F1D5BF722CA369D200C9DA71 /* MainView.swift in Sources */,
 				F1D5BF742CA36A9E00C9DA71 /* TemplateView.swift in Sources */,
 				F18F18F12CA4A268005C4A78 /* UploadProductForm.swift in Sources */,
+				F1373C0C2CAB70E8001181DC /* ProductUploadStrategies.swift in Sources */,
 				F1D5BED42CA3412C00C9DA71 /* ButtonWithIcon.swift in Sources */,
 				F15D0DDE2CA4BFDD00CF9562 /* UploadImageButton.swift in Sources */,
 				F1D5BEA62CA316A100C9DA71 /* Item.swift in Sources */,
