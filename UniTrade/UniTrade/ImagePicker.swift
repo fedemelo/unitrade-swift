@@ -11,7 +11,7 @@ import UIKit
 struct ImagePicker: UIViewControllerRepresentable {
     class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
         let parent: ImagePicker
-        
+
         init(parent: ImagePicker) {
             self.parent = parent
         }

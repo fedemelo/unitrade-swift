@@ -4,16 +4,13 @@
 //
 //  Created by Federico Melo Barrero on 24/09/24.
 //
+
 import SwiftUI
-
-
-
-
 
 struct MainView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var selectedTab: BottomMenuScreenEnum = .home
-    
+
     init() {
         let appearance = UITabBarAppearance()
 
@@ -27,7 +24,7 @@ struct MainView: View {
         UITabBar.appearance().scrollEdgeAppearance = appearance
         UITabBar.appearance().standardAppearance = appearance
     }
-    
+
     let tabsNamesAndIcons:
     [(title: String, unselectedIcon: String, selectedIcon: String, tag: BottomMenuScreenEnum)] =
     [("Home", "house", "house.fill", .home),
@@ -52,7 +49,7 @@ struct MainView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     func tabView(for tag: BottomMenuScreenEnum) -> some View {
         switch tag {

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TemplateView: View {
     var name: String
-    
+
     var body: some View {
         VStack {
             Spacer()
