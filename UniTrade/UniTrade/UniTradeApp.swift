@@ -33,10 +33,14 @@ struct UniTradeApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
+    
+    // Initialize the LoginViewModel here
+    @StateObject var loginViewModel = LoginViewModel()
 
     var body: some Scene {
         WindowGroup {
-            MainView()
+            // Pass the loginViewModel to the LoginView
+            LoginView(loginViewModel: loginViewModel)
         }
         .modelContainer(sharedModelContainer)
     }
