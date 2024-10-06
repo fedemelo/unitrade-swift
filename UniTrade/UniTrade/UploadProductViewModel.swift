@@ -71,13 +71,16 @@ class UploadProductViewModel: ObservableObject {
         let uuid: String = UUID().uuidString.lowercased()
         let storageRef = storage.reference().child("images/\(uuid).jpg")
 
-        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+        guard let imageData = image.jpegData(compressionQuality: 0.1) else {
             print("Error converting image to data")
             completion(nil)
             return
         }
+        
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
 
-        storageRef.putData(imageData, metadata: nil) { metadata, error in
+        storageRef.putData(imageData, metadata: metadata) { metadata, error in
             if let error = error {
                 print("Error uploading image: \(error)")
                 completion(nil)
@@ -121,9 +124,10 @@ class UploadProductViewModel: ObservableObject {
             .setData(productData) {
                 error in
                 if let error = error {
-                    print("Error saving product: \(error)")
+                    print("Error uploading product: \(error)")
                     completion(false)
                 } else {
+                    print("Successfully uploaded product.")
                     completion(true)
                 }
             }

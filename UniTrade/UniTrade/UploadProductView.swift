@@ -10,6 +10,12 @@ import SwiftUI
 struct UploadProductView: View {
     @Environment(\.colorScheme) var colorScheme
     @StateObject private var viewModel: UploadProductViewModel
+    
+    @FocusState private var focusedField: Field?
+
+    enum Field {
+        case name, description, price, rentalPeriod, condition
+    }
 
     init(strategy: UploadProductStrategy) {
         _viewModel = StateObject(wrappedValue: UploadProductViewModel(strategy: strategy))
@@ -43,20 +49,15 @@ struct UploadProductView: View {
                             .textFieldStyle(.plain)
                             .font(Font.DesignSystem.bodyText100)
                             .keyboardType(["Price", "Rental Period"].contains(formFields[i].label) ? .decimalPad : .default)
-
+                            .focused($focusedField, equals: fieldForIndex(i))
+                            .onTapGesture {
+                                focusedField = fieldForIndex(i)
+                            }
 
                         if let errorMessage = fieldErrors[i] {
                             Text(errorMessage).foregroundColor(.red).font(.caption)
                         }
                     }
-                }
-
-                if let selectedImage = viewModel.selectedImage {
-                    Image(uiImage: selectedImage)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 200)
-                        .cornerRadius(10)
                 }
 
                 UploadImageButton(selectedImage: $viewModel.selectedImage)
@@ -78,8 +79,18 @@ struct UploadProductView: View {
             .padding()
             .padding(.horizontal)
         }
-        .edgesIgnoringSafeArea(.bottom)
         .navigationTitle("Upload Product")
         .navigationBarTitleDisplayMode(.inline)
+    }
+
+    private func fieldForIndex(_ index: Int) -> Field {
+        switch index {
+        case 0: return .name
+        case 1: return .description
+        case 2: return .price
+        case 3: return .rentalPeriod
+        case 4: return .condition
+        default: return .name
+        }
     }
 }
