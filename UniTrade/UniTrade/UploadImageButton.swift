@@ -1,8 +1,15 @@
+//
+//  UploadImageButton.swift
+//  UniTrade
+//
+//  Created by Federico Melo Barrero on 25/09/24.
+//
+
 import SwiftUI
 
 struct UploadImageButton: View {
     @Environment(\.colorScheme) var colorScheme
-    
+
     @Binding var selectedImage: UIImage?
     @State private var showImagePicker = false
     @State private var sourceType: UIImagePickerController.SourceType = .photoLibrary
