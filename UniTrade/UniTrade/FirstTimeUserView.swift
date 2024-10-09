@@ -9,31 +9,50 @@
 import FirebaseAuth
 import SwiftUI
 
+struct CategoryName: Identifiable, Hashable {
+    let id: UUID = UUID()
+    let name: String
+}
+
 struct FirstTimeUserView: View {
     @ObservedObject var loginVM: LoginViewModel
-
-    let columns = [
-        GridItem(.adaptive(minimum: 100))
+    let categories = [
+        CategoryName(name: "Food"),
+        CategoryName(name: "Electronics"),
+        CategoryName(name: "Books"),
     ]
-
+    
+    @State private var multiSelection = Set<CategoryName>()
+    
     var body: some View {
-        VStack {
-            Spacer()
+        NavigationView{
             VStack {
-                Text("Welcome!")
-                Text(loginVM.user?.displayName ?? "Loading name...")
+                
+                VStack {
+                    Text("We want to know you better")
+                        .font(Font.DesignSystem.headline800)
+                        .foregroundColor(Color.DesignSystem.primary900())
+                    
+                }
+                Text("Choose the items you are interested in").font(Font.DesignSystem.bodyText300)
+                Spacer()
+                List(categories, id: \.self, selection: $multiSelection) { cat in
+                    Text(cat.name)
+                }.toolbar{EditButton()}
+                Spacer()
+                Button("Done") {
+                    loginVM.registerUser(categories:multiSelection)
+                    
+                }
             }
-            .font(.title)
-            .fontWeight(.bold)
-            .multilineTextAlignment(.center)
-            Spacer()
-            Text("Choose your food preferences").font(.headline).multilineTextAlignment(.leading)
         }
-    }
         
-        struct FirstTimeUserView_Previews: PreviewProvider {
-            static var previews: some View {
-                FirstTimeUserView( loginVM: LoginViewModel())
-            }
-        }
+        
+    }}
+
+
+struct FirstTimeUserView_Previews: PreviewProvider {
+    static var previews: some View {
+        FirstTimeUserView( loginVM: LoginViewModel())
     }
+}

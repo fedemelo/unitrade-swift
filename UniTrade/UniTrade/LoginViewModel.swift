@@ -60,7 +60,6 @@ final class LoginViewModel: ObservableObject {
                         // Additional action if it is not the first time
                     } else {
                         self.firstTimeUser = true
-                        self.registerUser()
                     }
                     
                 }
@@ -69,17 +68,21 @@ final class LoginViewModel: ObservableObject {
             }
         }
     
-    func registerUser() {
-            if let user = self.user {
-                if !self.firstTimeUser {
-                    let docRef = self.db.collection("Users").document(user.uid)
+    func registerUser(categories: Set<CategoryName>) {
+        if let user = self.registeredUser {
+                if self.firstTimeUser {
+                    let docRef = self.db.collection("users").document(user.uid)
 
                     docRef.getDocument{ document, error in
                         if let error = error as NSError? {
+                            print("Error while getting document \(error)")
                         } else {
-                            if let document = document {
+                            if let _ = document {
                                 do {
-                                    //self.registeredUser = try document.data(as: User.self)
+                                    let categoryNames = categories.map(\.name)
+                                    let userModel = User(name: user.displayName!, email: user.email!, categories: categoryNames)
+                                    try docRef.setData(from: userModel)
+                                    self.firstTimeUser = false
                                 } catch {
                                     print("Error while enconding registered User \(error)")
                                 }
