@@ -10,8 +10,6 @@ import FirebaseAuth
 import SwiftUI
 
 struct FirstTimeUserView: View {
-    
-    var user: FirebaseAuth.User?
     @ObservedObject var loginVM: LoginViewModel
 
     let columns = [
@@ -23,7 +21,7 @@ struct FirstTimeUserView: View {
             Spacer()
             VStack {
                 Text("Welcome!")
-                Text(user?.displayName ?? "Loading name...")
+                Text(loginVM.user?.displayName ?? "Loading name...")
             }
             .font(.title)
             .fontWeight(.bold)
@@ -35,7 +33,7 @@ struct FirstTimeUserView: View {
         
         struct FirstTimeUserView_Previews: PreviewProvider {
             static var previews: some View {
-                FirstTimeUserView(user: Auth.auth().currentUser, loginVM: LoginViewModel())
+                FirstTimeUserView( loginVM: LoginViewModel())
             }
         }
     }

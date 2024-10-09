@@ -12,8 +12,8 @@ import SwiftUI
 
 final class LoginViewModel: ObservableObject {
     let db = Firestore.firestore()
-    @Published var firstTimeUser = false
-    @Published var registeredUser : User?
+    @Published var firstTimeUser = true
+    @Published var registeredUser : FirebaseAuth.User?
     
     var user: FirebaseAuth.User? {
             didSet {
@@ -35,7 +35,9 @@ final class LoginViewModel: ObservableObject {
                         print("An error occured signing in")
                         return
                     }
+                    self.registeredUser = FirebaseAuthManager.shared.auth.currentUser
                 }
+                
             }
         }
     }
@@ -58,8 +60,9 @@ final class LoginViewModel: ObservableObject {
                         // Additional action if it is not the first time
                     } else {
                         self.firstTimeUser = true
+                        self.registerUser()
                     }
-                    self.registerUser()
+                    
                 }
             } else {
                 print("No key was found for user")
@@ -71,13 +74,12 @@ final class LoginViewModel: ObservableObject {
                 if !self.firstTimeUser {
                     let docRef = self.db.collection("Users").document(user.uid)
 
-                    docRef.getDocument { document, error in
+                    docRef.getDocument{ document, error in
                         if let error = error as NSError? {
-                            
                         } else {
                             if let document = document {
                                 do {
-                                    self.registeredUser = try document.data(as: User.self)
+                                    //self.registeredUser = try document.data(as: User.self)
                                 } catch {
                                     print("Error while enconding registered User \(error)")
                                 }
