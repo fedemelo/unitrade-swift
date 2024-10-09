@@ -33,10 +33,24 @@ struct UniTradeApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
+    
+    // Initialize the LoginViewModel here
+    @StateObject var loginViewModel = LoginViewModel()
 
     var body: some Scene {
         WindowGroup {
-            MainView()
+            // Pass the loginViewModel to the LoginView
+            if (loginViewModel.registeredUser != nil && loginViewModel.firstTimeUser) {
+                // Vista de primera vez
+                FirstTimeUserView(loginVM: loginViewModel)
+            } else if (loginViewModel.registeredUser != nil) {
+                NavigationView {
+                    MainView(loginViewModel: loginViewModel)
+                }
+            }
+            else {
+                LoginView(loginViewModel: loginViewModel)
+            }
         }
         .modelContainer(sharedModelContainer)
     }
