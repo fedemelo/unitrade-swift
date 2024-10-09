@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F123D9AA2CABC2A800FDBB2A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = F123D9A92CABC2A800FDBB2A /* FirebaseAnalytics */; };
+		F123D9AC2CABC2A800FDBB2A /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = F123D9AB2CABC2A800FDBB2A /* FirebaseAnalyticsOnDeviceConversion */; };
+		F123D9AE2CABC2A800FDBB2A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = F123D9AD2CABC2A800FDBB2A /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		F123D9B02CABC2A800FDBB2A /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = F123D9AF2CABC2A800FDBB2A /* FirebaseAppCheck */; };
+		F123D9B22CABC2A800FDBB2A /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = F123D9B12CABC2A800FDBB2A /* FirebaseAppDistribution-Beta */; };
+		F123D9B42CABC2FC00FDBB2A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F123D9B32CABC2FC00FDBB2A /* GoogleService-Info.plist */; };
+		F123D9B62CABC49800FDBB2A /* UploadProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F123D9B52CABC49800FDBB2A /* UploadProductViewModel.swift */; };
+		F1373C0C2CAB70E8001181DC /* UploadProductStrategies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1373C0B2CAB70E8001181DC /* UploadProductStrategies.swift */; };
 		4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4920322CA8D09800F55852 /* ExplorerView.swift */; };
 		4CB6E95E2CAB85AC001CE679 /* CategoryScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6E95D2CAB85AC001CE679 /* CategoryScroll.swift */; };
 		4CB6E9642CAB8C09001CE679 /* CategoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6E9632CAB8C09001CE679 /* CategoryItemView.swift */; };
@@ -18,15 +26,17 @@
 		4CF3C14C2CABC4E60091A474 /* PriceRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3C14B2CABC4E60091A474 /* PriceRangeView.swift */; };
 		F15D0DDE2CA4BFDD00CF9562 /* UploadImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15D0DDD2CA4BFDD00CF9562 /* UploadImageButton.swift */; };
 		F15D0DE02CA4C01D00CF9562 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15D0DDF2CA4C01D00CF9562 /* ImagePicker.swift */; };
+		F183F94B2CABC7CF00954D00 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F183F94A2CABC7CF00954D00 /* FirebaseFirestore */; };
+		F183F94D2CABC80500954D00 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = F183F94C2CABC80500954D00 /* FirebaseStorage */; };
 		F18F18ED2CA4840C005C4A78 /* TabViewIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */; };
-		F18F18F12CA4A268005C4A78 /* UploadProductForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18F18F02CA4A268005C4A78 /* UploadProductForm.swift */; };
+		F18F18F12CA4A268005C4A78 /* UploadProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18F18F02CA4A268005C4A78 /* UploadProductView.swift */; };
 		F1D5BEA22CA316A100C9DA71 /* UniTradeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEA12CA316A100C9DA71 /* UniTradeApp.swift */; };
 		F1D5BEA42CA316A100C9DA71 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEA32CA316A100C9DA71 /* ContentView.swift */; };
 		F1D5BEA62CA316A100C9DA71 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEA52CA316A100C9DA71 /* Item.swift */; };
 		F1D5BEB52CA316A300C9DA71 /* UniTradeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEB42CA316A300C9DA71 /* UniTradeTests.swift */; };
 		F1D5BEBF2CA316A300C9DA71 /* UniTradeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEBE2CA316A300C9DA71 /* UniTradeUITests.swift */; };
 		F1D5BEC12CA316A300C9DA71 /* UniTradeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEC02CA316A300C9DA71 /* UniTradeUITestsLaunchTests.swift */; };
-		F1D5BED22CA31DE700C9DA71 /* UploadProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BED12CA31DE700C9DA71 /* UploadProductView.swift */; };
+		F1D5BED22CA31DE700C9DA71 /* ChooseUploadTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BED12CA31DE700C9DA71 /* ChooseUploadTypeView.swift */; };
 		F1D5BED42CA3412C00C9DA71 /* ButtonWithIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BED32CA3412C00C9DA71 /* ButtonWithIcon.swift */; };
 		F1D5BED82CA343A000C9DA71 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = F1D5BED72CA343A000C9DA71 /* DesignSystem */; };
 		F1D5BEEF2CA34BEE00C9DA71 /* Urbanist-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1D5BEDD2CA34BED00C9DA71 /* Urbanist-Bold.ttf */; };
@@ -55,6 +65,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F123D9B32CABC2FC00FDBB2A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F123D9B52CABC49800FDBB2A /* UploadProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProductViewModel.swift; sourceTree = "<group>"; };
+		F1373C0B2CAB70E8001181DC /* UploadProductStrategies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProductStrategies.swift; sourceTree = "<group>"; };
 		4C4920322CA8D09800F55852 /* ExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerView.swift; sourceTree = "<group>"; };
 		4CB6E95D2CAB85AC001CE679 /* CategoryScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryScroll.swift; sourceTree = "<group>"; };
 		4CB6E9632CAB8C09001CE679 /* CategoryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryItemView.swift; sourceTree = "<group>"; };
@@ -67,7 +80,7 @@
 		F15D0DDD2CA4BFDD00CF9562 /* UploadImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageButton.swift; sourceTree = "<group>"; };
 		F15D0DDF2CA4C01D00CF9562 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewIcon.swift; sourceTree = "<group>"; };
-		F18F18F02CA4A268005C4A78 /* UploadProductForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProductForm.swift; sourceTree = "<group>"; };
+		F18F18F02CA4A268005C4A78 /* UploadProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProductView.swift; sourceTree = "<group>"; };
 		F1D5BE9E2CA316A100C9DA71 /* UniTrade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UniTrade.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1D5BEA12CA316A100C9DA71 /* UniTradeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniTradeApp.swift; sourceTree = "<group>"; };
 		F1D5BEA32CA316A100C9DA71 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -77,7 +90,7 @@
 		F1D5BEBA2CA316A300C9DA71 /* UniTradeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UniTradeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1D5BEBE2CA316A300C9DA71 /* UniTradeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniTradeUITests.swift; sourceTree = "<group>"; };
 		F1D5BEC02CA316A300C9DA71 /* UniTradeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniTradeUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		F1D5BED12CA31DE700C9DA71 /* UploadProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProductView.swift; sourceTree = "<group>"; };
+		F1D5BED12CA31DE700C9DA71 /* ChooseUploadTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseUploadTypeView.swift; sourceTree = "<group>"; };
 		F1D5BED32CA3412C00C9DA71 /* ButtonWithIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithIcon.swift; sourceTree = "<group>"; };
 		F1D5BEDD2CA34BED00C9DA71 /* Urbanist-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Urbanist-Bold.ttf"; sourceTree = "<group>"; };
 		F1D5BEE82CA34BED00C9DA71 /* Urbanist-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Urbanist-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -93,7 +106,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F123D9AA2CABC2A800FDBB2A /* FirebaseAnalytics in Frameworks */,
+				F123D9AC2CABC2A800FDBB2A /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				F1D5BED82CA343A000C9DA71 /* DesignSystem in Frameworks */,
+				F123D9B02CABC2A800FDBB2A /* FirebaseAppCheck in Frameworks */,
+				F123D9AE2CABC2A800FDBB2A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				F183F94D2CABC80500954D00 /* FirebaseStorage in Frameworks */,
+				F123D9B22CABC2A800FDBB2A /* FirebaseAppDistribution-Beta in Frameworks */,
+				F183F94B2CABC7CF00954D00 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,6 +134,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F183F9492CABC7CF00954D00 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F1D5BE952CA316A100C9DA71 = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +149,7 @@
 				F1D5BEB32CA316A300C9DA71 /* UniTradeTests */,
 				F1D5BEBD2CA316A300C9DA71 /* UniTradeUITests */,
 				F1D5BE9F2CA316A100C9DA71 /* Products */,
+				F183F9492CABC7CF00954D00 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -138,22 +166,25 @@
 		F1D5BEA02CA316A100C9DA71 /* UniTrade */ = {
 			isa = PBXGroup;
 			children = (
+				F123D9B32CABC2FC00FDBB2A /* GoogleService-Info.plist */,
 				4CF3C14B2CABC4E60091A474 /* PriceRangeView.swift */,
 				4CF3C1492CABC1B30091A474 /* FilterView.swift */,
 				4CF3C1472CABC1950091A474 /* SortButton.swift */,
 				F1D5BF6C2CA34FAA00C9DA71 /* Info.plist */,
 				F1D5BEA12CA316A100C9DA71 /* UniTradeApp.swift */,
 				F1D5BF712CA369D200C9DA71 /* MainView.swift */,
-				4C4920322CA8D09800F55852 /* ExplorerView.swift */,
-				F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */,
-				F1D5BEA32CA316A100C9DA71 /* ContentView.swift */,
-				F1D5BEA52CA316A100C9DA71 /* Item.swift */,
-				F1D5BED12CA31DE700C9DA71 /* UploadProductView.swift */,
-				F1D5BED32CA3412C00C9DA71 /* ButtonWithIcon.swift */,
-				F1D5BF732CA36A9E00C9DA71 /* TemplateView.swift */,
-				F18F18F02CA4A268005C4A78 /* UploadProductForm.swift */,
+				F1D5BED12CA31DE700C9DA71 /* ChooseUploadTypeView.swift */,
+				F18F18F02CA4A268005C4A78 /* UploadProductView.swift */,
+				F123D9B52CABC49800FDBB2A /* UploadProductViewModel.swift */,
+				F1373C0B2CAB70E8001181DC /* UploadProductStrategies.swift */,
 				F15D0DDD2CA4BFDD00CF9562 /* UploadImageButton.swift */,
 				F15D0DDF2CA4C01D00CF9562 /* ImagePicker.swift */,
+				4C4920322CA8D09800F55852 /* ExplorerView.swift */,
+				F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */,
+				F1D5BED32CA3412C00C9DA71 /* ButtonWithIcon.swift */,
+				F1D5BEA32CA316A100C9DA71 /* ContentView.swift */,
+				F1D5BEA52CA316A100C9DA71 /* Item.swift */,
+				F1D5BF732CA36A9E00C9DA71 /* TemplateView.swift */,
 				4CF004E22CA8D33F0001FF53 /* ListingItemView.swift */,
 				4CF004E42CAB20010001FF53 /* SearchandFilterBar.swift */,
 				4CF3C1452CAB926C0091A474 /* Category.swift */,
@@ -209,6 +240,13 @@
 			name = UniTrade;
 			packageProductDependencies = (
 				F1D5BED72CA343A000C9DA71 /* DesignSystem */,
+				F123D9A92CABC2A800FDBB2A /* FirebaseAnalytics */,
+				F123D9AB2CABC2A800FDBB2A /* FirebaseAnalyticsOnDeviceConversion */,
+				F123D9AD2CABC2A800FDBB2A /* FirebaseAnalyticsWithoutAdIdSupport */,
+				F123D9AF2CABC2A800FDBB2A /* FirebaseAppCheck */,
+				F123D9B12CABC2A800FDBB2A /* FirebaseAppDistribution-Beta */,
+				F183F94A2CABC7CF00954D00 /* FirebaseFirestore */,
+				F183F94C2CABC80500954D00 /* FirebaseStorage */,
 			);
 			productName = UniTrade;
 			productReference = F1D5BE9E2CA316A100C9DA71 /* UniTrade.app */;
@@ -284,6 +322,7 @@
 			mainGroup = F1D5BE952CA316A100C9DA71;
 			packageReferences = (
 				F1D5BED62CA343A000C9DA71 /* XCLocalSwiftPackageReference "DesignSystem" */,
+				F123D9A82CABC2A800FDBB2A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = F1D5BE9F2CA316A100C9DA71 /* Products */;
 			projectDirPath = "";
@@ -303,6 +342,7 @@
 			files = (
 				F1D5BEFA2CA34BEE00C9DA71 /* Urbanist-SemiBold.ttf in Resources */,
 				F1D5BF512CA34C1200C9DA71 /* Inter_24pt-SemiBold.ttf in Resources */,
+				F123D9B42CABC2FC00FDBB2A /* GoogleService-Info.plist in Resources */,
 				F1D5BEFD2CA34BEE00C9DA71 /* Urbanist-Regular.ttf in Resources */,
 				F1D5BEEF2CA34BEE00C9DA71 /* Urbanist-Bold.ttf in Resources */,
 			);
@@ -334,7 +374,9 @@
 				F1D5BF722CA369D200C9DA71 /* MainView.swift in Sources */,
 				4CF004E52CAB20010001FF53 /* SearchandFilterBar.swift in Sources */,
 				F1D5BF742CA36A9E00C9DA71 /* TemplateView.swift in Sources */,
-				F18F18F12CA4A268005C4A78 /* UploadProductForm.swift in Sources */,
+				F18F18F12CA4A268005C4A78 /* UploadProductView.swift in Sources */,
+				F1373C0C2CAB70E8001181DC /* UploadProductStrategies.swift in Sources */,
+				F123D9B62CABC49800FDBB2A /* UploadProductViewModel.swift in Sources */,
 				4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */,
 				4CF3C1482CABC1950091A474 /* SortButton.swift in Sources */,
 				F1D5BED42CA3412C00C9DA71 /* ButtonWithIcon.swift in Sources */,
@@ -348,7 +390,7 @@
 				4CF004E32CA8D33F0001FF53 /* ListingItemView.swift in Sources */,
 				4CF3C14A2CABC1B30091A474 /* FilterView.swift in Sources */,
 				F1D5BEA22CA316A100C9DA71 /* UniTradeApp.swift in Sources */,
-				F1D5BED22CA31DE700C9DA71 /* UploadProductView.swift in Sources */,
+				F1D5BED22CA31DE700C9DA71 /* ChooseUploadTypeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,7 +730,53 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		F123D9A82CABC2A800FDBB2A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		F123D9A92CABC2A800FDBB2A /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F123D9A82CABC2A800FDBB2A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		F123D9AB2CABC2A800FDBB2A /* FirebaseAnalyticsOnDeviceConversion */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F123D9A82CABC2A800FDBB2A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsOnDeviceConversion;
+		};
+		F123D9AD2CABC2A800FDBB2A /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F123D9A82CABC2A800FDBB2A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		F123D9AF2CABC2A800FDBB2A /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F123D9A82CABC2A800FDBB2A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
+		};
+		F123D9B12CABC2A800FDBB2A /* FirebaseAppDistribution-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F123D9A82CABC2A800FDBB2A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseAppDistribution-Beta";
+		};
+		F183F94A2CABC7CF00954D00 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F123D9A82CABC2A800FDBB2A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		F183F94C2CABC80500954D00 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F123D9A82CABC2A800FDBB2A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
 		F1D5BED72CA343A000C9DA71 /* DesignSystem */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DesignSystem;

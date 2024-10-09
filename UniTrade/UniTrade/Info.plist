@@ -9,5 +9,9 @@
 		<string>Urbanist-Regular.ttf</string>
 		<string>Inter_24pt-SemiBold.ttf</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>We need access to your camera to upload product images</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to your photo library to upload product images</string>
 </dict>
 </plist>
