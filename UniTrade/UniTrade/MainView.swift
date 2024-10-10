@@ -10,7 +10,11 @@ import SwiftUI
 struct MainView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var selectedTab: BottomMenuScreenEnum = .home
+    @StateObject private var brightnessManager = AmbientLightManager() // AmbientLightManager instance
+    @State private var showingPermissionAlert = false // State to show the permission alert
 
+    
+    
     init() {
         let appearance = UITabBarAppearance()
 
@@ -46,6 +50,28 @@ struct MainView: View {
                             isSelected: selectedTab == tab.tag)
                     }
                     .tag(tab.tag)
+            }
+        }
+        .environment(\.colorScheme, brightnessManager.isDarkMode ? .dark : .light) // Change color scheme based on ambient light
+        .onAppear {
+            brightnessManager.requestAmbientLightAuthorization() // Request sensor authorization on view load
+        }
+        .alert(isPresented: $showingPermissionAlert) {
+            Alert(
+                title: Text("Permission Denied"),
+                message: Text("Ambient light sensor access is required to automatically adjust the app theme. You can enable this in the app's settings."),
+                primaryButton: .default(Text("Settings"), action: {
+                    if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(settingsURL)
+                    }
+                }),
+                secondaryButton: .cancel(Text("OK"))
+            )
+        }
+        .onChange(of: brightnessManager.isDarkMode) {
+            // Perform actions when `isDarkMode` changes
+            if !brightnessManager.isDarkMode {
+                showingPermissionAlert = true // Show the alert when permissions are declined
             }
         }
     }

@@ -7,14 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F123D9AA2CABC2A800FDBB2A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = F123D9A92CABC2A800FDBB2A /* FirebaseAnalytics */; };
-		F123D9AC2CABC2A800FDBB2A /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = F123D9AB2CABC2A800FDBB2A /* FirebaseAnalyticsOnDeviceConversion */; };
-		F123D9AE2CABC2A800FDBB2A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = F123D9AD2CABC2A800FDBB2A /* FirebaseAnalyticsWithoutAdIdSupport */; };
-		F123D9B02CABC2A800FDBB2A /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = F123D9AF2CABC2A800FDBB2A /* FirebaseAppCheck */; };
-		F123D9B22CABC2A800FDBB2A /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = F123D9B12CABC2A800FDBB2A /* FirebaseAppDistribution-Beta */; };
-		F123D9B42CABC2FC00FDBB2A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F123D9B32CABC2FC00FDBB2A /* GoogleService-Info.plist */; };
-		F123D9B62CABC49800FDBB2A /* UploadProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F123D9B52CABC49800FDBB2A /* UploadProductViewModel.swift */; };
-		F1373C0C2CAB70E8001181DC /* UploadProductStrategies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1373C0B2CAB70E8001181DC /* UploadProductStrategies.swift */; };
 		4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4920322CA8D09800F55852 /* ExplorerView.swift */; };
 		4CB6E95E2CAB85AC001CE679 /* CategoryScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6E95D2CAB85AC001CE679 /* CategoryScroll.swift */; };
 		4CB6E9642CAB8C09001CE679 /* CategoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6E9632CAB8C09001CE679 /* CategoryItemView.swift */; };
@@ -24,8 +16,17 @@
 		4CF3C1482CABC1950091A474 /* SortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3C1472CABC1950091A474 /* SortButton.swift */; };
 		4CF3C14A2CABC1B30091A474 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3C1492CABC1B30091A474 /* FilterView.swift */; };
 		4CF3C14C2CABC4E60091A474 /* PriceRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3C14B2CABC4E60091A474 /* PriceRangeView.swift */; };
+		F123D9AA2CABC2A800FDBB2A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = F123D9A92CABC2A800FDBB2A /* FirebaseAnalytics */; };
+		F123D9AC2CABC2A800FDBB2A /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = F123D9AB2CABC2A800FDBB2A /* FirebaseAnalyticsOnDeviceConversion */; };
+		F123D9AE2CABC2A800FDBB2A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = F123D9AD2CABC2A800FDBB2A /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		F123D9B02CABC2A800FDBB2A /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = F123D9AF2CABC2A800FDBB2A /* FirebaseAppCheck */; };
+		F123D9B22CABC2A800FDBB2A /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = F123D9B12CABC2A800FDBB2A /* FirebaseAppDistribution-Beta */; };
+		F123D9B42CABC2FC00FDBB2A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F123D9B32CABC2FC00FDBB2A /* GoogleService-Info.plist */; };
+		F123D9B62CABC49800FDBB2A /* UploadProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F123D9B52CABC49800FDBB2A /* UploadProductViewModel.swift */; };
+		F1373C0C2CAB70E8001181DC /* UploadProductStrategies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1373C0B2CAB70E8001181DC /* UploadProductStrategies.swift */; };
 		F15D0DDE2CA4BFDD00CF9562 /* UploadImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15D0DDD2CA4BFDD00CF9562 /* UploadImageButton.swift */; };
 		F15D0DE02CA4C01D00CF9562 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15D0DDF2CA4C01D00CF9562 /* ImagePicker.swift */; };
+		F180AB162CB70C7200061CB8 /* AmbientLightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F180AB152CB70C7200061CB8 /* AmbientLightManager.swift */; };
 		F183F94B2CABC7CF00954D00 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F183F94A2CABC7CF00954D00 /* FirebaseFirestore */; };
 		F183F94D2CABC80500954D00 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = F183F94C2CABC80500954D00 /* FirebaseStorage */; };
 		F18F18ED2CA4840C005C4A78 /* TabViewIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */; };
@@ -65,9 +66,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		F123D9B32CABC2FC00FDBB2A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		F123D9B52CABC49800FDBB2A /* UploadProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProductViewModel.swift; sourceTree = "<group>"; };
-		F1373C0B2CAB70E8001181DC /* UploadProductStrategies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProductStrategies.swift; sourceTree = "<group>"; };
 		4C4920322CA8D09800F55852 /* ExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerView.swift; sourceTree = "<group>"; };
 		4CB6E95D2CAB85AC001CE679 /* CategoryScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryScroll.swift; sourceTree = "<group>"; };
 		4CB6E9632CAB8C09001CE679 /* CategoryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryItemView.swift; sourceTree = "<group>"; };
@@ -77,8 +75,13 @@
 		4CF3C1472CABC1950091A474 /* SortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButton.swift; sourceTree = "<group>"; };
 		4CF3C1492CABC1B30091A474 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		4CF3C14B2CABC4E60091A474 /* PriceRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeView.swift; sourceTree = "<group>"; };
+		F1133D0A2CB73C9600174CA3 /* UniTrade.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UniTrade.entitlements; sourceTree = "<group>"; };
+		F123D9B32CABC2FC00FDBB2A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F123D9B52CABC49800FDBB2A /* UploadProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProductViewModel.swift; sourceTree = "<group>"; };
+		F1373C0B2CAB70E8001181DC /* UploadProductStrategies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProductStrategies.swift; sourceTree = "<group>"; };
 		F15D0DDD2CA4BFDD00CF9562 /* UploadImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageButton.swift; sourceTree = "<group>"; };
 		F15D0DDF2CA4C01D00CF9562 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		F180AB152CB70C7200061CB8 /* AmbientLightManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmbientLightManager.swift; sourceTree = "<group>"; };
 		F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewIcon.swift; sourceTree = "<group>"; };
 		F18F18F02CA4A268005C4A78 /* UploadProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProductView.swift; sourceTree = "<group>"; };
 		F1D5BE9E2CA316A100C9DA71 /* UniTrade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UniTrade.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,6 +147,7 @@
 		F1D5BE952CA316A100C9DA71 = {
 			isa = PBXGroup;
 			children = (
+				F1133D0A2CB73C9600174CA3 /* UniTrade.entitlements */,
 				F1D5BEDB2CA34B8200C9DA71 /* Fonts */,
 				F1D5BEA02CA316A100C9DA71 /* UniTrade */,
 				F1D5BEB32CA316A300C9DA71 /* UniTradeTests */,
@@ -190,6 +194,7 @@
 				4CF3C1452CAB926C0091A474 /* Category.swift */,
 				4CB6E95D2CAB85AC001CE679 /* CategoryScroll.swift */,
 				4CB6E9632CAB8C09001CE679 /* CategoryItemView.swift */,
+				F180AB152CB70C7200061CB8 /* AmbientLightManager.swift */,
 			);
 			path = UniTrade;
 			sourceTree = "<group>";
@@ -377,6 +382,7 @@
 				F18F18F12CA4A268005C4A78 /* UploadProductView.swift in Sources */,
 				F1373C0C2CAB70E8001181DC /* UploadProductStrategies.swift in Sources */,
 				F123D9B62CABC49800FDBB2A /* UploadProductViewModel.swift in Sources */,
+				F180AB162CB70C7200061CB8 /* AmbientLightManager.swift in Sources */,
 				4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */,
 				4CF3C1482CABC1950091A474 /* SortButton.swift in Sources */,
 				F1D5BED42CA3412C00C9DA71 /* ButtonWithIcon.swift in Sources */,
@@ -460,6 +466,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -523,6 +531,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -551,6 +561,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"UniTrade/Preview Content\"";
@@ -558,6 +570,10 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UniTrade/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to upload product images";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to upload product images";
+				INFOPLIST_KEY_NSSensorKitPrivacyPolicyURL = "https://github.com/fedemelo/Team-15-Wiki/wiki";
+				INFOPLIST_KEY_NSSensorKitUsageDescription = "This app uses the ambient light sensor to adjust between light and dark modes for better visibility and comfort.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -581,6 +597,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"UniTrade/Preview Content\"";
@@ -588,6 +606,10 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UniTrade/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to upload product images";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to upload product images";
+				INFOPLIST_KEY_NSSensorKitPrivacyPolicyURL = "https://github.com/fedemelo/Team-15-Wiki/wiki";
+				INFOPLIST_KEY_NSSensorKitUsageDescription = "This app uses the ambient light sensor to adjust between light and dark modes for better visibility and comfort.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

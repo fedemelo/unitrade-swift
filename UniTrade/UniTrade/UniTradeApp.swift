@@ -17,9 +17,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 }
 
+
 @main
 struct UniTradeApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject private var brightnessManager = AmbientLightManager()
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
@@ -37,6 +39,7 @@ struct UniTradeApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
+                .environment(\.colorScheme, brightnessManager.isDarkMode ? .dark : .light)
         }
         .modelContainer(sharedModelContainer)
     }

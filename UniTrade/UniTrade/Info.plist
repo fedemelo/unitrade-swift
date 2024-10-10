@@ -13,5 +13,17 @@
 	<string>We need access to your camera to upload product images</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need access to your photo library to upload product images</string>
+	<key>NSSensorKitUsageDescription</key>
+	<string>We need access to the ambient light sensor to adjust between light and dark modes for better visibility and comfort.</string>
+	<key>NSSensorKitPrivacyPolicyURL</key>
+	<string>https://github.com/fedemelo/Team-15-Wiki/wiki</string>
+	<key>NSSensorKitUsageDetail</key>
+	<dict> 
+			<key>SRSensorUsageAmbientLightSensor</key>
+			<dict> 
+					<key>Description</key> 
+					<string>We need access to ambient light data to dynamically adjust the app&apos;s theme between light and dark mode based on environmental light conditions.</string>
+			</dict> 
+	</dict>
 </dict>
 </plist>
