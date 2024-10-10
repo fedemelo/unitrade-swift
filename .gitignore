@@ -1,0 +1,40 @@
+*.DS_Store
+
+# User-specific files
+*.xcuserstate
+*.xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# Xcode Workspace and Project files
+*.xcworkspace/
+*.xcodeproj/project.xcworkspace/
+
+# Build artifacts
+build/
+*.app
+*.ipa
+*.dSYM
+
+# Derived data
+DerivedData/
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build/
+
+# SwiftPM
+.build/
+Package.resolved
+
+# Xcode Server
+.xcscmblueprint
+
+# Signing & Certificates
+*.certSigningRequest
+*.mobileprovision
+
+# Environment-specific files
+*.xcconfig
