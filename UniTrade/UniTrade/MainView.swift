@@ -4,19 +4,21 @@
 //
 //  Created by Federico Melo Barrero on 24/09/24.
 //
+
 import SwiftUI
 
-
-
-
-
 struct MainView: View {
+    @ObservedObject var loginViewModel: LoginViewModel
     @Environment(\.colorScheme) var colorScheme
     @State private var selectedTab: BottomMenuScreenEnum = .home
-    
-    init() {
+    init(
+        loginViewModel: LoginViewModel
+    ) {
         let appearance = UITabBarAppearance()
-
+        
+        self.loginViewModel = loginViewModel
+        loginViewModel.isFirstTimeUser()
+        
         appearance.backgroundColor = UIColor(Color.DesignSystem.primary900(for: colorScheme))
 
         appearance.stackedLayoutAppearance.normal.iconColor = UIColor(Color.DesignSystem.contrast900(for: colorScheme))
@@ -27,7 +29,7 @@ struct MainView: View {
         UITabBar.appearance().scrollEdgeAppearance = appearance
         UITabBar.appearance().standardAppearance = appearance
     }
-    
+
     let tabsNamesAndIcons:
     [(title: String, unselectedIcon: String, selectedIcon: String, tag: BottomMenuScreenEnum)] =
     [("Home", "house", "house.fill", .home),
@@ -52,22 +54,22 @@ struct MainView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     func tabView(for tag: BottomMenuScreenEnum) -> some View {
         switch tag {
         case .home:
-            TemplateView(name: "Home")
+            TemplateView(loginViewModel: loginViewModel, name: "Home")
         case .cart:
-            TemplateView(name: "Cart")
+            TemplateView(loginViewModel: loginViewModel,name: "Cart")
         case .uploadProduct:
             NavigationStack {
-                UploadProductView()
+                ChooseUploadTypeView()
             }
         case .notifications:
-            TemplateView(name: "Notifications")
+            TemplateView(loginViewModel: loginViewModel,name: "Notifications")
         case .profile:
-            TemplateView(name: "Profile")
+            TemplateView(loginViewModel: loginViewModel,name: "Profile")
         }
     }
 }
@@ -81,5 +83,5 @@ enum BottomMenuScreenEnum: Hashable {
 }
 
 #Preview {
-    MainView()
+    MainView(loginViewModel: LoginViewModel())
 }

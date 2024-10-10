@@ -7,9 +7,20 @@
 
 import SwiftUI
 import SwiftData
+import FirebaseCore
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        return true
+    }
+}
 
 @main
 struct UniTradeApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
@@ -22,10 +33,24 @@ struct UniTradeApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
+    
+    // Initialize the LoginViewModel here
+    @StateObject var loginViewModel = LoginViewModel()
 
     var body: some Scene {
         WindowGroup {
-            MainView()
+            // Pass the loginViewModel to the LoginView
+            if (loginViewModel.registeredUser != nil && loginViewModel.firstTimeUser) {
+                // Vista de primera vez
+                FirstTimeUserView(loginVM: loginViewModel)
+            } else if (loginViewModel.registeredUser != nil) {
+                NavigationView {
+                    MainView(loginViewModel: loginViewModel)
+                }
+            }
+            else {
+                LoginView(loginViewModel: loginViewModel)
+            }
         }
         .modelContainer(sharedModelContainer)
     }
