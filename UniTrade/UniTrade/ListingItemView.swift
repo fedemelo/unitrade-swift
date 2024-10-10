@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct ListingItemView: View {
+    let product: Product
+
     var body: some View {
         VStack(spacing: 5) {
             ZStack(alignment: .topTrailing) {
@@ -25,7 +27,7 @@ struct ListingItemView: View {
             }
             
             // Product title
-            Text("Bata de Laboratorio - Talla M")
+            Text(product.title)
                 .font(Font.DesignSystem.bodyText200) // Adjusted for smaller text
                 .multilineTextAlignment(.leading)
                 .lineLimit(2)
@@ -36,23 +38,23 @@ struct ListingItemView: View {
                 Image(systemName: "star.fill")
                     .foregroundColor(.yellow)
                 
-                Text("5")
+                Text(String(format: "%.1f", product.rating))
                     .font(Font.DesignSystem.bodyText200)
                 
-                Text("(10 Reviews)")
+                Text("(\(product.reviewCount) Reviews)")
                     .font(Font.DesignSystem.bodyText100)
                     .foregroundColor(Color.DesignSystem.light300())
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
             // Price
-            Text("$40.000")
+            Text(product.price)
                 .font(Font.DesignSystem.headline400)
                 .fontWeight(.bold)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             // Stock status
-            Text("In stock")
+            Text(product.isInStock ? "In stock" : "Out of stock")
                 .font(Font.DesignSystem.bodyText100)
                 .foregroundColor(Color.DesignSystem.primary900())
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -62,8 +64,4 @@ struct ListingItemView: View {
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .frame(maxWidth: .infinity)
     }
-}
-
-#Preview {
-    ListingItemView()	
 }

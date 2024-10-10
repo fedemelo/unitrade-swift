@@ -7,56 +7,50 @@
 
 import SwiftUI
 
-struct CategoryScroll: View {
-    @State private var selectedCategory: Category?
+import SwiftUI
 
-    // Sample categories data
-    let categories: [Category] = [
-            Category(name: "For You", itemCount: 25, systemImage: "star.circle"),
-            Category(name: "Study", itemCount: 43, systemImage: "book"),
-            Category(name: "Tech", itemCount: 57, systemImage: "desktopcomputer"),
-            Category(name: "Creative", itemCount: 96, systemImage: "paintbrush"),
-            Category(name: "Lab", itemCount: 30, systemImage: "testtube.2"),
-            Category(name: "Personal", itemCount: 78, systemImage: "backpack"),
-            Category(name: "Others", itemCount: 120, systemImage: "sportscourt")
-        ]
+struct CategoryScroll: View {
+    @Binding var selectedCategory: String? // Binding to the selected category
+    let categories: [Category]             // List of categories
+    
+    let bubbleWidth: CGFloat = 80   // Width of a single category bubble
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("Categories")
                 .font(Font.DesignSystem.headline700)
                 .bold()
                 .foregroundStyle(Color.DesignSystem.primary900())
-                .padding(.bottom, 20)
-            
+                .padding(.leading, 20) // Padding to align the title with the bubbles
+                .padding(.bottom, 5)
+
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 30) {
+                HStack() {
                     ForEach(categories) { category in
                         CategoryItemView(
                             category: category,
-                            isSelected: category == selectedCategory,
+                            isSelected: category.name == selectedCategory,
                             onSelect: {
-                                selectedCategory = category
+                                selectedCategory = category.name
                             }
                         )
+                        .frame(width: bubbleWidth) // Fixed width for each bubble
                     }
                 }
-                .padding(.horizontal)
-                .padding(.vertical,5)
+                .padding(.horizontal, 25) // Padding on the left and right for screen borders
             }
+            .frame(height: 150) // Adjust the height as needed
 
+            // Display selected category if available
             if let selectedCategory = selectedCategory {
-                Text("\(selectedCategory.name):")
-                    .font(.title2)
+                Text("\(selectedCategory):")
+                    .font(Font.DesignSystem.headline700)
                     .bold()
-                    .foregroundColor(.blue)
-                    .padding(.top, 30)
+                    .foregroundStyle(Color.DesignSystem.primary900())
+                    .padding(.leading, 20)
+                    .padding(.top, 10)
             }
         }
     }
-}
-
-#Preview {
-    CategoryScroll()
 }
 
