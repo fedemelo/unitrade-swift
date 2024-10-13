@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchandFilterBar: View {
     @Binding var isFilterPresented: Bool
     @Binding var searchQuery: String  // Binding to hold the search
+    var isActive: Bool
     
     var body: some View {
         HStack {
@@ -24,7 +25,7 @@ struct SearchandFilterBar: View {
             // Search TextField
             TextField("What are you looking for?", text: $searchQuery)
                 .font(Font.DesignSystem.bodyText300)
-                .foregroundStyle(Color.DesignSystem.primary600())
+                .foregroundColor(Color.DesignSystem.primary600())
                 .textFieldStyle(PlainTextFieldStyle())
                 .padding(.leading, 10)
             
@@ -38,7 +39,7 @@ struct SearchandFilterBar: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 25, height: 25)
-                    .foregroundStyle(Color.DesignSystem.primary900())
+                    .foregroundStyle(isActive ? Color.DesignSystem.secondary900() : Color.DesignSystem.primary900())
             })
         }
         .padding(.horizontal, 20)

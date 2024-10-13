@@ -10,16 +10,55 @@ import Foundation
 import SwiftUI
 
 class ExplorerViewModel: ObservableObject {
-    @Published var products: [Product] = []         // Full list of products
-    @Published var searchQuery: String = ""         // Search query entered by the user
-
-    // Computed property to return filtered products based on search query
+    @Published var products: [Product] = []   // All products
+    @Published var searchQuery: String = ""   // Search query
+    @Published var selectedCategory: String? = nil  // Selected category
+    @Published var activeFilter = Filter()    // Current active filter
+    
     var filteredProducts: [Product] {
-        if searchQuery.isEmpty {
-            return products
-        } else {
-            return products.filter { $0.title.localizedCaseInsensitiveContains(searchQuery) }
-        }	
+        var filtered = products
+        
+        // Category filtering
+        if let selectedCategory = selectedCategory,
+           let categoryTags = ProductCategoryGroupManager.getCategories(for: selectedCategory) {
+            filtered = filtered.filter { product in
+                let productCategoryArray = product.categories.components(separatedBy: ", ")
+                return productCategoryArray.contains { categoryTags.contains($0) }
+            }
+        }
+        
+        // Search query filtering
+        if !searchQuery.isEmpty {
+            filtered = filtered.filter { $0.title.localizedCaseInsensitiveContains(searchQuery) }
+        }
+        
+        // Price range filtering
+        if let minPrice = activeFilter.minPrice,
+           let maxPrice = activeFilter.maxPrice {
+            filtered = filtered.filter { product in
+                let price = Double(product.price) ?? 0
+                return (minPrice == 0 || price >= minPrice) &&
+                       (maxPrice == 0 || price <= maxPrice)
+            }
+        }
+
+        // Sorting based on filter option
+        if let sortOption = activeFilter.sortOption {
+            switch sortOption {
+            case "Price":
+                filtered = activeFilter.isAscending ?
+                    filtered.sorted { $0.price < $1.price } :
+                    filtered.sorted { $0.price > $1.price }
+            case "Rating":
+                filtered = activeFilter.isAscending ?
+                    filtered.sorted { $0.rating < $1.rating } :
+                    filtered.sorted { $0.rating > $1.rating }
+            default:
+                break
+            }
+        }
+        
+        return filtered
     }
 
     init() {
@@ -30,15 +69,15 @@ class ExplorerViewModel: ObservableObject {
         products = [
             Product(
                 title: "Bata de Laboratorio - Talla M",
-                price: "40000",
+                price: 40000,
                 rating: 5.0,
                 reviewCount: 10,
                 isInStock: true,
-                categories: "LAB MATERIALS, UNIFORMS"  // Category as a string
+                categories: "LAB MATERIALS, UNIFORMS"
             ),
             Product(
                 title: "Microscopio Binocular",
-                price: "250000",
+                price: 250000,
                 rating: 4.2,
                 reviewCount: 23,
                 isInStock: false,
@@ -46,7 +85,7 @@ class ExplorerViewModel: ObservableObject {
             ),
             Product(
                 title: "Cuaderno Universitario - Pack de 5",
-                price: "15000",
+                price: 15000,
                 rating: 4.0,
                 reviewCount: 18,
                 isInStock: true,
@@ -54,7 +93,7 @@ class ExplorerViewModel: ObservableObject {
             ),
             Product(
                 title: "Estetoscopio Clásico",
-                price: "95000",
+                price: 95000,
                 rating: 5.0,
                 reviewCount: 32,
                 isInStock: true,
@@ -62,7 +101,7 @@ class ExplorerViewModel: ObservableObject {
             ),
             Product(
                 title: "Calculadora Científica",
-                price: "120000",
+                price: 120000,
                 rating: 3.5,
                 reviewCount: 5,
                 isInStock: true,
@@ -70,6 +109,5 @@ class ExplorerViewModel: ObservableObject {
             )
         ]
     }
-
-
 }
+

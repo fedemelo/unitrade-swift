@@ -1,12 +1,10 @@
 import SwiftUI
 
 
-
 struct ExplorerView: View {
-    @StateObject private var viewModel = ExplorerViewModel()  // ViewModel with filtering logic
-    @State private var selectedCategory: String? = nil        // Track selected category
-    @State private var searchQuery: String = ""               // Track search query
-    @State private var isFilterPresented: Bool = false        // Filter presentation flag
+    @StateObject private var viewModel = ExplorerViewModel()  // ViewModel
+
+    @State private var isFilterPresented: Bool = false  // Filter modal flag
 
     let columns = [
         GridItem(.flexible()),
@@ -20,17 +18,18 @@ struct ExplorerView: View {
                     // Search Bar
                     SearchandFilterBar(
                         isFilterPresented: $isFilterPresented,
-                        searchQuery: $searchQuery
+                        searchQuery: $viewModel.searchQuery,
+                        isActive: viewModel.activeFilter.isActive
                     )
-                    .onChange(of: searchQuery) {
-                        selectedCategory = nil
+                    .onChange(of: viewModel.searchQuery) {
+                        viewModel.selectedCategory = nil
                     }
 
-                    // Scroll View containing category and product listings
+                    // Scroll View with categories and product listings
                     ScrollView {
                         VStack {
                             CategoryScroll(
-                                selectedCategory: $selectedCategory,
+                                selectedCategory: $viewModel.selectedCategory,
                                 categories: [
                                     Category(name: "For You", itemCount: 25, systemImage: "star.circle"),
                                     Category(name: "Study", itemCount: 43, systemImage: "book"),
@@ -43,7 +42,7 @@ struct ExplorerView: View {
                             )
 
                             LazyVGrid(columns: columns, spacing: 32) {
-                                ForEach(filteredProducts()) { product in
+                                ForEach(viewModel.filteredProducts) { product in
                                     ListingItemView(product: product)
                                 }
                             }
@@ -55,36 +54,20 @@ struct ExplorerView: View {
                 // Filter modal aligned to the bottom
                 if isFilterPresented {
                     VStack {
-                        Spacer()  // Push content to the bottom
-                        FilterView(isPresented: $isFilterPresented)
-                            .frame(maxWidth: .infinity)  // Full-width modal
-                            .background(Color(.systemBackground))  // Optional background color
-                            .transition(.move(edge: .bottom))  // Slide from bottom
+                        Spacer()  // Push to the bottom
+                        FilterView(isPresented: $isFilterPresented, filter: $viewModel.activeFilter)
+                            .frame(maxWidth: .infinity)
+                            .background(Color(.systemBackground))
+                            .transition(.move(edge: .bottom))
                             .animation(.spring(), value: isFilterPresented)
                     }
-                    .ignoresSafeArea(edges: .bottom)  // Avoid any bottom padding/space
-                    .zIndex(1)  // Ensure it stays above all content
+                    .ignoresSafeArea(edges: .bottom)
+                    .zIndex(1)  // Ensure it stays on top
                 }
             }
         }
-    }
-
-    // Filter products based on selected category or search query
-    private func filteredProducts() -> [Product] {
-        if let selectedCategory = selectedCategory {
-            if let categoryTags = ProductCategoryGroupManager.getCategories(for: selectedCategory) {
-                return viewModel.products.filter { product in
-                    let productCategoryArray = product.categories.components(separatedBy: ", ")
-                    return productCategoryArray.contains { categoryTags.contains($0) }
-                }
-            }
-        } else if !searchQuery.isEmpty {
-            return viewModel.products.filter { $0.title.localizedCaseInsensitiveContains(searchQuery) }
-        }
-        return viewModel.products
     }
 }
-
 #Preview {
     ExplorerView()
 }

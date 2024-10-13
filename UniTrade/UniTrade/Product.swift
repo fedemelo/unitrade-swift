@@ -10,7 +10,7 @@ import Foundation
 struct Product: Identifiable {
     let id = UUID()           // Unique ID for each product
     let title: String         // Product title
-    let price: String         // Product price (now a Double)
+    let price: Float         // Product price (now a Double)
     let rating: Float         // Product rating (out of 5)
     let reviewCount: Int      // Number of reviews
     let isInStock: Bool       // Stock status

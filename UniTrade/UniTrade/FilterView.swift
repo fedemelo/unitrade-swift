@@ -2,13 +2,13 @@ import SwiftUI
 
 struct FilterView: View {
     @Binding var isPresented: Bool
-    //@Binding var filter: Filter
-    
+    @Binding var filter: Filter
+
     @State private var selectedSortOption: String? = nil
-    @State private var isAscending: Bool = true  // Track sort order
+    @State private var isAscending: Bool = true
     @State private var minPrice: String = ""
     @State private var maxPrice: String = ""
-    @State private var hasInteractedWithPrice = false  // Track interaction
+    @State private var hasInteractedWithPrice = false
 
     let sortOptions = ["Rating", "Price"]
 
@@ -21,7 +21,8 @@ struct FilterView: View {
         let arePricesPartiallyFilled = (minPrice.isEmpty != maxPrice.isEmpty)
 
         return (arePricesValid && !minPrice.isEmpty && !maxPrice.isEmpty) ||
-               (selectedSortOption != nil && !arePricesPartiallyFilled && (arePricesValid || (minPrice.isEmpty && maxPrice.isEmpty)))
+               (selectedSortOption != nil && !arePricesPartiallyFilled &&
+                (arePricesValid || (minPrice.isEmpty && maxPrice.isEmpty)))
     }
 
     // Error message logic
@@ -85,7 +86,7 @@ struct FilterView: View {
                     .padding(.trailing)
                 }
                 .padding(.vertical, 20)
-                .padding(.bottom,50)
+                .padding(.bottom, 50)
 
                 // Action Buttons
                 HStack {
@@ -129,24 +130,34 @@ struct FilterView: View {
             }
         }
         .padding(.top, 20)
+        .onAppear(perform: loadCurrentFilter)  // Load existing filter values on appear
     }
 
+    // Reset the filter to default values
     private func reset() {
         selectedSortOption = nil
         minPrice = ""
         maxPrice = ""
-        hasInteractedWithPrice = false
         isAscending = true
+        hasInteractedWithPrice = false
+        filter = Filter()  // Reset the filter object
     }
 
+    // Apply the selected filter settings
     private func apply() {
+        filter.minPrice = Double(minPrice) ?? 0
+        filter.maxPrice = Double(maxPrice) ?? 0
+        filter.sortOption = selectedSortOption
+        filter.isAscending = isAscending
 
-        isPresented.toggle()
+        isPresented.toggle()  // Close the filter view
     }
 
+    // Load the current filter settings into the state variables
+    private func loadCurrentFilter() {
+        minPrice = filter.minPrice.map { String($0) } ?? ""
+        maxPrice = filter.maxPrice.map { String($0) } ?? ""
+        selectedSortOption = filter.sortOption
+        isAscending = filter.isAscending
+    }
 }
-
-#Preview{
-    FilterView(isPresented: .constant(true))
-}
-
