@@ -18,7 +18,7 @@ struct CategoryScroll: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Categories")
-                .font(Font.DesignSystem.headline700)
+                .font(Font.DesignSystem.headline600)
                 .bold()
                 .foregroundStyle(Color.DesignSystem.primary900())
                 .padding(.leading, 20) // Padding to align the title with the bubbles
@@ -44,7 +44,7 @@ struct CategoryScroll: View {
             // Display selected category if available
             if let selectedCategory = selectedCategory {
                 Text("\(selectedCategory):")
-                    .font(Font.DesignSystem.headline700)
+                    .font(Font.DesignSystem.headline600)
                     .bold()
                     .foregroundStyle(Color.DesignSystem.primary900())
                     .padding(.leading, 20)
