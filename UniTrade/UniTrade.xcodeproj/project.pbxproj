@@ -11,6 +11,9 @@
 		4C32BA262CACCDD00060EB5A /* ExplorerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C32BA252CACCDD00060EB5A /* ExplorerViewModel.swift */; };
 		4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4920322CA8D09800F55852 /* ExplorerView.swift */; };
 		4C6726A72CACDAA0007B1FB6 /* ProductCategoryGroupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6726A62CACDAA0007B1FB6 /* ProductCategoryGroupManager.swift */; };
+		4C8DC6D32CBC1B990034A352 /* NumericTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8DC6D22CBC1B990034A352 /* NumericTextField.swift */; };
+		4C8DC6D52CBC3EF40034A352 /* FontTransformerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8DC6D42CBC3EE70034A352 /* FontTransformerUI.swift */; };
+		4C8DC6D72CBC59120034A352 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8DC6D62CBC59120034A352 /* Filter.swift */; };
 		4CB6E95E2CAB85AC001CE679 /* CategoryScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6E95D2CAB85AC001CE679 /* CategoryScroll.swift */; };
 		4CB6E9642CAB8C09001CE679 /* CategoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6E9632CAB8C09001CE679 /* CategoryItemView.swift */; };
 		4CF004E32CA8D33F0001FF53 /* ListingItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF004E22CA8D33F0001FF53 /* ListingItemView.swift */; };
@@ -87,6 +90,9 @@
 		4C32BA252CACCDD00060EB5A /* ExplorerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerViewModel.swift; sourceTree = "<group>"; };
 		4C4920322CA8D09800F55852 /* ExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerView.swift; sourceTree = "<group>"; };
 		4C6726A62CACDAA0007B1FB6 /* ProductCategoryGroupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCategoryGroupManager.swift; sourceTree = "<group>"; };
+		4C8DC6D22CBC1B990034A352 /* NumericTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericTextField.swift; sourceTree = "<group>"; };
+		4C8DC6D42CBC3EE70034A352 /* FontTransformerUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontTransformerUI.swift; sourceTree = "<group>"; };
+		4C8DC6D62CBC59120034A352 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		4CB6E95D2CAB85AC001CE679 /* CategoryScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryScroll.swift; sourceTree = "<group>"; };
 		4CB6E9632CAB8C09001CE679 /* CategoryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryItemView.swift; sourceTree = "<group>"; };
 		4CF004E22CA8D33F0001FF53 /* ListingItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingItemView.swift; sourceTree = "<group>"; };
@@ -208,6 +214,9 @@
 		F1D5BEA02CA316A100C9DA71 /* UniTrade */ = {
 			isa = PBXGroup;
 			children = (
+				4C8DC6D62CBC59120034A352 /* Filter.swift */,
+				4C8DC6D42CBC3EE70034A352 /* FontTransformerUI.swift */,
+				4C8DC6D22CBC1B990034A352 /* NumericTextField.swift */,
 				8E75EE6C2CB751540063D01A /* GoogleService-Info.plist */,
 				8E2067592CACE6F100673E07 /* LoginView.swift */,
 				8E3557D92CAE039000FD012C /* FirebaseAuthManager.swift */,
@@ -438,6 +447,7 @@
 				F1D5BF722CA369D200C9DA71 /* MainView.swift in Sources */,
 				4CF004E52CAB20010001FF53 /* SearchandFilterBar.swift in Sources */,
 				4C6726A72CACDAA0007B1FB6 /* ProductCategoryGroupManager.swift in Sources */,
+				4C8DC6D32CBC1B990034A352 /* NumericTextField.swift in Sources */,
 				F1D5BF742CA36A9E00C9DA71 /* TemplateView.swift in Sources */,
 				8E3557CE2CADAC2E00FD012C /* User.swift in Sources */,
 				F18F18F12CA4A268005C4A78 /* UploadProductView.swift in Sources */,
@@ -445,6 +455,7 @@
 				F123D9B62CABC49800FDBB2A /* UploadProductViewModel.swift in Sources */,
 				F18F18F12CA4A268005C4A78 /* UploadProductView.swift in Sources */,
 				F1373C0C2CAB70E8001181DC /* UploadProductStrategies.swift in Sources */,
+				4C8DC6D72CBC59120034A352 /* Filter.swift in Sources */,
 				F123D9B62CABC49800FDBB2A /* UploadProductViewModel.swift in Sources */,
 				4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */,
 				4CF3C1482CABC1950091A474 /* SortButton.swift in Sources */,
@@ -462,6 +473,7 @@
 				4CF3C1462CAB926C0091A474 /* Category.swift in Sources */,
 				4CB6E95E2CAB85AC001CE679 /* CategoryScroll.swift in Sources */,
 				4CB6E9642CAB8C09001CE679 /* CategoryItemView.swift in Sources */,
+				4C8DC6D52CBC3EF40034A352 /* FontTransformerUI.swift in Sources */,
 				4CF004E32CA8D33F0001FF53 /* ListingItemView.swift in Sources */,
 				4CF3C14A2CABC1B30091A474 /* FilterView.swift in Sources */,
 				F1D5BEA22CA316A100C9DA71 /* UniTradeApp.swift in Sources */,

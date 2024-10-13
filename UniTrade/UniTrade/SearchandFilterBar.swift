@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchandFilterBar: View {
     @Binding var isFilterPresented: Bool
-    @Binding var searchQuery: String  // Binding to hold the search query
+    @Binding var searchQuery: String  // Binding to hold the search
     
     var body: some View {
         HStack {

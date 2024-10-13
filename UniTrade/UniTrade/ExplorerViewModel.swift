@@ -30,7 +30,7 @@ class ExplorerViewModel: ObservableObject {
         products = [
             Product(
                 title: "Bata de Laboratorio - Talla M",
-                price: "$40.000",
+                price: "40000",
                 rating: 5.0,
                 reviewCount: 10,
                 isInStock: true,
@@ -38,7 +38,7 @@ class ExplorerViewModel: ObservableObject {
             ),
             Product(
                 title: "Microscopio Binocular",
-                price: "$250.000",
+                price: "250000",
                 rating: 4.2,
                 reviewCount: 23,
                 isInStock: false,
@@ -46,7 +46,7 @@ class ExplorerViewModel: ObservableObject {
             ),
             Product(
                 title: "Cuaderno Universitario - Pack de 5",
-                price: "$15.000",
+                price: "15000",
                 rating: 4.0,
                 reviewCount: 18,
                 isInStock: true,
@@ -54,7 +54,7 @@ class ExplorerViewModel: ObservableObject {
             ),
             Product(
                 title: "Estetoscopio Clásico",
-                price: "$95.000",
+                price: "95000",
                 rating: 5.0,
                 reviewCount: 32,
                 isInStock: true,
@@ -62,7 +62,7 @@ class ExplorerViewModel: ObservableObject {
             ),
             Product(
                 title: "Calculadora Científica",
-                price: "$120.000",
+                price: "120000",
                 rating: 3.5,
                 reviewCount: 5,
                 isInStock: true,

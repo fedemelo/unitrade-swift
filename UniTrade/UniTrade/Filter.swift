@@ -1,3 +1,12 @@
+//
+//  Filter.swift
+//  UniTrade
+//
+//  Created by Santiago Martinez on 13/10/24.
+//
+
+import Foundation
+
 struct Filter {
     var minPrice: Double?
     var maxPrice: Double?
