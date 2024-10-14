@@ -86,7 +86,6 @@ struct FilterView: View {
                     .padding(.trailing)
                 }
                 .padding(.vertical, 20)
-                .padding(.bottom, 50)
 
                 // Action Buttons
                 HStack {
@@ -116,6 +115,7 @@ struct FilterView: View {
                 .padding()
             }
             .padding()
+            .padding(.bottom, 70)
             .background(Color(.systemBackground))
             .cornerRadius(15)
             .shadow(radius: 10)
