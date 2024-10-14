@@ -54,22 +54,24 @@ struct MainView: View {
             }
         }
     }
-
+    
     @ViewBuilder
     func tabView(for tag: BottomMenuScreenEnum) -> some View {
         switch tag {
-        case .home:
-            TemplateView(loginViewModel: loginViewModel, name: "Home")
-        case .cart:
-            TemplateView(loginViewModel: loginViewModel,name: "Cart")
-        case .uploadProduct:
-            NavigationStack {
-                ChooseUploadTypeView()
-            }
-        case .notifications:
-            TemplateView(loginViewModel: loginViewModel,name: "Notifications")
-        case .profile:
-            TemplateView(loginViewModel: loginViewModel,name: "Profile")
+            case .home:
+                NavigationStack {
+                    ExplorerView()
+                }
+            case .cart:
+                TemplateView(loginViewModel: loginViewModel,name: "Cart")
+            case .uploadProduct:
+                NavigationStack {
+                    ChooseUploadTypeView()
+                }
+            case .notifications:
+                TemplateView(loginViewModel: loginViewModel,name: "Notifications")
+            case .profile:
+                TemplateView(loginViewModel: loginViewModel,name: "Profile")
         }
     }
 }
