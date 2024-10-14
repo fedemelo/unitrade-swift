@@ -1,3 +1,10 @@
+//
+//  UploadImageButton.swift
+//  UniTrade
+//
+//  Created by Federico Melo Barrero on 25/09/24.
+//
+
 import SwiftUI
 
 struct UploadImageButton: View {
