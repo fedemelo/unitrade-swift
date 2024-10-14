@@ -15,16 +15,25 @@ struct MainView: View {
         loginViewModel: LoginViewModel
     ) {
         let appearance = UITabBarAppearance()
-        
+
         self.loginViewModel = loginViewModel
         loginViewModel.isFirstTimeUser()
-        
+
         appearance.backgroundColor = UIColor(Color.DesignSystem.primary900(for: colorScheme))
 
-        appearance.stackedLayoutAppearance.normal.iconColor = UIColor(Color.DesignSystem.contrast900(for: colorScheme))
+        let normalIconColor = UIColor(Color.DesignSystem.contrast900(for: colorScheme))
+        appearance.stackedLayoutAppearance.normal.iconColor = normalIconColor
+        appearance.inlineLayoutAppearance.normal.iconColor = normalIconColor
+        appearance.compactInlineLayoutAppearance.normal.iconColor = normalIconColor
 
-        appearance.stackedLayoutAppearance.selected.iconColor = UIColor(Color.DesignSystem.contrast900(for: colorScheme))
-        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor(Color.DesignSystem.contrast900(for: colorScheme))]
+        let selectedIconColor = UIColor(Color.DesignSystem.contrast900(for: colorScheme))
+        appearance.stackedLayoutAppearance.selected.iconColor = selectedIconColor
+        appearance.inlineLayoutAppearance.selected.iconColor = selectedIconColor
+        appearance.compactInlineLayoutAppearance.selected.iconColor = selectedIconColor
+
+        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: selectedIconColor]
+        appearance.inlineLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: selectedIconColor]
+        appearance.compactInlineLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: selectedIconColor]
 
         UITabBar.appearance().scrollEdgeAppearance = appearance
         UITabBar.appearance().standardAppearance = appearance
