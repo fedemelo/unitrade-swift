@@ -44,7 +44,7 @@ struct MainView: View {
     [("Home", "house", "house.fill", .home),
      ("Cart", "cart", "cart.fill", .cart),
      ("Upload", "plus.circle", "plus.circle.fill", .uploadProduct),
-     ("Notifications", "bell", "bell.fill", .notifications),
+     ("Alerts", "bell", "bell.fill", .notifications),
      ("Profile", "person", "person.fill", .profile)
     ]
 
@@ -78,7 +78,7 @@ struct MainView: View {
                     ChooseUploadTypeView()
                 }
             case .notifications:
-                TemplateView(loginViewModel: loginViewModel,name: "Notifications")
+                TemplateView(loginViewModel: loginViewModel,name: "Alerts")
             case .profile:
                 TemplateView(loginViewModel: loginViewModel,name: "Profile")
         }
