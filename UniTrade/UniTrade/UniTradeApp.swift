@@ -38,23 +38,27 @@ struct UniTradeApp: App {
         }
     }()
     
-    // Initialize the LoginViewModel here
     @StateObject var loginViewModel = LoginViewModel()
+
+    func getColorSchemeBasedOnTime() -> ColorScheme {
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        return (currentHour >= 6 && currentHour < 18) ? .light : .dark
+    }
 
     var body: some Scene {
         WindowGroup {
-            // Pass the loginViewModel to the LoginView
-            if (loginViewModel.registeredUser != nil && loginViewModel.firstTimeUser) {
-                // Vista de primera vez
-                FirstTimeUserView(loginVM: loginViewModel)
-            } else if (loginViewModel.registeredUser != nil) {
-                NavigationView {
-                    MainView(loginViewModel: loginViewModel)
+            Group {
+                if loginViewModel.registeredUser != nil && loginViewModel.firstTimeUser {
+                    FirstTimeUserView(loginVM: loginViewModel)
+                } else if loginViewModel.registeredUser != nil {
+                    NavigationView {
+                        MainView(loginViewModel: loginViewModel)
+                    }
+                } else {
+                    LoginView(loginViewModel: loginViewModel)
                 }
             }
-            else {
-                LoginView(loginViewModel: loginViewModel)
-            }
+            .preferredColorScheme(getColorSchemeBasedOnTime()) // Apply time-based color scheme
         }
         .modelContainer(sharedModelContainer)
     }
