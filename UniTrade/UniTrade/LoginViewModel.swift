@@ -14,29 +14,6 @@ final class LoginViewModel: ObservableObject {
     let db = Firestore.firestore()
     @Published var firstTimeUser = true
     @Published var registeredUser : FirebaseAuth.User?
-    @Published var categories: [CategoryName] = []
-        
-        init() {
-            fetchCategories()
-        }
-        
-        func fetchCategories() {
-            let docRef = db.collection("categories").document("all")
-            docRef.getDocument { (document, error) in
-                        if let error = error {
-                            print("Error fetching categories: \(error.localizedDescription)")
-                            return
-                        }
-                        
-                        if let document = document, document.exists {
-                            if let categoryNames = document.data()?["names"] as? [String] {
-                                self.categories = categoryNames.map { CategoryName(name: $0) }
-                            }
-                        } else {
-                            print("Document does not exist")
-                        }
-                    }
-                }
     
     var user: FirebaseAuth.User? {
             didSet {
