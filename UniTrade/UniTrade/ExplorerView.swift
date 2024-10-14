@@ -1,7 +1,15 @@
+//
+//  Filter.swift
+//  UniTrade
+//
+//  Created by Santiago Martinez on 04/10/24.
+//
+
 import SwiftUI
 
 
 struct ExplorerView: View {
+    @Environment(\.colorScheme) var colorScheme
     @StateObject private var viewModel = ExplorerViewModel()  // ViewModel
 
     @State private var isFilterPresented: Bool = false  // Filter modal flag
