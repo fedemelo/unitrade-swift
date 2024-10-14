@@ -48,7 +48,7 @@ struct ListingItemView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             
             // Price
-            Text(product.price)
+            Text(String(product.price))
                 .font(Font.DesignSystem.headline400)
                 .fontWeight(.bold)
                 .frame(maxWidth: .infinity, alignment: .leading)
