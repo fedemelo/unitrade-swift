@@ -1,9 +1,50 @@
 
 ### Swift ###
+*.DS_Store
+
+# User-specific files
+*.xcuserstate
+*.xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# Xcode Workspace and Project files
+*.xcworkspace/
+*.xcodeproj/project.xcworkspace/
+
+# Build artifacts
+build/
+*.app
+*.ipa
+*.dSYM
+
+# Derived data
+DerivedData/
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build/
+
+# SwiftPM
+.build/
+Package.resolved
+
+# Xcode Server
+.xcscmblueprint
+
+# Signing & Certificates
+*.certSigningRequest
+*.mobileprovision
+
+# Environment-specific files
+*.xcconfig
+
+
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
-
 ## User settings
 xcuserdata/
 
