@@ -1,113 +1,139 @@
-//
-//  ExplorerViewModel.swift
-//  UniTrade
-//
-//  Created by Santiago Martinez on 1/10/24.
-//
-
-
 import Foundation
-import SwiftUI
+import Combine
+import FirebaseFirestore
 
 class ExplorerViewModel: ObservableObject {
-    @Published var products: [Product] = []   // All products
-    @Published var searchQuery: String = ""   // Search query
-    @Published var selectedCategory: String? = nil  // Selected category
-    @Published var activeFilter = Filter()    // Current active filter
-    
+    @Published var products: [Product] = []
+    @Published var searchQuery: String = ""
+    @Published var selectedCategory: String? = nil
+    @Published var activeFilter = Filter()
+    @Published var isDataLoaded = false
+
+    private var cancellables = Set<AnyCancellable>()
+    private let firestore = Firestore.firestore()
+
+    init(categoryManager: ProductCategoryGroupManager) {
+
+
+        // Subscribe to "For You" categories changes
+        categoryManager.$forYouCategories
+            .sink { [weak self] categories in
+                print("📥 Received 'For You' categories: \(categories)")
+                if !categories.isEmpty {
+                    self?.selectedCategory = ProductCategoryGroupManager.Groups.foryou
+                } else {
+                    print("⚠️ 'For You' categories are empty")
+                }
+                self?.applyFilters()
+            }
+            .store(in: &cancellables)
+
+        // Load products from Firestore on init
+        loadProductsFromFirestore()
+    }
+
+    // Apply filters whenever data is ready or changes
+    private func applyFilters() {
+        if isDataLoaded {
+            objectWillChange.send()  // Notify SwiftUI that filtering is happening
+        } else {
+            print("⚠️ Attempted to apply filters, but data is not fully loaded.")
+        }
+    }
+
+    // Filter logic
     var filteredProducts: [Product] {
+        guard isDataLoaded else {
+            print("⚠️ Filtered products called but data is not loaded yet.")
+            return []
+        }
+
+        print("🔍 Filtering products...")
+
         var filtered = products
-        
+
         // Category filtering
-        if let selectedCategory = selectedCategory,
-           let categoryTags = ProductCategoryGroupManager.getCategories(for: selectedCategory) {
-            filtered = filtered.filter { product in
-                let productCategoryArray = product.categories.components(separatedBy: ", ")
-                return productCategoryArray.contains { categoryTags.contains($0) }
+        if let selectedCategory = selectedCategory {
+            print("📂 Selected Category: \(selectedCategory)")
+            if let categoryTags = ProductCategoryGroupManager().getCategories(for: selectedCategory) {
+                filtered = filtered.filter { product in
+                    let productCategoryArray = product.categories
+                        .components(separatedBy: ",")
+                        .map { $0.trimmingCharacters(in: .whitespacesAndNewlines).uppercased() }
+
+                    let normalizedTags = categoryTags.map { $0.uppercased() }
+
+                    let isMatching = productCategoryArray.contains { normalizedTags.contains($0) }
+                    return isMatching
+                }
+            } else {
+                print("⚠️ No matching tags found for category: \(selectedCategory)")
             }
         }
-        
+
         // Search query filtering
         if !searchQuery.isEmpty {
             filtered = filtered.filter { $0.title.localizedCaseInsensitiveContains(searchQuery) }
         }
-        
-        // Price range filtering
-        if let minPrice = activeFilter.minPrice,
-           let maxPrice = activeFilter.maxPrice {
-            filtered = filtered.filter { product in
-                let price = Double(product.price) ?? 0
-                return (minPrice == 0 || price >= minPrice) &&
-                       (maxPrice == 0 || price <= maxPrice)
-            }
-        }
 
-        // Sorting based on filter option
-        if let sortOption = activeFilter.sortOption {
-            switch sortOption {
-            case "Price":
-                filtered = activeFilter.isAscending ?
-                    filtered.sorted { $0.price < $1.price } :
-                    filtered.sorted { $0.price > $1.price }
-            case "Rating":
-                filtered = activeFilter.isAscending ?
-                    filtered.sorted { $0.rating < $1.rating } :
-                    filtered.sorted { $0.rating > $1.rating }
-            default:
-                break
-            }
-        }
-        
+        print("✅ Filtered products count: \(filtered.count)")
         return filtered
     }
 
-    init() {
-        loadMockData()  // Initialize with mock data
-    }
+    // Load products from Firestore
+    func loadProductsFromFirestore() {
+        print("📦 Fetching products from Firestore...")
 
-    func loadMockData() {
-        products = [
-            Product(
-                title: "Bata de Laboratorio - Talla M",
-                price: 40000,
-                rating: 5.0,
-                reviewCount: 10,
-                isInStock: true,
-                categories: "LAB MATERIALS, UNIFORMS"
-            ),
-            Product(
-                title: "Microscopio Binocular",
-                price: 250000,
-                rating: 4.2,
-                reviewCount: 23,
-                isInStock: false,
-                categories: "LAB MATERIALS, ELECTRONICS"
-            ),
-            Product(
-                title: "Cuaderno Universitario - Pack de 5",
-                price: 15000,
-                rating: 4.0,
-                reviewCount: 18,
-                isInStock: true,
-                categories: "NOTEBOOKS, STUDY_GUIDES"
-            ),
-            Product(
-                title: "Estetoscopio Clásico",
-                price: 95000,
-                rating: 5.0,
-                reviewCount: 32,
-                isInStock: true,
-                categories: "ELECTRONICS, LAB MATERIALS"
-            ),
-            Product(
-                title: "Calculadora Científica",
-                price: 120000,
-                rating: 3.5,
-                reviewCount: 5,
-                isInStock: true,
-                categories: "CALCULATORS, ELECTRONICS"
-            )
-        ]
+        firestore.collection("products").getDocuments { snapshot, error in
+            if let error = error {
+                print("❌ Error fetching products: \(error.localizedDescription)")
+                return
+            }
+
+            guard let documents = snapshot?.documents else {
+                print("⚠️ No products found in Firestore.")
+                return
+            }
+
+            print("📄 Fetched \(documents.count) products from Firestore.")
+
+            let fetchedProducts = documents.compactMap { doc -> Product? in
+                guard let name = doc["name"] as? String,
+                      let priceString = doc["price"] as? String,
+                      let price = Float(priceString),
+                      let categoriesArray = doc["categories"] as? [String],
+                      let ratingString = doc["rating"] as? String,
+                      let rating = Float(ratingString),
+                      let reviewCountString = doc["review_count"] as? String,
+                      let reviewCount = Int(reviewCountString),
+                      let type = doc["type"] as? String else {
+                    print("⚠️ Invalid data in document \(doc.documentID)")
+                    return nil
+                }
+
+                let imageUrl = (doc["image_url"] as? String)?.isEmpty == false
+                        ? doc["image_url"] as! String
+                        : "dummy"
+                
+                let categories = categoriesArray.joined(separator: ", ")
+
+                return Product(
+                    title: name,
+                    price: price,
+                    rating: rating,
+                    reviewCount: reviewCount,
+                    isInStock: type,
+                    categories: categories,
+                    imageUrl: imageUrl
+                )
+            }
+
+            DispatchQueue.main.async {
+                self.products = fetchedProducts
+                self.isDataLoaded = true
+                print("✅ Products loaded and ready: \(self.products.count) products")
+                self.applyFilters()  // Apply filters after loading
+            }
+        }
     }
 }
-
