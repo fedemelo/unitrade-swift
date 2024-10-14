@@ -19,7 +19,6 @@
 		4CF004E32CA8D33F0001FF53 /* ListingItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF004E22CA8D33F0001FF53 /* ListingItemView.swift */; };
 		4CF004E52CAB20010001FF53 /* SearchandFilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF004E42CAB20010001FF53 /* SearchandFilterBar.swift */; };
 		4CF3C1462CAB926C0091A474 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3C1452CAB926C0091A474 /* Category.swift */; };
-		4CF3C1482CABC1950091A474 /* SortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3C1472CABC1950091A474 /* SortButton.swift */; };
 		4CF3C14A2CABC1B30091A474 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3C1492CABC1B30091A474 /* FilterView.swift */; };
 		4CF3C14C2CABC4E60091A474 /* PriceRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3C14B2CABC4E60091A474 /* PriceRangeView.swift */; };
 		8E20675A2CACE6F100673E07 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2067592CACE6F100673E07 /* LoginView.swift */; };
@@ -52,8 +51,6 @@
 		F18F18ED2CA4840C005C4A78 /* TabViewIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */; };
 		F18F18F12CA4A268005C4A78 /* UploadProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18F18F02CA4A268005C4A78 /* UploadProductView.swift */; };
 		F1D5BEA22CA316A100C9DA71 /* UniTradeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEA12CA316A100C9DA71 /* UniTradeApp.swift */; };
-		F1D5BEA42CA316A100C9DA71 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEA32CA316A100C9DA71 /* ContentView.swift */; };
-		F1D5BEA62CA316A100C9DA71 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEA52CA316A100C9DA71 /* Item.swift */; };
 		F1D5BEB52CA316A300C9DA71 /* UniTradeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEB42CA316A300C9DA71 /* UniTradeTests.swift */; };
 		F1D5BEBF2CA316A300C9DA71 /* UniTradeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEBE2CA316A300C9DA71 /* UniTradeUITests.swift */; };
 		F1D5BEC12CA316A300C9DA71 /* UniTradeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEC02CA316A300C9DA71 /* UniTradeUITestsLaunchTests.swift */; };
@@ -98,7 +95,6 @@
 		4CF004E22CA8D33F0001FF53 /* ListingItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingItemView.swift; sourceTree = "<group>"; };
 		4CF004E42CAB20010001FF53 /* SearchandFilterBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchandFilterBar.swift; sourceTree = "<group>"; };
 		4CF3C1452CAB926C0091A474 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
-		4CF3C1472CABC1950091A474 /* SortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButton.swift; sourceTree = "<group>"; };
 		4CF3C1492CABC1B30091A474 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		4CF3C14B2CABC4E60091A474 /* PriceRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeView.swift; sourceTree = "<group>"; };
 		8E2067592CACE6F100673E07 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -116,8 +112,6 @@
 		F18F18F02CA4A268005C4A78 /* UploadProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProductView.swift; sourceTree = "<group>"; };
 		F1D5BE9E2CA316A100C9DA71 /* UniTrade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UniTrade.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1D5BEA12CA316A100C9DA71 /* UniTradeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniTradeApp.swift; sourceTree = "<group>"; };
-		F1D5BEA32CA316A100C9DA71 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		F1D5BEA52CA316A100C9DA71 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		F1D5BEB02CA316A300C9DA71 /* UniTradeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UniTradeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1D5BEB42CA316A300C9DA71 /* UniTradeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniTradeTests.swift; sourceTree = "<group>"; };
 		F1D5BEBA2CA316A300C9DA71 /* UniTradeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UniTradeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -222,7 +216,6 @@
 				8E3557D92CAE039000FD012C /* FirebaseAuthManager.swift */,
 				4CF3C14B2CABC4E60091A474 /* PriceRangeView.swift */,
 				4CF3C1492CABC1B30091A474 /* FilterView.swift */,
-				4CF3C1472CABC1950091A474 /* SortButton.swift */,
 				4C6726A62CACDAA0007B1FB6 /* ProductCategoryGroupManager.swift */,
 				4C32BA252CACCDD00060EB5A /* ExplorerViewModel.swift */,
 				4C32BA232CACCDBF0060EB5A /* Product.swift */,
@@ -240,8 +233,6 @@
 				4C4920322CA8D09800F55852 /* ExplorerView.swift */,
 				F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */,
 				F1D5BED32CA3412C00C9DA71 /* ButtonWithIcon.swift */,
-				F1D5BEA32CA316A100C9DA71 /* ContentView.swift */,
-				F1D5BEA52CA316A100C9DA71 /* Item.swift */,
 				8E3557CD2CADAC2E00FD012C /* User.swift */,
 				8E20675E2CACEF0400673E07 /* Assets.xcassets */,
 				F1D5BF732CA36A9E00C9DA71 /* TemplateView.swift */,
@@ -443,7 +434,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F18F18ED2CA4840C005C4A78 /* TabViewIcon.swift in Sources */,
-				F1D5BEA42CA316A100C9DA71 /* ContentView.swift in Sources */,
 				F1D5BF722CA369D200C9DA71 /* MainView.swift in Sources */,
 				4CF004E52CAB20010001FF53 /* SearchandFilterBar.swift in Sources */,
 				4C6726A72CACDAA0007B1FB6 /* ProductCategoryGroupManager.swift in Sources */,
@@ -458,9 +448,7 @@
 				4C8DC6D72CBC59120034A352 /* Filter.swift in Sources */,
 				F123D9B62CABC49800FDBB2A /* UploadProductViewModel.swift in Sources */,
 				4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */,
-				4CF3C1482CABC1950091A474 /* SortButton.swift in Sources */,
 				4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */,
-				4CF3C1482CABC1950091A474 /* SortButton.swift in Sources */,
 				F1D5BED42CA3412C00C9DA71 /* ButtonWithIcon.swift in Sources */,
 				8E3557D82CADFDD000FD012C /* FirstTimeUserView.swift in Sources */,
 				8E3557CC2CAD18AB00FD012C /* LoginViewModel.swift in Sources */,
@@ -468,7 +456,6 @@
 				8E3557DA2CAE039000FD012C /* FirebaseAuthManager.swift in Sources */,
 				F15D0DDE2CA4BFDD00CF9562 /* UploadImageButton.swift in Sources */,
 				4CF3C14C2CABC4E60091A474 /* PriceRangeView.swift in Sources */,
-				F1D5BEA62CA316A100C9DA71 /* Item.swift in Sources */,
 				F15D0DE02CA4C01D00CF9562 /* ImagePicker.swift in Sources */,
 				4CF3C1462CAB926C0091A474 /* Category.swift in Sources */,
 				4CB6E95E2CAB85AC001CE679 /* CategoryScroll.swift in Sources */,

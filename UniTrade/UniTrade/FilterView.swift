@@ -1,6 +1,14 @@
+//
+//  FilterView.swift
+//  UniTrade
+//
+//  Created by Santiago Martinez on 04/10/24.
+//
+
 import SwiftUI
 
 struct FilterView: View {
+    @Environment(\.colorScheme) var colorScheme
     @Binding var isPresented: Bool
     @Binding var filter: Filter
 
@@ -57,7 +65,7 @@ struct FilterView: View {
                 // Sort Options
                 Text("Sort By")
                     .font(Font.DesignSystem.headline600)
-                    .foregroundStyle(Color.DesignSystem.secondary900())
+                    .foregroundStyle(Color.DesignSystem.secondary900(for: colorScheme))
                     .padding(.bottom, 10)
                     .padding(.leading)
 
@@ -68,13 +76,13 @@ struct FilterView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .padding(.horizontal)
-                .foregroundStyle(Color.DesignSystem.primary900())
+                .foregroundStyle(Color.DesignSystem.primary900(for: colorScheme))
 
                 // Sort Order Toggle
                 HStack {
                     Text("Order:")
                         .font(Font.DesignSystem.bodyText300)
-                        .foregroundStyle(Color.DesignSystem.primary600())
+                        .foregroundStyle(Color.DesignSystem.primary600(for: colorScheme))
                         .padding(.leading)
                     Spacer()
 
@@ -93,12 +101,12 @@ struct FilterView: View {
                         Text("RESET")
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(Color.DesignSystem.light100())
-                            .foregroundStyle(Color.DesignSystem.secondary900())
+                            .background(Color.DesignSystem.light100(for: colorScheme))
+                            .foregroundStyle(Color.DesignSystem.secondary900(for: colorScheme))
                             .cornerRadius(10)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.DesignSystem.secondary900(), lineWidth: 2)
+                                    .stroke(Color.DesignSystem.secondary900(for: colorScheme), lineWidth: 2)
                             )
                     }
 
@@ -106,8 +114,8 @@ struct FilterView: View {
                         Text("APPLY")
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(isApplyButtonEnabled ? Color.DesignSystem.secondary900() : Color.DesignSystem.light300())
-                            .foregroundColor(Color.DesignSystem.light100())
+                            .background(isApplyButtonEnabled ? Color.DesignSystem.secondary900(for: colorScheme) : Color.DesignSystem.light300(for: colorScheme))
+                            .foregroundColor(Color.DesignSystem.light100(for: colorScheme))
                             .cornerRadius(10)
                     }
                     .disabled(!isApplyButtonEnabled)
@@ -125,7 +133,7 @@ struct FilterView: View {
             Button(action: { isPresented = false }) {
                 Image(systemName: "xmark.circle.fill")
                     .font(.system(size: 24))
-                    .foregroundStyle(Color.DesignSystem.secondary900())
+                    .foregroundStyle(Color.DesignSystem.secondary900(for: colorScheme))
                     .padding()
             }
         }
