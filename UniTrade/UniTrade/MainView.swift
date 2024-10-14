@@ -15,25 +15,16 @@ struct MainView: View {
         loginViewModel: LoginViewModel
     ) {
         let appearance = UITabBarAppearance()
-
+        
         self.loginViewModel = loginViewModel
         loginViewModel.isFirstTimeUser()
-
+        
         appearance.backgroundColor = UIColor(Color.DesignSystem.primary900(for: colorScheme))
 
-        let normalIconColor = UIColor(Color.DesignSystem.contrast900(for: colorScheme))
-        appearance.stackedLayoutAppearance.normal.iconColor = normalIconColor
-        appearance.inlineLayoutAppearance.normal.iconColor = normalIconColor
-        appearance.compactInlineLayoutAppearance.normal.iconColor = normalIconColor
+        appearance.stackedLayoutAppearance.normal.iconColor = UIColor(Color.DesignSystem.contrast900(for: colorScheme))
 
-        let selectedIconColor = UIColor(Color.DesignSystem.contrast900(for: colorScheme))
-        appearance.stackedLayoutAppearance.selected.iconColor = selectedIconColor
-        appearance.inlineLayoutAppearance.selected.iconColor = selectedIconColor
-        appearance.compactInlineLayoutAppearance.selected.iconColor = selectedIconColor
-
-        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: selectedIconColor]
-        appearance.inlineLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: selectedIconColor]
-        appearance.compactInlineLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: selectedIconColor]
+        appearance.stackedLayoutAppearance.selected.iconColor = UIColor(Color.DesignSystem.contrast900(for: colorScheme))
+        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor(Color.DesignSystem.contrast900(for: colorScheme))]
 
         UITabBar.appearance().scrollEdgeAppearance = appearance
         UITabBar.appearance().standardAppearance = appearance
@@ -63,24 +54,22 @@ struct MainView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     func tabView(for tag: BottomMenuScreenEnum) -> some View {
         switch tag {
-            case .home:
-                NavigationStack {
-                    ExplorerView()
-                }
-            case .cart:
-                TemplateView(loginViewModel: loginViewModel,name: "Cart")
-            case .uploadProduct:
-                NavigationStack {
-                    ChooseUploadTypeView()
-                }
-            case .notifications:
-                TemplateView(loginViewModel: loginViewModel,name: "Notifications")
-            case .profile:
-                TemplateView(loginViewModel: loginViewModel,name: "Profile")
+        case .home:
+            TemplateView(loginViewModel: loginViewModel, name: "Home")
+        case .cart:
+            TemplateView(loginViewModel: loginViewModel,name: "Cart")
+        case .uploadProduct:
+            NavigationStack {
+                ChooseUploadTypeView()
+            }
+        case .notifications:
+            TemplateView(loginViewModel: loginViewModel,name: "Notifications")
+        case .profile:
+            TemplateView(loginViewModel: loginViewModel,name: "Profile")
         }
     }
 }

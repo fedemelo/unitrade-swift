@@ -9,7 +9,6 @@ import SwiftUI
 
 struct UploadProductView: View {
     @Environment(\.colorScheme) var colorScheme
-    @Environment(\.presentationMode) var presentationMode
     @StateObject private var viewModel: UploadProductViewModel
     
     @FocusState private var focusedField: Field?
@@ -66,7 +65,6 @@ struct UploadProductView: View {
                 Button(action: {
                     viewModel.uploadProduct { success in
                         if success {
-                            presentationMode.wrappedValue.dismiss()
                             print("Product uploaded successfully!")
                         } else {
                             print("Failed to upload product")

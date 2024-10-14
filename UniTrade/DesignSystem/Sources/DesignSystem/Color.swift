@@ -47,10 +47,6 @@ public extension Color {
             return useComplementaryForDarkMode(for: "light100", colorScheme: colorScheme)
         }
         
-        public static func whitee(for colorScheme: ColorScheme = .light) -> Color {
-            return useComplementaryForDarkMode(for: "white", colorScheme: colorScheme)
-        }
-        
         public static func success(for colorScheme: ColorScheme = .light) -> Color {
             return createColor(from: "success")
         }
@@ -121,7 +117,6 @@ public extension Color {
             "light300": (red: 0.718, green: 0.718, blue: 0.718),
             "light200": (red: 0.906, green: 0.906, blue: 0.906),
             "light100": (red: 0.953, green: 0.953, blue: 0.953),
-            "white": (red: 1, green: 1, blue: 1),
             "success": (red: 0.537, green: 0.847, blue: 0.376),
             "error": (red: 1, green: 0.443, blue: 0.267),
             "warning": (red: 0.945, green: 0.894, blue: 0.227),
@@ -149,12 +144,12 @@ public extension Color {
             )
         }
         
-        private static func useComplementaryForDarkMode(for colorName: String, colorScheme: ColorScheme = .light) -> Color {            
-            return colorScheme == .dark ? calculateComplementary(from: colorName) : createColor(from: colorName)
+        private static func useComplementaryForDarkMode(for colorName: String, colorScheme: ColorScheme = .light) -> Color {
+            colorScheme == .dark ? calculateComplementary(from: colorName) : createColor(from: colorName)
         }
         
         private static func calculateComplementary(from colorName: String, opacity: Double = 1.0) -> Color {
-            let rgbValues = colorDictionary[colorName] ?? (red: 1, green: 1, blue: 1)
+            let rgbValues = colorDictionary[colorName] ?? (red: 1, green: 1, blue:1)
             return Color(
                 red: 1.0 - rgbValues.red,
                 green: 1.0 - rgbValues.green,
