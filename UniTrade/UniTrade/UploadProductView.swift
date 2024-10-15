@@ -45,23 +45,30 @@ struct UploadProductView: View {
 
                 ForEach(0..<formFields.count, id: \.self) { i in
                     VStack(alignment: .leading, spacing: 10) {
-                        Text(formFields[i].label).font(Font.DesignSystem.bodyText200)
-                        TextField(formFields[i].placeholder, text: formFields[i].binding)
+                        Text(formFields[i].label)
+                            .font(Font.DesignSystem.bodyText200)
+                        TextField("", text: formFields[i].binding)
                             .textFieldStyle(.plain)
                             .font(Font.DesignSystem.bodyText100)
                             .keyboardType(["Price", "Rental Period"].contains(formFields[i].label) ? .decimalPad : .default)
                             .focused($focusedField, equals: fieldForIndex(i))
                             .onTapGesture {
                                 focusedField = fieldForIndex(i)
-                            }
+                            }.padding(.bottom, -5)
+                        
+                        Divider().background(fieldErrors[i] != nil ? Color.red : Color.DesignSystem.dark800(for: colorScheme))
 
                         if let errorMessage = fieldErrors[i] {
-                            Text(errorMessage).foregroundColor(.red).font(.caption)
+                            Text(errorMessage)
+                                .foregroundColor(.red)
+                                .font(.caption)
+                                .padding(.top, -5)
                         }
                     }
                 }
 
-                UploadImageButton(selectedImage: $viewModel.selectedImage)
+                UploadImageButton(selectedImage: $viewModel.selectedImage, isImageFromGallery: $viewModel.isImageFromGallery)
+
 
                 Button(action: {
                     viewModel.uploadProduct { success in
