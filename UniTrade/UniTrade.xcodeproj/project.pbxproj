@@ -51,6 +51,7 @@
 		F183F94D2CABC80500954D00 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = F183F94C2CABC80500954D00 /* FirebaseStorage */; };
 		F18F18ED2CA4840C005C4A78 /* TabViewIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */; };
 		F18F18F12CA4A268005C4A78 /* UploadProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18F18F02CA4A268005C4A78 /* UploadProductView.swift */; };
+		F1BF06232CBDA27900EC0A91 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BF06222CBDA27900EC0A91 /* APIConfig.swift */; };
 		F1D5BEA22CA316A100C9DA71 /* UniTradeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEA12CA316A100C9DA71 /* UniTradeApp.swift */; };
 		F1D5BEB52CA316A300C9DA71 /* UniTradeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEB42CA316A300C9DA71 /* UniTradeTests.swift */; };
 		F1D5BEBF2CA316A300C9DA71 /* UniTradeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5BEBE2CA316A300C9DA71 /* UniTradeUITests.swift */; };
@@ -112,6 +113,7 @@
 		F15D0DDF2CA4C01D00CF9562 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewIcon.swift; sourceTree = "<group>"; };
 		F18F18F02CA4A268005C4A78 /* UploadProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProductView.swift; sourceTree = "<group>"; };
+		F1BF06222CBDA27900EC0A91 /* APIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfig.swift; sourceTree = "<group>"; };
 		F1D5BE9E2CA316A100C9DA71 /* UniTrade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UniTrade.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1D5BEA12CA316A100C9DA71 /* UniTradeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniTradeApp.swift; sourceTree = "<group>"; };
 		F1D5BEB02CA316A300C9DA71 /* UniTradeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UniTradeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -244,6 +246,7 @@
 				8EF6EA3A2CBCDE8A003C7F0F /* CategoryName.swift */,
 				4CB6E95D2CAB85AC001CE679 /* CategoryScroll.swift */,
 				4CB6E9632CAB8C09001CE679 /* CategoryItemView.swift */,
+				F1BF06222CBDA27900EC0A91 /* APIConfig.swift */,
 			);
 			path = UniTrade;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				F1373C0C2CAB70E8001181DC /* UploadProductStrategies.swift in Sources */,
 				4C8DC6D72CBC59120034A352 /* Filter.swift in Sources */,
 				F123D9B62CABC49800FDBB2A /* UploadProductViewModel.swift in Sources */,
+				F1BF06232CBDA27900EC0A91 /* APIConfig.swift in Sources */,
 				4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */,
 				4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */,
 				F1D5BED42CA3412C00C9DA71 /* ButtonWithIcon.swift in Sources */,

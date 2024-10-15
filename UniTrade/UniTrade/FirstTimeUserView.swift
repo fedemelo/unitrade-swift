@@ -8,35 +8,42 @@ struct FirstTimeUserView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                Spacer()
+            VStack(spacing: 40) {
                 
-                VStack {
-                    Text("We want to know you better")
-                        .font(Font.DesignSystem.headline800)
-                        .foregroundColor(Color.DesignSystem.primary900())
-                        .padding(16)
-                }
+                Text("We want to know you better")
+                    .font(Font.DesignSystem.headline800)
+                    .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() :
+                                        Color.DesignSystem.primary600())
+                    .multilineTextAlignment(.center)
                 
                 Text("Choose the items you are interested in")
                     .font(Font.DesignSystem.bodyText300)
                 
-                Spacer()
-                
-                // Flexible grid for category buttons
-                ScrollView {
-                    LazyVGrid(columns: [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)], spacing: 10) {
-                        ForEach(loginVM.categories, id: \.self) { category in
-                            Button(action: {
-                                if multiSelection.contains(category) {
-                                    multiSelection.remove(category)
-                                } else {
-                                    multiSelection.insert(category)
-                                }
-                            }) {
-                                Text(category.name)
-                                    .font(Font.DesignSystem.heading200)
-                                    .padding()
+                VStack(spacing: 20) {
+                    ForEach(Array(loginVM.categories.chunked(into: 2)), id: \.self) { rowCategories in
+                        HStack(spacing: 10) {
+                            Spacer()
+                            
+                            ForEach(rowCategories, id: \.self) { category in
+                                Button(action: {
+                                    if multiSelection.contains(category) {
+                                        multiSelection.remove(category)
+                                    } else {
+                                        multiSelection.insert(category)
+                                    }
+                                }) {
+                                    HStack {
+                                        if multiSelection.contains(category) {
+                                            Image(systemName: "checkmark")
+                                                .foregroundColor(.white)
+                                                .font(.system(size: 10))
+                                        }
+                                        
+                                        Text(category.name)
+                                            .font(Font.DesignSystem.heading200)
+                                    }
+                                    .padding(.vertical, 10)
+                                    .padding(.horizontal, 16)
                                     .frame(minWidth: 100)
                                     .background(multiSelection.contains(category) ? Color.DesignSystem.primary900() : colorScheme == .light ? Color.white : Color.DesignSystem.dark900())
                                     .foregroundColor(multiSelection.contains(category) ?  Color.white  : colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
@@ -45,15 +52,16 @@ struct FirstTimeUserView: View {
                                         RoundedRectangle(cornerRadius: 100)
                                             .stroke(Color.DesignSystem.primary900(), lineWidth: 2)
                                     )
+                                }
                             }
+                            
+                            Spacer()
                         }
+                        
                     }
-                    .padding()
+                    
                 }
                 
-                Spacer()
-                
-                // Discover button
                 Button(action: {
                     loginVM.registerUser(categories: multiSelection)
                 }) {
@@ -66,6 +74,7 @@ struct FirstTimeUserView: View {
                         .cornerRadius(100)
                 }
                 .padding()
+                
             }
         }
     }
@@ -76,3 +85,4 @@ struct FirstTimeUserView_Previews: PreviewProvider {
         FirstTimeUserView(loginVM: LoginViewModel())
     }
 }
+
