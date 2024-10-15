@@ -93,6 +93,3 @@ enum BottomMenuScreenEnum: Hashable {
     case profile
 }
 
-#Preview {
-    MainView(loginViewModel: LoginViewModel())
-}

@@ -39,6 +39,7 @@ struct UniTradeApp: App {
     }()
     
     @StateObject var loginViewModel = LoginViewModel()
+    
 
     func getColorSchemeBasedOnTime() -> ColorScheme {
         let currentHour = Calendar.current.component(.hour, from: Date())

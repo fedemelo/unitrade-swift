@@ -1,12 +1,15 @@
 import FirebaseAuth
 import SwiftUI
 
-
 extension Array {
+    // This method splits the array into smaller arrays of the given size
     func chunked(into size: Int) -> [[Element]] {
-        stride(from: 0, to: count, by: size).map {
-            Array(self[$0..<Swift.min($0 + size, count)])
+        var chunks: [[Element]] = []
+        for index in stride(from: 0, to: self.count, by: size) {
+            let chunk = Array(self[index..<Swift.min(index + size, self.count)])
+            chunks.append(chunk)
         }
+        return chunks
     }
 }
 
