@@ -12,7 +12,7 @@ import SwiftUI
 
 final class LoginViewModel: ObservableObject {
     let db = Firestore.firestore()
-    @Published var firstTimeUser = true
+    @Published var firstTimeUser = false
     @Published var registeredUser : FirebaseAuth.User?
     @Published var categories: [CategoryName] = []
     
@@ -73,6 +73,7 @@ final class LoginViewModel: ObservableObject {
             try FirebaseAuthManager.shared.auth.signOut()
             UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
             registeredUser = nil
+            user = nil
         } catch {
             print("Error signing out")
         }
@@ -104,19 +105,20 @@ final class LoginViewModel: ObservableObject {
 
     func isFirstTimeUser() {
         print("Checking if user is first time")
-        let key = self.user?.uid
+        let key = self.registeredUser?.uid
         if key != nil {
             let docRef = self.db.collection("users").document(key!)
             docRef.getDocument { document, _ in
                 if let document = document, document.exists {
                     print("User already exists")
+                    self.firstTimeUser = false
                 } else {
                     self.firstTimeUser = true
-                    print("User is first time")
                 }
             }
         } else {
             print("No key was found for user")
+            
         }
     }
     

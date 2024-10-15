@@ -34,6 +34,7 @@ struct UniTradeApp: App {
     
     // Initialize the LoginViewModel here
     @StateObject var loginViewModel = LoginViewModel()
+    
 
     var body: some Scene {
         WindowGroup {
