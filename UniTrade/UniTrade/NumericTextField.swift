@@ -4,6 +4,7 @@ struct NumericTextField: UIViewRepresentable {
     @Binding var text: String
     var placeholder: String
     var allowsDecimal: Bool
+    var maxLength: Int = 10  // Set a max length for input
 
     // Add SwiftUI font and color parameters
     var font: Font = .body
@@ -34,10 +35,10 @@ struct NumericTextField: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: UITextField, context: Context) {
-        uiView.text = text  // Keep the text in sync with the binding
+        uiView.text = text
         uiView.font = UIFont(font)
         uiView.textColor = UIColor(textColor)
-        applyPlaceholderStyle(to: uiView)  // Ensure placeholder style updates dynamically
+        applyPlaceholderStyle(to: uiView)
     }
 
     // Helper function to apply placeholder styling
@@ -63,10 +64,10 @@ struct NumericTextField: UIViewRepresentable {
         }
 
         func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-            let allowedCharacters = self.parent.allowsDecimal ? "0123456789." : "0123456789"
+            let allowedCharacters = parent.allowsDecimal ? "0123456789." : "0123456789"
             let characterSet = CharacterSet(charactersIn: allowedCharacters)
 
-            // Reject any non-numeric input
+            // Reject non-numeric input
             if string.rangeOfCharacter(from: characterSet.inverted) != nil {
                 return false
             }
@@ -76,11 +77,16 @@ struct NumericTextField: UIViewRepresentable {
                 return false
             }
 
-            // Update the binding with the new value
-            if let text = textField.text as NSString? {
-                let updatedText = text.replacingCharacters(in: range, with: string)
-                parent.text = updatedText
+            // Enforce max length
+            let currentText = textField.text ?? ""
+            let updatedText = (currentText as NSString).replacingCharacters(in: range, with: string)
+
+            if updatedText.count > parent.maxLength {
+                return false
             }
+
+            // Update the binding with the new value
+            parent.text = updatedText
 
             return true
         }

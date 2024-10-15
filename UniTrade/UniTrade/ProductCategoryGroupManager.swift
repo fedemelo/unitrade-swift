@@ -1,35 +1,11 @@
-//
-//  ProductCategoryGroupManager.swift
-//  UniTrade
-//
-//  Created by Santiago Martinez on 1/10/24.
-//
-
-
 import Foundation
+import FirebaseFirestore
+import FirebaseAuth
 
-struct ProductCategoryGroupManager {
+class ProductCategoryGroupManager: ObservableObject {
     
-    // Define all product categories as static constants
-    struct Categories {
-        static let textbooks = "TEXTBOOKS"
-        static let studyGuides = "STUDY_GUIDES"
-        static let electronics = "ELECTRONICS"
-        static let laptopsTablets = "LAPTOPS & TABLETS"
-        static let calculators = "CALCULATORS"
-        static let chargers = "CHARGERS"
-        static let labMaterials = "LAB MATERIALS"
-        static let notebooks = "NOTEBOOKS"
-        static let artDesign = "ART & DESIGN"
-        static let roboticKits = "ROBOTIC KITS"
-        static let threeDPrinting = "3D PRINTING"
-        static let uniforms = "UNIFORMS"
-        static let sports = "SPORTS"
-        static let musicalInstruments = "MUSICAL INSTRUMENTS"
-    }
-    
-    // Define all product groups as static constants
     struct Groups {
+        static let foryou = "For You"
         static let study = "Study"
         static let technology = "Tech"
         static let creative = "Creative"
@@ -37,49 +13,58 @@ struct ProductCategoryGroupManager {
         static let lab = "Lab"
         static let personal = "Personal"
     }
-    
-    // A dictionary mapping groups to corresponding product categories
+
     static let productGroups: [String: [String]] = [
-        Groups.study: [
-            Categories.textbooks,
-            Categories.studyGuides,
-            Categories.notebooks,
-            Categories.calculators,
-            Categories.labMaterials
-        ],
-        Groups.technology: [
-            Categories.electronics,
-            Categories.laptopsTablets,
-            Categories.chargers,
-            Categories.calculators,
-            Categories.threeDPrinting,
-            Categories.roboticKits
-        ],
-        Groups.creative: [
-            Categories.artDesign,
-            Categories.threeDPrinting,
-            Categories.musicalInstruments
-        ],
-        Groups.others: [
-            Categories.sports,
-            Categories.musicalInstruments,
-            Categories.uniforms
-        ],
-        Groups.lab: [
-            Categories.labMaterials,
-            Categories.roboticKits,
-            Categories.threeDPrinting,
-            Categories.calculators
-        ],
-        Groups.personal: [
-            Categories.uniforms,
-            Categories.chargers,
-            Categories.laptopsTablets
-        ]
+        Groups.study: ["TEXTBOOKS", "STUDY_GUIDES", "NOTEBOOKS", "CALCULATORS", "LAB MATERIALS"],
+        Groups.technology: ["ELECTRONICS", "LAPTOPS & TABLETS", "CHARGERS", "CALCULATORS", "3D PRINTING", "ROBOTIC KITS"],
+        Groups.creative: ["ART & DESIGN", "3D PRINTING", "MUSICAL INSTRUMENTS"],
+        Groups.others: ["SPORTS", "MUSICAL INSTRUMENTS", "UNIFORMS"],
+        Groups.lab: ["LAB MATERIALS", "ROBOTIC KITS", "3D PRINTING", "CALCULATORS"],
+        Groups.personal: ["UNIFORMS", "CHARGERS", "LAPTOPS & TABLETS"]
     ]
-    
-    // Method to retrieve categories for a specific group
-    static func getCategories(for group: String) -> [String]? {
-        return productGroups[group]
+
+    @Published var forYouCategories: [String] = []
+
+    private let firestore = Firestore.firestore()
+
+    // Fetch user-specific "For You" categories from Firestore
+    func loadForYouCategories(completion: @escaping (Bool) -> Void) {
+        guard let user = Auth.auth().currentUser else {
+            print("Error: User is not authenticated.")
+            completion(false)
+            return
+        }
+
+        let userId = user.uid
+        let userDocRef = firestore.collection("users").document(userId)
+
+        userDocRef.getDocument { (document, error) in
+            if let error = error {
+                print("Error fetching user data: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+
+            guard let document = document, document.exists,
+                  let userCategories = document.data()?["categories"] as? [String] else {
+                print("No preferred categories found for user \(userId).")
+                completion(false)
+                return
+            }
+
+            DispatchQueue.main.async {
+                self.forYouCategories = userCategories
+                print("Loaded 'For You' categories: \(userCategories)")
+                completion(true)
+            }
+        }
+    }
+
+    // Retrieve categories by group name
+    func getCategories(for group: String) -> [String]? {
+        if group == Groups.foryou {
+            return forYouCategories.isEmpty ? nil : forYouCategories
+        }
+        return ProductCategoryGroupManager.productGroups[group]
     }
 }
