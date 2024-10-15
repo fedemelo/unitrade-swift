@@ -35,23 +35,15 @@ class UploadProductViewModel: ObservableObject {
         self.strategy = strategy
     }
     
-    private let priceFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.currencyCode = "COP"
-        formatter.maximumFractionDigits = 0
-        return formatter
-    }()
-    
     func updatePriceInput(_ input: String) {
         let cleanedInput = input.filter { "0123456789".contains($0) }
         
-        if let number = Double(cleanedInput) {
-            price = String(number)
-            formattedPrice = priceFormatter.string(from: NSNumber(value: number)) ?? ""
+        if let number = Float(cleanedInput) {
+            // Update the raw price and formatted price at the same time
+            let formattedNumber = CurrencyFormatter.formatPrice(number, currencySymbol: "$")
+            price = formattedNumber
         } else {
             price = ""
-            formattedPrice = ""
         }
     }
     
@@ -166,7 +158,9 @@ class UploadProductViewModel: ObservableObject {
         var productData: [String: Any] = [
             "name": name,
             "description": description,
-            "price": price,
+            "price": price.replacingOccurrences(of: "$", with: "")
+                .replacingOccurrences(of: ".", with: "")
+                .trimmingCharacters(in: .whitespacesAndNewlines),
             "condition": condition,
             "categories": categories,
             "review_count": 0,
@@ -219,15 +213,32 @@ class UploadProductViewModel: ObservableObject {
         }
         
         if price.isEmpty {
-            priceError = "Please enter a price for the product"
-            isValid = false
-        } else if Double(price) == nil {
-            priceError = "Please enter a valid number for the price"
-            isValid = false
-        }
+                priceError = "Please enter a price for the product"
+                isValid = false
+            } else {
+                let cleanedPrice = price.replacingOccurrences(of: "$", with: "")
+                                      .replacingOccurrences(of: ".", with: "")
+                                      .trimmingCharacters(in: .whitespacesAndNewlines)
+                
+                if Float(cleanedPrice) == nil {
+                    print("The price is:", cleanedPrice)
+                    priceError = "Please enter a valid number for the price"
+                    isValid = false
+                } else if Float(cleanedPrice) ?? 100000000 > 90000000 {
+                    priceError = "The price cannot exceed a reasonable amount"
+                    isValid = false
+                }
+            }
+        
         
         if strategy is LeaseProductUploadStrategy && rentalPeriod.isEmpty {
-            rentalPeriodError = "Please enter a rental period "
+            rentalPeriodError = "Please enter a rental period"
+            isValid = false
+        } else if strategy is LeaseProductUploadStrategy && Double(rentalPeriod) == nil {
+            rentalPeriodError = "Please enter a valid number for the rental period"
+            isValid = false
+        } else if strategy is LeaseProductUploadStrategy && Double(rentalPeriod) ?? 366 > 365 {
+            rentalPeriodError = "The rental period cannot exceed a year"
             isValid = false
         }
         

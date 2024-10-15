@@ -4,17 +4,6 @@ struct ListingItemView: View {
     @Environment(\.colorScheme) var colorScheme
     let product: Product
 
-    // Helper to format price
-    private func formatPrice(_ price: Float) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .currency
-        numberFormatter.currencySymbol = "COP $"
-        numberFormatter.maximumFractionDigits = 0
-        numberFormatter.locale = Locale(identifier: "es_CO")
-
-        return numberFormatter.string(from: NSNumber(value: price)) ?? "COP 0"
-    }
-
     // Helper to format rating
     private func formatRating(_ rating: Float) -> String {
         return rating == 0.0 ? "-" : String(format: "%.1f", rating)
@@ -108,7 +97,7 @@ struct ListingItemView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
 
             // Formatted Price
-            Text(formatPrice(product.price))
+            Text(CurrencyFormatter.formatPrice(product.price))
                 .font(Font.DesignSystem.headline400)
                 .fontWeight(.bold)
                 .frame(maxWidth: .infinity, alignment: .leading)
