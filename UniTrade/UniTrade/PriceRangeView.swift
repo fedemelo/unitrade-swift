@@ -31,10 +31,12 @@ struct PriceRangeView: View {
                         text: $minPrice,
                         placeholder: "Min",
                         allowsDecimal: true,
+                        maxLength: 10,
                         font: Font.DesignSystem.bodyText300,
                         textColor: Color.DesignSystem.primary600(for: colorScheme),
                         placeholderFont: Font.DesignSystem.bodyText200,
                         placeholderColor: Color.DesignSystem.light300(for: colorScheme)
+                        
                     )
                     .padding(.vertical,10)
                     .padding(.horizontal, 10)
@@ -54,16 +56,19 @@ struct PriceRangeView: View {
                         text: $maxPrice,
                         placeholder: "Max",
                         allowsDecimal: true,
+                        maxLength: 10,
                         font: Font.DesignSystem.bodyText300,
                         textColor: Color.DesignSystem.primary600(for: colorScheme),
                         placeholderFont: Font.DesignSystem.bodyText200,
                         placeholderColor: Color.DesignSystem.light300(for: colorScheme)
+                        
                     )
                     .padding(.vertical,10)
                     .padding(.horizontal, 10)
                     .background(Color.DesignSystem.light200(for: colorScheme))
                     .cornerRadius(8)
                     .frame(width: 100,height: 50)
+                    
                 }.padding(.horizontal,15)
                 Spacer()
             }
