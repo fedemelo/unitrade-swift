@@ -1,9 +1,8 @@
 import Foundation
-import FirebaseFirestore
-import FirebaseAuth
 
 class ProductCategoryGroupManager: ObservableObject {
     
+    // Group definitions
     struct Groups {
         static let foryou = "For You"
         static let study = "Study"
@@ -14,6 +13,7 @@ class ProductCategoryGroupManager: ObservableObject {
         static let personal = "Personal"
     }
 
+    // Product categories by group
     static let productGroups: [String: [String]] = [
         Groups.study: ["TEXTBOOKS", "STUDY_GUIDES", "NOTEBOOKS", "CALCULATORS", "LAB MATERIALS"],
         Groups.technology: ["ELECTRONICS", "LAPTOPS & TABLETS", "CHARGERS", "CALCULATORS", "3D PRINTING", "ROBOTIC KITS"],
@@ -23,46 +23,13 @@ class ProductCategoryGroupManager: ObservableObject {
         Groups.personal: ["UNIFORMS", "CHARGERS", "LAPTOPS & TABLETS"]
     ]
 
+    // Stores categories provided externally, such as from ExplorerViewModel
     @Published var forYouCategories: [String] = []
 
-    private let firestore = Firestore.firestore()
-
-    // Fetch user-specific "For You" categories from Firestore
-    func loadForYouCategories(completion: @escaping (Bool) -> Void) {
-        guard let user = Auth.auth().currentUser else {
-            print("Error: User is not authenticated.")
-            completion(false)
-            return
-        }
-
-        let userId = user.uid
-        let userDocRef = firestore.collection("users").document(userId)
-
-        userDocRef.getDocument { (document, error) in
-            if let error = error {
-                print("Error fetching user data: \(error.localizedDescription)")
-                completion(false)
-                return
-            }
-
-            guard let document = document, document.exists,
-                  let userCategories = document.data()?["categories"] as? [String] else {
-                print("No preferred categories found for user \(userId).")
-                completion(false)
-                return
-            }
-
-            DispatchQueue.main.async {
-                self.forYouCategories = userCategories
-                print("Loaded 'For You' categories: \(userCategories)")
-                completion(true)
-            }
-        }
-    }
-
-    // Retrieve categories by group name
+    // Retrieve categories for a specific group
     func getCategories(for group: String) -> [String]? {
         if group == Groups.foryou {
+            // Return "For You" categories if available, else return nil
             return forYouCategories.isEmpty ? nil : forYouCategories
         }
         return ProductCategoryGroupManager.productGroups[group]
