@@ -192,7 +192,7 @@ class ExplorerViewModel: ObservableObject {
             
             if document?.exists == true {
                 analyticsRef.updateData([
-                    "count": FieldValue.increment(Int64(1))
+                    "clicks": FieldValue.increment(Int64(1))
                 ]) { error in
                     if let error = error {
                         print("❌ Error updating category click: \(error.localizedDescription)")
