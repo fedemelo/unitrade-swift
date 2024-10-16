@@ -5,7 +5,7 @@ struct FilterView: View {
     @Binding var isPresented: Bool
     @Binding var filter: Filter
     
-    @State private var selectedSortOption: String? = nil
+    @State private var selectedSortOption: String = ""  // Change to non-optional
     @State private var isAscending: Bool = true
     @State private var minPrice: String = ""
     @State private var maxPrice: String = ""
@@ -23,7 +23,7 @@ struct FilterView: View {
         let arePricesPartiallyFilled = (minPrice.isEmpty != maxPrice.isEmpty)
         
         return (arePricesValid && !minPrice.isEmpty && !maxPrice.isEmpty) ||
-        (selectedSortOption != nil && !arePricesPartiallyFilled &&
+        (!selectedSortOption.isEmpty && !arePricesPartiallyFilled &&
          (arePricesValid || (minPrice.isEmpty && maxPrice.isEmpty)))
     }
     
@@ -152,7 +152,7 @@ struct FilterView: View {
     }
     
     private func reset() {
-        selectedSortOption = nil
+        selectedSortOption = ""  // Reset to empty string
         minPrice = ""
         maxPrice = ""
         isAscending = true
@@ -163,7 +163,7 @@ struct FilterView: View {
     private func apply() {
         filter.minPrice = Double(minPrice) ?? 0
         filter.maxPrice = Double(maxPrice) ?? 0
-        filter.sortOption = selectedSortOption
+        filter.sortOption = selectedSortOption.isEmpty ? nil : selectedSortOption
         filter.isAscending = isAscending
         isPresented.toggle()
     }
@@ -171,7 +171,7 @@ struct FilterView: View {
     private func loadCurrentFilter() {
         minPrice = filter.minPrice.map { String($0) } ?? ""
         maxPrice = filter.maxPrice.map { String($0) } ?? ""
-        selectedSortOption = filter.sortOption
+        selectedSortOption = filter.sortOption ?? ""  // Use non-optional string
         isAscending = filter.isAscending
     }
 }
