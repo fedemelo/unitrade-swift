@@ -1,3 +1,11 @@
+//
+//  ListingItemViewModel.swift
+//  UniTrade
+//
+//  Created by Santiago Martinez on 15/10/24.
+//
+
+
 import Foundation
 import SwiftUI
 
@@ -32,7 +40,7 @@ class ListingItemViewModel: ObservableObject {
     
     // MARK: - Price Formatting Logic
     func getDecoratedPrice() -> String {
-        let basePrice = BasePrice(price: product.price)
+        let basePrice = BasePrice(price: Double(product.price))
         let formattedPrice = FormatDecorator(wrapped: basePrice)
         let currencyPrice = CurrencyDecorator(wrapped: formattedPrice)
         return currencyPrice.getPrice()

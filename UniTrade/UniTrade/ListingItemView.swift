@@ -2,24 +2,18 @@ import SwiftUI
 
 struct ListingItemView: View {
     @Environment(\.colorScheme) var colorScheme
-    let product: Product
-
-    // Helper to format rating
-    private func formatRating(_ rating: Float) -> String {
-        return rating == 0.0 ? "-" : String(format: "%.1f", rating)
-    }
-
+    @ObservedObject var viewModel: ListingItemViewModel  // Bind to ViewModel
+    
     var body: some View {
         VStack(spacing: 5) {
             ZStack(alignment: .topTrailing) {
-                // Fixed-size Image Container (Consistent across all items)
+                // Image container
                 Rectangle()
-                    .foregroundColor(.clear)  // Acts as a container
-                    .frame(width: 150, height: 150)  // Consistent size for image and placeholders
+                    .foregroundColor(.clear)
+                    .frame(width: 150, height: 150)
                     .overlay(
                         Group {
-                            if product.imageUrl == "dummy.png" {
-                                // Gray Placeholder with Icon
+                            if viewModel.imageUrl == "dummy.png" {
                                 Rectangle()
                                     .foregroundColor(Color.DesignSystem.light200(for: colorScheme))
                                     .overlay(
@@ -29,11 +23,9 @@ struct ListingItemView: View {
                                     )
                                     .clipShape(RoundedRectangle(cornerRadius: 20))
                             } else {
-                                // AsyncImage Logic
-                                AsyncImage(url: URL(string: product.imageUrl ?? "")) { phase in
+                                AsyncImage(url: URL(string: viewModel.imageUrl ?? "")) { phase in
                                     switch phase {
                                     case .empty:
-                                        // Show ProgressView while loading
                                         Rectangle()
                                             .foregroundColor(Color.DesignSystem.light200(for: colorScheme))
                                             .overlay(ProgressView())
@@ -42,10 +34,9 @@ struct ListingItemView: View {
                                         image
                                             .resizable()
                                             .aspectRatio(contentMode: .fill)
-                                            .frame(width: 150, height: 150)  // Ensure consistent size
+                                            .frame(width: 150, height: 150)
                                             .clipShape(RoundedRectangle(cornerRadius: 20))
                                     case .failure:
-                                        // Show Placeholder on Failure
                                         Rectangle()
                                             .foregroundColor(.gray)
                                             .overlay(
@@ -62,48 +53,48 @@ struct ListingItemView: View {
                         }
                     )
                     .clipShape(RoundedRectangle(cornerRadius: 20))
-
-                // Favorite Button
+                
+                // Favorite button
                 Button(action: {
-                    // Add to favorite action
+                    viewModel.toggleFavorite()
                 }) {
-                    Image(systemName: "heart")
+                    Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
                         .padding(6)
                         .foregroundColor(Color.DesignSystem.primary900(for: colorScheme))
                         .background(Color.DesignSystem.whitee(for: colorScheme))
                         .clipShape(Circle())
                         .shadow(radius: 2)
                 }
-                .padding(18)
+                .padding(8)
             }
-
-            // Product Title
-            Text(product.title)
+            
+            // Product title
+            Text(viewModel.title)
                 .font(Font.DesignSystem.bodyText200)
                 .multilineTextAlignment(.leading)
                 .lineLimit(2)
                 .frame(maxWidth: .infinity, minHeight: 35, alignment: .leading)
-
-            // Rating and Reviews
+            
+            // Rating and reviews
             HStack(spacing: 4) {
                 Image(systemName: "star.fill")
                     .foregroundColor(.yellow)
-                Text(formatRating(product.rating))
+                Text(viewModel.formattedRating)
                     .font(Font.DesignSystem.bodyText200)
-                Text("(\(product.reviewCount) Reviews)")
+                Text(viewModel.reviewText)
                     .font(Font.DesignSystem.bodyText100)
                     .foregroundColor(Color.DesignSystem.light300(for: colorScheme))
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-
-            // Formatted Price
-            Text(CurrencyFormatter.formatPrice(product.price))
+            
+            // Formatted price
+            Text(viewModel.getDecoratedPrice())
                 .font(Font.DesignSystem.headline400)
                 .fontWeight(.bold)
                 .frame(maxWidth: .infinity, alignment: .leading)
-
-            // Stock Status
-            Text(product.isInStock == "lease" ? "For Rent" : "For Sale")
+            
+            // Stock status
+            Text(viewModel.stockStatus)
                 .font(Font.DesignSystem.bodyText100)
                 .foregroundColor(Color.DesignSystem.primary900(for: colorScheme))
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -113,4 +104,17 @@ struct ListingItemView: View {
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .frame(maxWidth: .infinity)
     }
+}
+
+#Preview {
+    let product = Product(
+        title: "MacBook Air M2",
+        price: 1199.99,
+        rating: 4.8,
+        reviewCount: 234,
+        isInStock: "sale",
+        categories: "Technology, Electronics",
+        imageUrl: "https://via.placeholder.com/150"
+    )
+    ListingItemView(viewModel: ListingItemViewModel(product: product))
 }
