@@ -16,17 +16,16 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         return true
     }
     
-    // Restrict the app to portrait mode only 
+    // Restrict the app to portrait mode only
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return .portrait
     }
 }
 
-
 @main
 struct UniTradeApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema()
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
@@ -39,7 +38,7 @@ struct UniTradeApp: App {
     }()
     
     @StateObject var loginViewModel = LoginViewModel()
-    
+    @State private var showSplash = true // State to show or hide the splash screen
 
     func getColorSchemeBasedOnTime() -> ColorScheme {
         let currentHour = Calendar.current.component(.hour, from: Date())
@@ -49,7 +48,9 @@ struct UniTradeApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                if loginViewModel.registeredUser != nil && loginViewModel.firstTimeUser {
+                if showSplash {
+                    SplashScreenView(showSplash: $showSplash)
+                } else if loginViewModel.registeredUser != nil && loginViewModel.firstTimeUser {
                     FirstTimeUserView(loginVM: loginViewModel)
                 } else if loginViewModel.registeredUser != nil {
                     NavigationView {
