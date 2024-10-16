@@ -15,18 +15,20 @@ struct LoginView: View {
     var body: some View {
         VStack(spacing: 20) {
             Spacer()
-            Image("Logo Dark Mode")
+            Image("Image Auth")
                 .resizable()
                 .frame(width: 300, height: 300)
             
-            Text("UniTrade")
+            Text("Discover the best offers")
+                .padding(.horizontal, 40)
                 .font(Font.DesignSystem.headline800)
-                .foregroundColor(Color.white) 
+                .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.primary600())
+                .multilineTextAlignment(.center)
             
             Text("Get all the materials for your classes without feeling that you’re paying too much.")
                 .font(Font.DesignSystem.bodyText300)
-                .foregroundColor(Color.white)
-                .padding(.horizontal, 40)
+                .foregroundColor(Color.DesignSystem.dark800(for: colorScheme))
+                .padding(.horizontal, 30)
                 .multilineTextAlignment(.center)
                 
             
@@ -41,19 +43,19 @@ struct LoginView: View {
                         .frame(width: 20, height: 20)
                     Text("Login with Microsoft")
                         .font(Font.DesignSystem.headline500)
-                        .foregroundColor(Color.accentColor)
+                        .foregroundColor(Color.white)
                 }
                 .frame(minWidth: 0, maxWidth: .infinity)
                 .padding()
-                .foregroundColor(.white)
-                .background(Color.white)
-                .cornerRadius(10)
+                .foregroundColor(Color.accentColor)
+                .background(Color.accentColor)
+                .cornerRadius(25)
             }
-            .padding(.horizontal, 50)
+            .padding(.horizontal, 30)
             
             Spacer()
         }
-        .background(Color.DesignSystem.primary900(for: colorScheme))
+        .background(Color.DesignSystem.whitee(for: colorScheme))
     }
 }
 

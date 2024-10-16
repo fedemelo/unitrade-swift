@@ -10,6 +10,7 @@ import SwiftUI
 import SwiftUI
 
 struct CategoryScroll: View {
+    @Environment(\.colorScheme) var colorScheme
     @Binding var selectedCategory: String? // Binding to the selected category
     let categories: [Category]             // List of categories
     
@@ -20,7 +21,7 @@ struct CategoryScroll: View {
             Text("Categories")
                 .font(Font.DesignSystem.headline600)
                 .bold()
-                .foregroundStyle(Color.DesignSystem.primary900())
+                .foregroundStyle(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.primary600())
                 .padding(.leading, 20) // Padding to align the title with the bubbles
                 .padding(.bottom, 5)
 
@@ -46,7 +47,7 @@ struct CategoryScroll: View {
                 Text("\(selectedCategory):")
                     .font(Font.DesignSystem.headline600)
                     .bold()
-                    .foregroundStyle(Color.DesignSystem.primary900())
+                    .foregroundStyle(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.primary600())
                     .padding(.leading, 20)
                     .padding(.top, 10)
             }

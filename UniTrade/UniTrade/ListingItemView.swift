@@ -96,7 +96,7 @@ struct ListingItemView: View {
             // Stock status
             Text(viewModel.stockStatus)
                 .font(Font.DesignSystem.bodyText100)
-                .foregroundColor(Color.DesignSystem.primary900(for: colorScheme))
+                .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.primary600())
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(8)
@@ -104,17 +104,4 @@ struct ListingItemView: View {
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .frame(maxWidth: .infinity)
     }
-}
-
-#Preview {
-    let product = Product(
-        title: "MacBook Air M2",
-        price: 1199.99,
-        rating: 4.8,
-        reviewCount: 234,
-        isInStock: "sale",
-        categories: "Technology, Electronics",
-        imageUrl: "https://via.placeholder.com/150"
-    )
-    ListingItemView(viewModel: ListingItemViewModel(product: product))
 }
