@@ -2,16 +2,10 @@ import SwiftUI
 
 struct ExplorerView: View {
     @Environment(\.colorScheme) var colorScheme
-    @StateObject private var categoryManager = ProductCategoryGroupManager()
-    @StateObject private var viewModel: ExplorerViewModel
+    @StateObject private var viewModel = ExplorerViewModel()
 
     @State private var isFilterPresented: Bool = false  // Filter modal flag
     @State private var isLoading = true  // Track loading state
-
-    init() {
-        let categoryManager = ProductCategoryGroupManager()
-        _viewModel = StateObject(wrappedValue: ExplorerViewModel(categoryManager: categoryManager))
-    }
 
     let columns = [
         GridItem(.flexible()),
@@ -22,8 +16,8 @@ struct ExplorerView: View {
         NavigationStack {
             ZStack {
                 if isLoading {
-                    // Show a loading indicator while waiting for categories
-                    ProgressView("Loading categories...")
+                    // Show a loading indicator while waiting for data
+                    ProgressView("Loading categories and products...")
                         .font(.headline)
                 } else {
                     VStack {
@@ -47,7 +41,7 @@ struct ExplorerView: View {
 
                                 LazyVGrid(columns: columns, spacing: 32) {
                                     ForEach(viewModel.filteredProducts) { product in
-                                        ListingItemView(product: product)
+                                        ListingItemView(viewModel: ListingItemViewModel(product: product))
                                     }
                                 }
                                 .padding()
@@ -78,7 +72,7 @@ struct ExplorerView: View {
 
     // Helper to create category list
     private func createCategories() -> [Category] {
-        let forYouCount = categoryManager.forYouCategories.count
+        let forYouCount = viewModel.forYouCategories.count  // Use ViewModel's "For You" categories
         let forYouCategory = Category(name: "For You", itemCount: forYouCount, systemImage: "star.circle")
 
         return [
@@ -92,22 +86,22 @@ struct ExplorerView: View {
         ]
     }
 
-    // Load categories and products, and only show UI when done
+    // Load initial data
     private func loadInitialData() {
-        // Load "For You" categories first
-        categoryManager.loadForYouCategories { success in
+        viewModel.loadForYouCategories { success in
             if success {
-                viewModel.selectedCategory = ProductCategoryGroupManager.Groups.foryou  // Set "For You" as default
                 print("'For You' categories loaded.")
-
-                // Now load products
-                viewModel.loadProductsFromFirestore()
+                viewModel.selectedCategory = ProductCategoryGroupManager.Groups.foryou  // Set "For You" as default
             } else {
                 print("Failed to load 'For You' categories.")
             }
+
+            // Once categories are loaded, load the products
+            viewModel.loadProductsFromFirestore()
 
             // Stop loading once both are ready
             isLoading = false
         }
     }
+
 }

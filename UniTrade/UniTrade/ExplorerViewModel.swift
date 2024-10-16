@@ -1,104 +1,120 @@
 import Foundation
 import Combine
 import FirebaseFirestore
+import FirebaseAuth
 
 class ExplorerViewModel: ObservableObject {
     @Published var products: [Product] = []
     @Published var searchQuery: String = ""
-    @Published var selectedCategory: String? = nil
+    @Published var selectedCategory: String? = nil {
+        didSet {
+            if let category = selectedCategory {
+                print("🛑 Category selected: \(category)")
+                trackCategoryClick(category: category)  // Track the category click
+            }
+        }
+    }
     @Published var activeFilter = Filter()
     @Published var isDataLoaded = false
+    @Published var forYouCategories: [String] = []  // Holds "For You" categories
     
     private var cancellables = Set<AnyCancellable>()
     private let firestore = Firestore.firestore()
     
-    init(categoryManager: ProductCategoryGroupManager) {
-        
-        
-        // Subscribe to "For You" categories changes
-        categoryManager.$forYouCategories
-            .sink { [weak self] categories in
-                print("📥 Received 'For You' categories: \(categories)")
-                if !categories.isEmpty {
-                    self?.selectedCategory = ProductCategoryGroupManager.Groups.foryou
-                } else {
-                    print("⚠️ 'For You' categories are empty")
-                }
-                self?.applyFilters()
+    init() {
+        loadForYouCategories { [weak self] success in
+            if success {
+                print("✅ 'For You' categories loaded successfully.")
+                self?.selectedCategory = ProductCategoryGroupManager.Groups.foryou
+            } else {
+                print("⚠️ Failed to load 'For You' categories.")
             }
-            .store(in: &cancellables)
+            self?.loadProductsFromFirestore()
+        }
+    }
+    
+    func loadForYouCategories(completion: @escaping (Bool) -> Void) {
+        guard let user = Auth.auth().currentUser else {
+            print("⚠️ User is not authenticated.")
+            completion(false)
+            return
+        }
         
-        // Load products from Firestore on init
-        loadProductsFromFirestore()
+        let userDocRef = firestore.collection("users").document(user.uid)
+        userDocRef.getDocument { [weak self] document, error in
+            if let error = error {
+                print("❌ Error fetching user data: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+            
+            guard let data = document?.data(),
+                  let categories = data["categories"] as? [String] else {
+                print("⚠️ No 'For You' categories found for user.")
+                completion(false)
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self?.forYouCategories = categories
+                completion(true)
+            }
+        }
     }
     
-    // Apply filters whenever data is ready or changes
     private func applyFilters() {
-        if isDataLoaded {
-            objectWillChange.send()  // Notify SwiftUI that filtering is happening
-        } else {
-            print("⚠️ Attempted to apply filters, but data is not fully loaded.")
+        guard isDataLoaded else {
+            print("⚠️ Attempted to apply filters, but data is not loaded yet.")
+            return
         }
+        objectWillChange.send()
     }
     
-    // Filter logic
     var filteredProducts: [Product] {
-        guard isDataLoaded else {
-            print("⚠️ Filtered products called but data is not loaded yet.")
-            return []
-        }
+        guard isDataLoaded else { return [] }
         
         print("🔍 Filtering products...")
-        
         var filtered = products
         
-        // Category filtering
         if let selectedCategory = selectedCategory {
             print("📂 Selected Category: \(selectedCategory)")
-            if let categoryTags = ProductCategoryGroupManager().getCategories(for: selectedCategory) {
+            
+            let categoryTags = getCategories(for: selectedCategory)
+            if let tags = categoryTags {
                 filtered = filtered.filter { product in
-                    let productCategoryArray = product.categories
+                    let productCategories = product.categories
                         .components(separatedBy: ",")
                         .map { $0.trimmingCharacters(in: .whitespacesAndNewlines).uppercased() }
                     
-                    let normalizedTags = categoryTags.map { $0.uppercased() }
-                    
-                    let isMatching = productCategoryArray.contains { normalizedTags.contains($0) }
-                    return isMatching
+                    return productCategories.contains { tags.contains($0.uppercased()) }
                 }
-            } else {
-                print("⚠️ No matching tags found for category: \(selectedCategory)")
             }
         }
         
-        // Search query filtering
         if !searchQuery.isEmpty {
             filtered = filtered.filter { $0.title.localizedCaseInsensitiveContains(searchQuery) }
         }
         
         print("✅ Filtered products count: \(filtered.count)")
         
-        
-        // Price range filtering
         if let minPrice = activeFilter.minPrice, let maxPrice = activeFilter.maxPrice {
             filtered = filtered.filter { product in
                 let price = Double(product.price)
                 return (minPrice == 0 || price >= minPrice) &&
-                (maxPrice == 0 || price <= maxPrice)
+                       (maxPrice == 0 || price <= maxPrice)
             }
         }
         
-        // Sorting based on filter option
         if let sortOption = activeFilter.sortOption {
             switch sortOption {
             case "Price":
                 filtered = activeFilter.isAscending ?
-                filtered.sorted { $0.price < $1.price } :
-                filtered.sorted { $0.price > $1.price }
+                    filtered.sorted { $0.price < $1.price } :
+                    filtered.sorted { $0.price > $1.price }
             case "Rating":
                 filtered = activeFilter.isAscending ?
-                filtered.sorted { $0.rating < $1.rating } :
-                filtered.sorted { $0.rating > $1.rating }
+                    filtered.sorted { $0.rating < $1.rating } :
+                    filtered.sorted { $0.rating > $1.rating }
             default:
                 break
             }
@@ -106,7 +122,13 @@ class ExplorerViewModel: ObservableObject {
         return filtered
     }
     
-    // Load products from Firestore
+    private func getCategories(for group: String) -> [String]? {
+        if group == ProductCategoryGroupManager.Groups.foryou {
+            return forYouCategories.isEmpty ? nil : forYouCategories
+        }
+        return ProductCategoryGroupManager.productGroups[group]
+    }
+    
     func loadProductsFromFirestore() {
         print("📦 Fetching products from Firestore...")
         
@@ -117,11 +139,9 @@ class ExplorerViewModel: ObservableObject {
             }
             
             guard let documents = snapshot?.documents else {
-                print("⚠️ No products found in Firestore.")
+                print("⚠️ No products found.")
                 return
             }
-            
-            print("📄 Fetched \(documents.count) products from Firestore.")
             
             let fetchedProducts = documents.compactMap { doc -> Product? in
                 guard let name = doc["name"] as? String,
@@ -132,37 +152,10 @@ class ExplorerViewModel: ObservableObject {
                     print("⚠️ Invalid data in document \(doc.documentID)")
                     return nil
                 }
-                let reviewCount: Int
-                if let reviewCountValue = doc["review_count"] {
-                    if let reviewCountString = reviewCountValue as? String, let convertedReviewCountString = Int(reviewCountString) {
-                        reviewCount = convertedReviewCountString
-                    } else if let reviewCountValueNumber = reviewCountValue as? NSNumber {
-                        reviewCount = reviewCountValueNumber.intValue
-                    } else {
-                        print("⚠️ Invalid 'rating' value in document \(doc.documentID). Using default 0.0.")
-                        reviewCount = 0
-                    }
-                } else {
-                    reviewCount = 0
-                }
-                let rating: Float
-                if let ratingValue = doc["rating"] {
-                    if let ratingString = ratingValue as? String, let convertedRating = Float(ratingString) {
-                        rating = convertedRating
-                    } else if let ratingNumber = ratingValue as? NSNumber {
-                        rating = ratingNumber.floatValue
-                    } else {
-                        print("⚠️ Invalid 'rating' value in document \(doc.documentID). Using default 0.0.")
-                        rating = 0.0
-                    }
-                } else {
-                    rating = 0.0
-                }
                 
-                let imageUrl = (doc["image_url"] as? String)?.isEmpty == false
-                ? doc["image_url"] as! String
-                : "dummy"
-                
+                let reviewCount = (doc["review_count"] as? NSNumber)?.intValue ?? 0
+                let rating = (doc["rating"] as? NSNumber)?.floatValue ?? 0.0
+                let imageUrl = (doc["image_url"] as? String) ?? "dummy"
                 let categories = categoriesArray.joined(separator: ", ")
                 
                 return Product(
@@ -179,8 +172,44 @@ class ExplorerViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.products = fetchedProducts
                 self.isDataLoaded = true
-                print("✅ Products loaded and ready: \(self.products.count) products")
-                self.applyFilters()  // Apply filters after loading
+                print("✅ Products loaded: \(self.products.count)")
+                self.applyFilters()
+            }
+        }
+    }
+    
+
+    private func trackCategoryClick(category: String) {
+        
+        let normalizedCategory = category.uppercased()
+        let analyticsRef = firestore.collection("analytics").document("click_categories").collection("all").document(normalizedCategory)
+        
+        analyticsRef.getDocument { document, error in
+            if let error = error {
+                print("❌ Error fetching category analytics: \(error.localizedDescription)")
+                return
+            }
+            
+            if document?.exists == true {
+                analyticsRef.updateData([
+                    "count": FieldValue.increment(Int64(1))
+                ]) { error in
+                    if let error = error {
+                        print("❌ Error updating category click: \(error.localizedDescription)")
+                    } else {
+                        print("✅ Category click incremented for '\(category)'.")
+                    }
+                }
+            } else {
+                analyticsRef.setData([
+                    "count": 1
+                ]) { error in
+                    if let error = error {
+                        print("❌ Error creating new category click: \(error.localizedDescription)")
+                    } else {
+                        print("✅ New category click tracked for '\(category)'.")
+                    }
+                }
             }
         }
     }
