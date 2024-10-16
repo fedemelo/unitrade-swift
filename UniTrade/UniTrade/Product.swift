@@ -5,15 +5,49 @@
 //  Created by Santiago Martinez on 1/10/24.
 //
 
-
 import Foundation
 
 struct Product: Identifiable {
-    let id = UUID()           // Unique ID for each product
-    let title: String         // Product title
-    let price: String         // Product price
-    let rating: Float           // Product rating (out of 5)
-    let reviewCount: Int      // Number of reviews
-    let isInStock: Bool// Stock status
+    let id: UUID
+    let title: String
+    let price: Float
+    let rating: Float       
+    let reviewCount: Int
+    let isInStock: String
     let categories: String
+    let imageUrl: String?
+
+    init(
+        id: UUID = UUID(),
+        title: String,
+        price: Float,
+        rating: Float,
+        reviewCount: Int,
+        isInStock: String,
+        categories: String,
+        imageUrl: String? = nil
+    ) {
+        self.id = id
+        self.title = title
+        self.price = price
+        self.rating = rating
+        self.reviewCount = reviewCount
+        self.isInStock = isInStock
+        self.categories = categories
+        self.imageUrl = imageUrl
+    }
+}
+
+extension Product {
+
+    func value(for sortOption: String) -> Float? {
+        switch sortOption {
+        case "Price":
+            return price
+        case "Rating":
+            return rating
+        default:
+            return nil
+        }
+    }
 }

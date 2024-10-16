@@ -13,7 +13,7 @@ public extension Font {
         public static let heading100 = Font.custom("Inter-SemiBold", size: 24)
         public static let headline600 = Font.custom("Urbanist-Bold", size: 20)
         public static let headline500 = Font.custom("Urbanist-SemiBold", size: 16)
-        public static let bodyText300 = Font.custom("Urbanist-Regular", size: 16)
+        public static let bodyText300 = Font.custom("Urbanist-Regular", size: 17)
         public static let headline400 = Font.custom("Urbanist-Bold", size: 14)
         public static let bodyText200 = Font.custom("Urbanist-Regular", size: 14)
         public static let headline300 = Font.custom("Urbanist-Bold", size: 12)

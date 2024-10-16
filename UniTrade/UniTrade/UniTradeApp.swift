@@ -15,16 +15,19 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         FirebaseApp.configure()
         return true
     }
+    
+    // Restrict the app to portrait mode only
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return .portrait
+    }
 }
 
 @main
 struct UniTradeApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-
+    
     var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
+        let schema = Schema()
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {
@@ -34,23 +37,30 @@ struct UniTradeApp: App {
         }
     }()
     
-    // Initialize the LoginViewModel here
     @StateObject var loginViewModel = LoginViewModel()
+    @State private var showSplash = true // State to show or hide the splash screen
+
+    func getColorSchemeBasedOnTime() -> ColorScheme {
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        return (currentHour >= 6 && currentHour < 18) ? .light : .dark
+    }
 
     var body: some Scene {
         WindowGroup {
-            // Pass the loginViewModel to the LoginView
-            if (loginViewModel.registeredUser != nil && loginViewModel.firstTimeUser) {
-                // Vista de primera vez
-                FirstTimeUserView(loginVM: loginViewModel)
-            } else if (loginViewModel.registeredUser != nil) {
-                NavigationView {
-                    MainView(loginViewModel: loginViewModel)
+            Group {
+                if showSplash {
+                    SplashScreenView(showSplash: $showSplash)
+                } else if loginViewModel.registeredUser != nil && loginViewModel.firstTimeUser {
+                    FirstTimeUserView(loginVM: loginViewModel)
+                } else if loginViewModel.registeredUser != nil {
+                    NavigationView {
+                        MainView(loginViewModel: loginViewModel)
+                    }
+                } else {
+                    LoginView(loginViewModel: loginViewModel)
                 }
             }
-            else {
-                LoginView(loginViewModel: loginViewModel)
-            }
+            .preferredColorScheme(getColorSchemeBasedOnTime()) // Apply time-based color scheme
         }
         .modelContainer(sharedModelContainer)
     }

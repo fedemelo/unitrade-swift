@@ -16,7 +16,7 @@ protocol UploadProductStrategy {
         price: Binding<String>,
         rentalPeriod: Binding<String>,
         condition: Binding<String>
-    ) -> [(label: String, placeholder: String, binding: Binding<String>)]
+    ) -> [(label: String, binding: Binding<String>)]
 
     func fieldErrors(viewModel: UploadProductViewModel) -> [String?]
 }
@@ -36,12 +36,12 @@ struct SaleProductUploadStrategy: UploadProductStrategy {
         price: Binding<String>,
         rentalPeriod: Binding<String>,
         condition: Binding<String>
-    ) -> [(label: String, placeholder: String, binding: Binding<String>)] {
+    ) -> [(label: String, binding: Binding<String>)] {
         return [
-            ("Name", "Enter product name", name),
-            ("Description", "Briefly describe the product", description),
-            ("Price", "Enter price", price),
-            ("Condition", "Describe the product's condition", condition)
+            ("Name", name),
+            ("Description", description),
+            ("Price (COP)", price),
+            ("Condition", condition)
         ]
     }
 
@@ -70,13 +70,13 @@ struct LeaseProductUploadStrategy: UploadProductStrategy {
         price: Binding<String>,
         rentalPeriod: Binding<String>,
         condition: Binding<String>
-    ) -> [(label: String, placeholder: String, binding: Binding<String>)] {
+    ) -> [(label: String, binding: Binding<String>)] {
         return [
-            ("Name", "Enter product name", name),
-            ("Description", "Briefly describe the product", description),
-            ("Price", "Enter price", price),
-            ("Rental Period", "Enter rental period", rentalPeriod),
-            ("Condition", "Describe the product's condition", condition)
+            ("Name", name),
+            ("Description", description),
+            ("Price (COP)", price),
+            ("Rental Period (days)", rentalPeriod),
+            ("Condition", condition)
         ]
     }
 

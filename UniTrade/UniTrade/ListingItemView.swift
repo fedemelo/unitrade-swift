@@ -1,66 +1,106 @@
 import SwiftUI
 
 struct ListingItemView: View {
-    let product: Product
-
+    @Environment(\.colorScheme) var colorScheme
+    @ObservedObject var viewModel: ListingItemViewModel  // Bind to ViewModel
+    
     var body: some View {
         VStack(spacing: 5) {
             ZStack(alignment: .topTrailing) {
-                // Image placeholder (square)
+                // Image container
                 Rectangle()
-                    .aspectRatio(1.0, contentMode: .fit) // Ensures square image
-                    .foregroundColor(Color.DesignSystem.light200()) // Placeholder color
+                    .foregroundColor(.clear)
+                    .frame(width: 150, height: 150)
+                    .overlay(
+                        Group {
+                            if viewModel.imageUrl == "dummy.png" {
+                                Rectangle()
+                                    .foregroundColor(Color.DesignSystem.light200(for: colorScheme))
+                                    .overlay(
+                                        Image(systemName: "photo")
+                                            .font(.largeTitle)
+                                            .foregroundColor(.white)
+                                    )
+                                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                            } else {
+                                AsyncImage(url: URL(string: viewModel.imageUrl ?? "")) { phase in
+                                    switch phase {
+                                    case .empty:
+                                        Rectangle()
+                                            .foregroundColor(Color.DesignSystem.light200(for: colorScheme))
+                                            .overlay(ProgressView())
+                                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                                    case .success(let image):
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 150, height: 150)
+                                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                                    case .failure:
+                                        Rectangle()
+                                            .foregroundColor(.gray)
+                                            .overlay(
+                                                Image(systemName: "photo")
+                                                    .font(.largeTitle)
+                                                    .foregroundColor(.white)
+                                            )
+                                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                                    @unknown default:
+                                        EmptyView()
+                                    }
+                                }
+                            }
+                        }
+                    )
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                 
-                // Heart Icon
+                // Favorite button
                 Button(action: {
-                    // Add to favorite action
+                    viewModel.toggleFavorite()
                 }) {
-                    Image(systemName: "heart")
+                    Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
                         .padding(6)
-                        .foregroundColor(Color.DesignSystem.primary900())
-                        .background(Color.white)
+                        .foregroundColor(Color.DesignSystem.primary900(for: colorScheme))
+                        .background(Color.DesignSystem.whitee(for: colorScheme))
                         .clipShape(Circle())
                         .shadow(radius: 2)
                 }
-                .padding(18)
+                .padding(8)
             }
             
             // Product title
-            Text(product.title)
-                .font(Font.DesignSystem.bodyText200) // Adjusted for smaller text
+            Text(viewModel.title)
+                .font(Font.DesignSystem.bodyText200)
                 .multilineTextAlignment(.leading)
                 .lineLimit(2)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(maxWidth: .infinity, minHeight: 35, alignment: .leading)
             
             // Rating and reviews
             HStack(spacing: 4) {
                 Image(systemName: "star.fill")
                     .foregroundColor(.yellow)
-                
-                Text(String(format: "%.1f", product.rating))
+                Text(viewModel.formattedRating)
                     .font(Font.DesignSystem.bodyText200)
-                
-                Text("(\(product.reviewCount) Reviews)")
+                Text(viewModel.reviewText)
                     .font(Font.DesignSystem.bodyText100)
-                    .foregroundColor(Color.DesignSystem.light300())
+                    .foregroundColor(Color.DesignSystem.light300(for: colorScheme))
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
-            // Price
-            Text(product.price)
+            // Formatted price
+            Text(viewModel.getDecoratedPrice())
                 .font(Font.DesignSystem.headline400)
                 .fontWeight(.bold)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             // Stock status
-            Text(product.isInStock ? "In stock" : "Out of stock")
+            Text(viewModel.stockStatus)
                 .font(Font.DesignSystem.bodyText100)
-                .foregroundColor(Color.DesignSystem.primary900())
+                .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.primary600())
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .padding(8) // Reduce padding inside the card
-        .background(Color.white)
+        .padding(8)
+        .background(Color.DesignSystem.whitee(for: colorScheme))
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .frame(maxWidth: .infinity)
     }

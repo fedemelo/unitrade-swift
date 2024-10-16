@@ -9,6 +9,7 @@ import SwiftUI
 
 
 struct CategoryItemView: View {
+    @Environment(\.colorScheme) var colorScheme
     let category: Category
     let isSelected: Bool
     let onSelect: () -> Void
@@ -19,18 +20,15 @@ struct CategoryItemView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 32, height: 32)
-                .foregroundStyle(Color.DesignSystem.light100())
+                .foregroundStyle(Color.DesignSystem.light100(for: colorScheme))
                 .padding()
-                .background(isSelected ? Color.DesignSystem.secondary900() : Color.DesignSystem.primary600())
+                .background(isSelected ? Color.DesignSystem.secondary900(for: colorScheme) : Color.DesignSystem.primary900(for: colorScheme))
                 .clipShape(Circle())
             
             Text(category.name)
                 .font(Font.DesignSystem.bodyText200)
-                .foregroundStyle(isSelected ? Color.DesignSystem.secondary900() : Color.DesignSystem.dark900())
+                .foregroundStyle(isSelected ? Color.DesignSystem.secondary900(for: colorScheme) : Color.DesignSystem.dark900(for: colorScheme))
             
-            Text("\(category.itemCount) Items")
-                .font(Font.DesignSystem.bodyText100)
-                .foregroundColor(.gray)
         }
         .onTapGesture {
             onSelect()
