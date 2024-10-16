@@ -26,6 +26,8 @@ class UploadProductViewModel: ObservableObject {
     @Published var rentalPeriodError: String? = nil
     @Published var conditionError: String? = nil
     
+    @Published var isUploading: Bool = false
+    
     var strategy: UploadProductStrategy
     
     private let storage = Storage.storage()
@@ -101,9 +103,11 @@ class UploadProductViewModel: ObservableObject {
     
     func uploadProduct(completion: @escaping (Bool) -> Void) {
         if validateFields() {
+            self.isUploading = true
             fetchCategories { categories in
                 guard let categories = categories else {
                     print("Failed to fetch categories, aborting product upload.")
+                    self.isUploading = false
                     completion(false)
                     return
                 }
@@ -181,6 +185,7 @@ class UploadProductViewModel: ObservableObject {
             .collection("products")
             .document(UUID().uuidString.lowercased())
             .setData(productData) { error in
+                self.isUploading = false
                 if let error = error {
                     print("Error uploading product: \(error)")
                     completion(false)
