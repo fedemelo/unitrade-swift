@@ -22,12 +22,12 @@ struct LoginView: View {
             Text("Discover the best offers")
                 .padding(.horizontal, 40)
                 .font(Font.DesignSystem.headline800)
-                .foregroundColor(Color.accentColor)
+                .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.primary600())
                 .multilineTextAlignment(.center)
             
             Text("Get all the materials for your classes without feeling that you’re paying too much.")
                 .font(Font.DesignSystem.bodyText300)
-                .foregroundColor(Color.DesignSystem.dark800())
+                .foregroundColor(Color.DesignSystem.dark800(for: colorScheme))
                 .padding(.horizontal, 30)
                 .multilineTextAlignment(.center)
                 
@@ -55,7 +55,7 @@ struct LoginView: View {
             
             Spacer()
         }
-        .background(Color.white)
+        .background(Color.DesignSystem.whitee(for: colorScheme))
     }
 }
 

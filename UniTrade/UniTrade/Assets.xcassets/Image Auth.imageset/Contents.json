@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Uniandes Marketplace girl.png",
+      "filename" : "cabecitas.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Uniandes Marketplace girl 1.png",
+      "filename" : "cabecitas 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Uniandes Marketplace girl 2.png",
+      "filename" : "cabecitas 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
