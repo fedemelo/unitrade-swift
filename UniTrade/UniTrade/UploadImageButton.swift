@@ -4,6 +4,8 @@ struct UploadImageButton: View {
     @Environment(\.colorScheme) var colorScheme
 
     @Binding var selectedImage: UIImage?
+    @Binding var isImageFromGallery: Bool // New binding to track image source
+
     @State private var showImagePicker = false
     @State private var sourceType: UIImagePickerController.SourceType = .photoLibrary
     
@@ -50,10 +52,12 @@ struct UploadImageButton: View {
                     ActionSheet(title: Text("Select Image"), message: nil, buttons: [
                         .default(Text("Camera")) {
                             sourceType = .camera
+                            isImageFromGallery = false // Set false for camera
                             showImagePicker = true
                         },
                         .default(Text("Photo Library")) {
                             sourceType = .photoLibrary
+                            isImageFromGallery = true // Set true for gallery
                             showImagePicker = true
                         },
                         .cancel()

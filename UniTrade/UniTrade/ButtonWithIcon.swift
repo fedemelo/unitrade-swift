@@ -22,7 +22,7 @@ struct ButtonWithIcon: View {
         .padding(.vertical, 17)
         .padding(.horizontal, 22)
         .background(Color.DesignSystem.primary900(for: colorScheme))
-        .font(Font.DesignSystem.headline400)
+        .font(Font.DesignSystem.headline500)
         .foregroundColor(.white)
         .cornerRadius(100)
     }

@@ -22,8 +22,7 @@ struct LoginView: View {
             Text("UniTrade")
                 .font(Font.DesignSystem.headline800)
                 .foregroundColor(Color.white)
-            
-            Text("Get all the materials for your classes without feeling that you’re paying too much.")
+                Text("Get all the materials for your classes without feeling that you’re paying too much.")
                 .font(Font.DesignSystem.bodyText300)
                 .foregroundColor(Color.white)
                 .padding(.horizontal, 40)
@@ -66,3 +65,7 @@ struct LoginView_Previews: PreviewProvider {
 }
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
