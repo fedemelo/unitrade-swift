@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct MainView: View {
     @ObservedObject var loginViewModel: LoginViewModel
@@ -15,9 +16,7 @@ struct MainView: View {
         loginViewModel: LoginViewModel
     ) {
         let appearance = UITabBarAppearance()
-
         self.loginViewModel = loginViewModel
-        loginViewModel.isFirstTimeUser()
 
         appearance.backgroundColor = UIColor(Color.DesignSystem.primary900(for: colorScheme))
 
@@ -38,6 +37,7 @@ struct MainView: View {
         UITabBar.appearance().scrollEdgeAppearance = appearance
         UITabBar.appearance().standardAppearance = appearance
     }
+    let crashLogger = CrashLogger()
 
     let tabsNamesAndIcons:
     [(title: String, unselectedIcon: String, selectedIcon: String, tag: BottomMenuScreenEnum)] =

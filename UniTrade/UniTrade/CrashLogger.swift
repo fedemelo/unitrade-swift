@@ -1,8 +1,8 @@
 import Foundation
-import FirebaseDatabase // or Firestore, based on preference
+import FirebaseDatabase
 
 class CrashLogger {
-    private let database = Database.database().reference() // Use Firestore if needed
+    private let database = Database.database().reference()
     
     // Log crash info for a given OS version
     func logCrash(osVersion: String) {
@@ -20,7 +20,7 @@ class CrashLogger {
                 currentData.value = ["OS": osVersion, "crashes": 1]
             }
             return TransactionResult.success(withValue: currentData)
-        } completionBlock: { error, _, _ in
+        } andCompletionBlock: { error, _, _ in  // <-- FIXED argument label
             if let error = error {
                 print("Error logging crash: \(error.localizedDescription)")
             } else {
