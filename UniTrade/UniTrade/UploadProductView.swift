@@ -97,8 +97,13 @@ struct UploadProductView: View {
                         }
                     }
                 }) {
-                    ButtonWithIcon(text: "UPLOAD PRODUCT", icon: "arrow.up.to.line.square")
+                    if viewModel.isUploading {
+                        ProgressView()
+                    } else {
+                        ButtonWithIcon(text: "UPLOAD PRODUCT", icon: "arrow.up.to.line.square")
+                    }
                 }
+                .disabled(viewModel.isUploading)
                 
                 Spacer()
             }
