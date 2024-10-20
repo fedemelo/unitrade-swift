@@ -50,7 +50,7 @@ class ExplorerViewModel: ObservableObject {
             
             guard let data = document?.data(),
                   let categories = data["categories"] as? [String] else {
-                print("⚠️ No 'For You' categories found for user.")
+                print("⚠️ No 'For You' categories found for user with id", user.uid)
                 completion(false)
                 return
             }
