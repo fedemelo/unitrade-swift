@@ -26,6 +26,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct UniTradeApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
+    @StateObject var modeSettings = ModeSettings()
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema()
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
@@ -38,7 +40,7 @@ struct UniTradeApp: App {
     }()
     
     @StateObject var loginViewModel = LoginViewModel()
-    @State private var showSplash = true // State to show or hide the splash screen
+    @State private var showSplash = true
 
     func getColorSchemeBasedOnTime() -> ColorScheme {
         let currentHour = Calendar.current.component(.hour, from: Date())
@@ -60,7 +62,12 @@ struct UniTradeApp: App {
                     LoginView(loginViewModel: loginViewModel)
                 }
             }
-            .preferredColorScheme(getColorSchemeBasedOnTime()) // Apply time-based color scheme
+            .environmentObject(modeSettings)
+            .preferredColorScheme(
+                modeSettings.selectedMode == .automatic
+                ? getColorSchemeBasedOnTime()
+                : (modeSettings.selectedMode == .light ? .light : .dark)
+            )
         }
         .modelContainer(sharedModelContainer)
     }
