@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct UploadImageButton: View {
+    var height: CGFloat = 200
     @Environment(\.colorScheme) var colorScheme
 
     @Binding var selectedImage: UIImage?
@@ -51,7 +52,7 @@ struct UploadImageButton: View {
                             .foregroundColor(colorScheme == .light ? Color.DesignSystem.light400() : Color.DesignSystem.dark900())
                             .frame(maxWidth: .infinity)
                     }
-                    .padding(.vertical, 50)
+                    .frame(height: height)
                 }
                 .background(colorScheme == .light ? Color.DesignSystem.light100() : Color.DesignSystem.light300())
                 .cornerRadius(25)
