@@ -72,15 +72,17 @@ struct MainView: View {
                     ExplorerView()
                 }
             case .cart:
-                TemplateView(loginViewModel: loginViewModel,name: "Cart")
+                TemplateView(name: "Cart")
             case .uploadProduct:
                 NavigationStack {
                     ChooseUploadTypeView()
                 }
             case .notifications:
-                TemplateView(loginViewModel: loginViewModel,name: "Alerts")
+                TemplateView(name: "Alerts")
             case .profile:
-                TemplateView(loginViewModel: loginViewModel,name: "Profile")
+                NavigationStack {
+                    ProfileView()
+                }
         }
     }
 }
@@ -92,4 +94,3 @@ enum BottomMenuScreenEnum: Hashable {
     case notifications
     case profile
 }
-
