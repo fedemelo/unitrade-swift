@@ -84,7 +84,7 @@ struct UploadProductView: View {
                     }
                 }
                 
-                UploadImageButton(selectedImage: $viewModel.selectedImage, isImageFromGallery: $viewModel.isImageFromGallery)
+                UploadImageButton(height: 160, selectedImage: $viewModel.selectedImage, isImageFromGallery: $viewModel.isImageFromGallery)
                 
                 
                 Button(action: {
