@@ -1,11 +1,3 @@
-//
-//  LoginView.swift
-//  UniTrade
-//
-//  Created by Mariana Ruiz Giraldo on 1/10/24.
-//
-
-
 import SwiftUI
 
 struct LoginView: View {
@@ -13,49 +5,63 @@ struct LoginView: View {
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        VStack(spacing: 20) {
-            Spacer()
-            Image("Image Auth")
-                .resizable()
-                .frame(width: 300, height: 300)
-            
-            Text("Discover the best offers")
-                .padding(.horizontal, 40)
-                .font(Font.DesignSystem.headline800)
-                .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.primary600())
-                .multilineTextAlignment(.center)
-            
-            Text("Get all the materials for your classes without feeling that you’re paying too much.")
-                .font(Font.DesignSystem.bodyText300)
-                .foregroundColor(Color.DesignSystem.dark800(for: colorScheme))
-                .padding(.horizontal, 30)
-                .multilineTextAlignment(.center)
+        ZStack(alignment: .bottom) { // Overlay ZStack for banner
+            VStack(spacing: 20) {
+                Spacer()
                 
-            
-            Spacer()
-            
-            Button(action: {
-                loginViewModel.signIn()
-            }) {
-                HStack {
-                    Image("Logo Microsoft")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                    Text("Login with Microsoft")
-                        .font(Font.DesignSystem.headline500)
-                        .foregroundColor(Color.white)
+                Image("Image Auth")
+                    .resizable()
+                    .frame(width: 300, height: 300)
+                
+                Text("Discover the best offers")
+                    .padding(.horizontal, 40)
+                    .font(Font.DesignSystem.headline800)
+                    .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.primary600())
+                    .multilineTextAlignment(.center)
+                
+                Text("Get all the materials for your classes without feeling that you’re paying too much.")
+                    .font(Font.DesignSystem.bodyText300)
+                    .foregroundColor(Color.DesignSystem.dark800(for: colorScheme))
+                    .padding(.horizontal, 30)
+                    .multilineTextAlignment(.center)
+                    
+                Spacer()
+                
+                Button(action: {
+                    loginViewModel.signIn()
+                    loginViewModel.showBanner = true // Show banner when button is tapped
+                }) {
+                    HStack {
+                        Image("Logo Microsoft")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                        Text("Login with Microsoft")
+                            .font(Font.DesignSystem.headline500)
+                            .foregroundColor(Color.white)
+                    }
+                    .frame(minWidth: 0, maxWidth: .infinity)
+                    .padding()
+                    .background(Color.accentColor)
+                    .cornerRadius(25)
                 }
-                .frame(minWidth: 0, maxWidth: .infinity)
-                .padding()
-                .foregroundColor(Color.accentColor)
-                .background(Color.accentColor)
-                .cornerRadius(25)
+                .padding(.horizontal, 30)
+                
+                Spacer()
             }
-            .padding(.horizontal, 30)
+            .background(Color.DesignSystem.whitee(for: colorScheme))
             
-            Spacer()
+            // Warning banner at the bottom
+            if loginViewModel.showBanner && !loginViewModel.isConnected {
+                Text("No internet connection. Please try again when connected.")
+                    .font(Font.DesignSystem.headline500)
+                    .foregroundColor(Color.white)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.red)
+                    .transition(.move(edge: .bottom))
+            }
         }
-        .background(Color.DesignSystem.whitee(for: colorScheme))
+        .animation(.easeInOut, value: loginViewModel.showBanner && !loginViewModel.isConnected) // Animation for banner
     }
 }
 
@@ -66,6 +72,3 @@ struct LoginView_Previews: PreviewProvider {
         LoginView(loginViewModel: vm)
     }
 }
-
-
-
