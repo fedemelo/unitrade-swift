@@ -10,6 +10,7 @@ import SwiftUI
 
 struct LoginView: View {
     @ObservedObject var loginViewModel: LoginViewModel
+    @StateObject private var screenTimeViewModel = ScreenTimeViewModel()
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
@@ -56,6 +57,8 @@ struct LoginView: View {
             Spacer()
         }
         .background(Color.DesignSystem.whitee(for: colorScheme))
+        .onAppear {screenTimeViewModel.startTrackingTime()}
+        .onDisappear {screenTimeViewModel.stopAndRecordTime(for: "LoginView")}
     }
 }
 

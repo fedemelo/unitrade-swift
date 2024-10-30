@@ -12,6 +12,8 @@ struct ProfileView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
     @StateObject private var viewModel = ProfileViewModel()
+    @StateObject private var screenTimeViewModel = ScreenTimeViewModel()
+    @StateObject private var loginViewModel = LoginViewModel()
     
     let profileImageDiameter: CGFloat = 220
     
@@ -100,9 +102,11 @@ struct ProfileView: View {
         }
         .onAppear {
             viewModel.fetchUserName()
+            screenTimeViewModel.startTrackingTime()
         }
         .padding()
         .navigationTitle("Profile")
         .navigationBarTitleDisplayMode(.inline)
+        .onDisappear {screenTimeViewModel.stopAndRecordTime(for: "ProfileView")}
     }
 }

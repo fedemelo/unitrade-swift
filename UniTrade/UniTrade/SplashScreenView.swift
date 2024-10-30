@@ -10,6 +10,7 @@ import SwiftUI
 struct SplashScreenView: View {
     @Environment(\.colorScheme) var colorScheme
     @Binding var showSplash: Bool // Bind to app's state to control navigation
+    @StateObject private var screenTimeViewModel = ScreenTimeViewModel()
 
     var body: some View {
         VStack(spacing: 15) {
@@ -27,13 +28,14 @@ struct SplashScreenView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.DesignSystem.primary900(for: colorScheme))
         .onAppear {
-            // Delay for 3 seconds, then hide the splash screen
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 withAnimation {
                     showSplash = false
                 }
             }
+            screenTimeViewModel.startTrackingTime()
         }
+        .onDisappear {screenTimeViewModel.stopAndRecordTime(for: "SplashScreen")}
     }
 }
 

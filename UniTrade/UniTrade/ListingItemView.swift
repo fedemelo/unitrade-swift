@@ -3,6 +3,7 @@ import SwiftUI
 struct ListingItemView: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var viewModel: ListingItemViewModel  // Bind to ViewModel
+    @StateObject private var screenTimeViewModel = ScreenTimeViewModel()
     
     var body: some View {
         VStack(spacing: 5) {

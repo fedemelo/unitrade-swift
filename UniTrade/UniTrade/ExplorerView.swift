@@ -3,6 +3,7 @@ import SwiftUI
 struct ExplorerView: View {
     @Environment(\.colorScheme) var colorScheme
     @StateObject private var viewModel = ExplorerViewModel()
+    @StateObject private var screenTimeViewModel = ScreenTimeViewModel()
 
     @State private var isFilterPresented: Bool = false  // Filter modal flag
     @State private var isLoading = true  // Track loading state
@@ -66,7 +67,9 @@ struct ExplorerView: View {
             }
             .onAppear {
                 loadInitialData()
+                screenTimeViewModel.startTrackingTime()
             }
+            .onDisappear {screenTimeViewModel.stopAndRecordTime(for: "ExplorerView")}
         }
     }
 

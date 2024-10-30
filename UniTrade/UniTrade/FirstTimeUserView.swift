@@ -17,6 +17,7 @@ struct FirstTimeUserView: View {
     @ObservedObject var loginVM: LoginViewModel
     @State private var multiSelection = Set<CategoryName>()
     @Environment(\.colorScheme) var colorScheme
+    @StateObject private var screenTimeViewModel = ScreenTimeViewModel()
     
     var body: some View {
         NavigationView {
@@ -86,6 +87,8 @@ struct FirstTimeUserView: View {
                         .cornerRadius(100)
                 }
                 .padding()
+                .onAppear {screenTimeViewModel.startTrackingTime()}
+                .onDisappear {screenTimeViewModel.stopAndRecordTime(for: "FirstTimeUserView")}
                 
             }
         }

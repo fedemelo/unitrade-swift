@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChooseUploadTypeView: View {
     @Environment(\.colorScheme) var colorScheme
+    @StateObject private var screenTimeViewModel = ScreenTimeViewModel()
 
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
@@ -39,5 +40,7 @@ struct ChooseUploadTypeView: View {
         .padding(.horizontal)
         .navigationTitle("Upload Product")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {screenTimeViewModel.startTrackingTime()}
+        .onDisappear {screenTimeViewModel.stopAndRecordTime(for: "ChooseUploadTypeView")}
     }
 }
