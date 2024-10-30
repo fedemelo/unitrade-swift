@@ -29,7 +29,6 @@ class ExplorerViewModel: ObservableObject {
             } else {
                 print("⚠️ Failed to load 'For You' categories.")
             }
-            self?.loadProductsFromFirestore()
         }
     }
     
@@ -101,7 +100,7 @@ class ExplorerViewModel: ObservableObject {
             filtered = filtered.filter { product in
                 let price = Double(product.price)
                 return (minPrice == 0 || price >= minPrice) &&
-                       (maxPrice == 0 || price <= maxPrice)
+                (maxPrice == 0 || price <= maxPrice)
             }
         }
         
@@ -109,12 +108,12 @@ class ExplorerViewModel: ObservableObject {
             switch sortOption {
             case "Price":
                 filtered = activeFilter.isAscending ?
-                    filtered.sorted { $0.price < $1.price } :
-                    filtered.sorted { $0.price > $1.price }
+                filtered.sorted { $0.price < $1.price } :
+                filtered.sorted { $0.price > $1.price }
             case "Rating":
                 filtered = activeFilter.isAscending ?
-                    filtered.sorted { $0.rating < $1.rating } :
-                    filtered.sorted { $0.rating > $1.rating }
+                filtered.sorted { $0.rating < $1.rating } :
+                filtered.sorted { $0.rating > $1.rating }
             default:
                 break
             }
@@ -177,8 +176,26 @@ class ExplorerViewModel: ObservableObject {
             }
         }
     }
+    // Fetch the initial data in a background queue
+    func fetchInitialDataInBackground() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            // Load "For You" categories first
+            self.loadForYouCategories { success in
+                if success {
+                    print("✅ 'For You' categories loaded in background.")
+                    self.selectedCategory = ProductCategoryGroupManager.Groups.foryou
+                } else {
+                    print("⚠️ Failed to load 'For You' categories.")
+                }
+                
+                // Load products asynchronously
+                self.loadProductsFromFirestore()
+                self.isDataLoaded = true
+                print("✅ Products loaded in background.")
+            }
+        }
+    }
     
-
     private func trackCategoryClick(category: String) {
         
         let normalizedCategory = category.uppercased()
