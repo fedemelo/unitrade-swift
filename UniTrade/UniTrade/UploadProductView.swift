@@ -36,6 +36,10 @@ struct UploadProductView: View {
         _viewModel = StateObject(wrappedValue: UploadProductViewModel(strategy: strategy))
     }
     
+    private func closeView() {
+        presentationMode.wrappedValue.dismiss()
+    }
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .center, spacing: 30) {
@@ -129,13 +133,17 @@ struct UploadProductView: View {
                         message: Text(NO_INTERNET_NO_QUEUE_MESSAGE),
                         primaryButton: .destructive(Text("Replace")) {
                             viewModel.replaceCachedProduct()
+                            closeView()
                         },
                         secondaryButton: .cancel(Text("Dismiss"))
                     ) :
                     
                     Alert(title: Text("Status"),
                           message: Text(alertMessage),
-                          dismissButton: .default(Text("OK")))
+                          dismissButton: .default(Text("OK")) {
+                              closeView()
+                          }
+                    )
                 }
                 
                 Spacer()
