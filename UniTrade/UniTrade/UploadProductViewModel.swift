@@ -327,7 +327,7 @@ class UploadProductViewModel: ObservableObject {
     
     
     
-    private func validateFields() -> Bool {
+    func validateFields() -> Bool {
         var isValid = true
         
         nameError = nil

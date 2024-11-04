@@ -103,18 +103,15 @@ struct UploadProductView: View {
                 
                 
                 Button(action: {
-                    viewModel.uploadProduct { success in
-                        if success {
-                            alertMessage = self.SUCCESSFUL_UPLOAD_MESSAGE
-                        } else {
-                            if viewModel.showReplaceAlert{
-                                alertMessage = self.NO_INTERNET_NO_QUEUE_MESSAGE
+                    if viewModel.validateFields() {
+                        viewModel.uploadProduct { success in
+                            if success {
+                                alertMessage = self.SUCCESSFUL_UPLOAD_MESSAGE
                             } else {
-                                alertMessage = self.NO_INTERNET_TO_UPLOAD
+                                alertMessage = viewModel.showReplaceAlert ? self.NO_INTERNET_NO_QUEUE_MESSAGE : self.NO_INTERNET_TO_UPLOAD
                             }
-                            
+                            showingAlert = true
                         }
-                        showingAlert = true
                     }
                 }) {
                     if viewModel.isUploading {
@@ -135,7 +132,7 @@ struct UploadProductView: View {
                         },
                         secondaryButton: .cancel(Text("Dismiss"))
                     ) :
-            
+                    
                     Alert(title: Text("Status"),
                           message: Text(alertMessage),
                           dismissButton: .default(Text("OK")))
