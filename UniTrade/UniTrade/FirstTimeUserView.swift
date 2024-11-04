@@ -1,5 +1,6 @@
 import FirebaseAuth
 import SwiftUI
+import FirebaseFirestore
 
 extension Array {
     // This method splits the array into smaller arrays of the given size
@@ -16,17 +17,96 @@ extension Array {
 struct FirstTimeUserView: View {
     @ObservedObject var loginVM: LoginViewModel
     @State private var multiSelection = Set<CategoryName>()
+    @State private var selectedMajor: String = "Select your Major"
+    @State private var selectedSemester: String = "Select your Semester"
     @Environment(\.colorScheme) var colorScheme
+    
+    // Predefined semester options
+    let semesterOptions = ["1-2 semester", "3-4 semester", "5-6 semester", "7-8 semester", "9-10 semester", "+10 semesters"]
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 40) {
+            VStack(spacing: 10) {
                 
                 Text("We want to know you better")
                     .font(Font.DesignSystem.headline800)
                     .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() :
                                         Color.DesignSystem.primary600())
                     .multilineTextAlignment(.center)
+                
+                // Major selection
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("Major")
+                        .font(Font.DesignSystem.headline500)
+                        .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() :
+                                            Color.DesignSystem.light300())
+                    
+                    Menu {
+                        ForEach(loginVM.majors, id: \.self) { major in
+                            Button(action: {
+                                selectedMajor = major.name
+                            }) {
+                                Text(major.name)
+                                    .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
+                                    .font(Font.DesignSystem.headline300)
+                            }
+                        }
+                    } label: {
+                        HStack {
+                            Text(selectedMajor)
+                                .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(Font.DesignSystem.headline300)
+                            Image(systemName: "chevron.down")
+                                .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
+                        }
+                        .padding(.horizontal, 5)
+                    }
+                    
+                    // Line under the Menu
+                    Rectangle()
+                        .frame(height: 1)
+                        .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() :
+                                            Color.DesignSystem.light300())
+                        .padding(.horizontal, 5)
+                }
+                
+                // Semester selection
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("Semester")
+                        .font(Font.DesignSystem.headline500)
+                        .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() :
+                                            Color.DesignSystem.light300())
+                    
+                    Menu {
+                        ForEach(semesterOptions, id: \.self) { semester in
+                            Button(action: {
+                                selectedSemester = semester
+                            }) {
+                                Text(semester)
+                                    .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
+                                    .font(Font.DesignSystem.headline300)
+                            }
+                        }
+                    } label: {
+                        HStack {
+                            Text(selectedSemester)
+                                .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(Font.DesignSystem.headline300)
+                            Image(systemName: "chevron.down")
+                                .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
+                        }
+                        .padding(.horizontal, 5)
+                    }
+                    
+                    // Line under the Menu
+                    Rectangle()
+                        .frame(height: 1)
+                        .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() :
+                                            Color.DesignSystem.light300())
+                        .padding(.horizontal, 5)
+                }
                 
                 Text("Choose the items you are interested in")
                     .font(Font.DesignSystem.bodyText300)
@@ -69,13 +149,11 @@ struct FirstTimeUserView: View {
                             
                             Spacer()
                         }
-                        
                     }
-                    
                 }
                 
                 Button(action: {
-                    loginVM.registerUser(categories: multiSelection)
+                    loginVM.registerUser(categories: multiSelection, major: selectedMajor, semester: selectedSemester)
                 }) {
                     Text("DISCOVER")
                         .font(Font.DesignSystem.headline400)
@@ -88,13 +166,10 @@ struct FirstTimeUserView: View {
                 .padding()
                 
             }
+            .padding(.horizontal, 20)
+        }
+        .onAppear {
+            loginVM.fetchMajors() // Fetch majors when view appears
         }
     }
 }
-
-struct FirstTimeUserView_Previews: PreviewProvider {
-    static var previews: some View {
-        FirstTimeUserView(loginVM: LoginViewModel())
-    }
-}
-

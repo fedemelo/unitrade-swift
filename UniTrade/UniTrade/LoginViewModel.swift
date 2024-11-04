@@ -19,12 +19,14 @@ final class LoginViewModel: ObservableObject {
     @Published var categories: [CategoryName] = []
     @Published var isConnected: Bool = true
     @Published var showBanner: Bool = false
+    @Published var majors: [MajorName] = []
     
     private let monitor = NWPathMonitor()
     private let queue = DispatchQueue.global(qos: .background)
 
     init() {
         fetchCategories()
+        fetchMajors()
         setupNetworkMonitor()
     }
     
@@ -48,6 +50,24 @@ final class LoginViewModel: ObservableObject {
                     if let document = document, document.exists {
                         if let categoryNames = document.data()?["names"] as? [String] {
                             self.categories = categoryNames.map { CategoryName(name: $0) }
+                        }
+                    } else {
+                        print("Document does not exist")
+                    }
+                }
+            }
+    
+    func fetchMajors() {
+        let docRef = db.collection("categories").document("majors")
+        docRef.getDocument { (document, error) in
+                    if let error = error {
+                        print("Error fetching majors: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    if let document = document, document.exists {
+                        if let majorNames = document.data()?["names"] as? [String] {
+                            self.majors = majorNames.map { MajorName(name: $0) }
                         }
                     } else {
                         print("Document does not exist")
@@ -140,7 +160,7 @@ func signIn() {
         }
     }
 
-    func registerUser(categories: Set<CategoryName>) {
+    func registerUser(categories: Set<CategoryName>, major: String, semester: String) {
         if let user = self.registeredUser {
             if self.firstTimeUser {
                 let docRef = self.db.collection("users").document(user.uid)
@@ -152,7 +172,7 @@ func signIn() {
                         if let _ = document {
                             do {
                                 let categoryNames = categories.map(\.name)
-                                let userModel = User(name: user.displayName!, email: user.email!, categories: categoryNames)
+                                let userModel = User(name: user.displayName!, email: user.email!, categories: categoryNames, major: major, semester: semester)
                                 try docRef.setData(from: userModel)
                                 self.firstTimeUser = false
                             } catch {
