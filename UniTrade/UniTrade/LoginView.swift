@@ -2,6 +2,7 @@ import SwiftUI
 
 struct LoginView: View {
     @ObservedObject var loginViewModel: LoginViewModel
+    @State private var isLoading = false // Loading state for the Login button
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
@@ -28,22 +29,34 @@ struct LoginView: View {
                 Spacer()
                 
                 Button(action: {
-                    loginViewModel.signIn()
-                    loginViewModel.showBanner = true // Show banner when button is tapped
-                }) {
-                    HStack {
-                        Image("Logo Microsoft")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                        Text("Login with Microsoft")
-                            .font(Font.DesignSystem.headline500)
-                            .foregroundColor(Color.white)
+                    if loginViewModel.isConnected {
+                        isLoading = true
+                        loginViewModel.signIn {
+                            // Callback after sign-in completes
+                            isLoading = false
+                        }
+                    } else {
+                        loginViewModel.showBanner = true // Show offline banner if not connected
                     }
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                    .padding()
-                    .background(Color.accentColor)
-                    .cornerRadius(25)
+                }) {
+                    if isLoading {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    } else {
+                        HStack {
+                            Image("Logo Microsoft")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                            Text("Login with Microsoft")
+                                .font(Font.DesignSystem.headline500)
+                                .foregroundColor(Color.white)
+                        }
+                    }
                 }
+                .frame(minWidth: 0, maxWidth: .infinity)
+                .padding()
+                .background(Color.accentColor)
+                .cornerRadius(25)
                 .padding(.horizontal, 30)
                 
                 Spacer()
