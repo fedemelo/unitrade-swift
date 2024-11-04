@@ -1,3 +1,11 @@
+//
+//  UserProduct.swift
+//  UniTrade
+//
+//  Created by Santiago Martinez on 4/11/24.
+//
+
+
 import Foundation
 
 struct UserProduct: Identifiable {
@@ -8,8 +16,5 @@ struct UserProduct: Identifiable {
     let favoritesForYou: Int
     let imageUrl: String
     let type: String?
-    
-    var saveCount: Int {
-        favoritesCategory + favoritesForYou
-    }
+    let saveCount: Int
 }
