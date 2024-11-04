@@ -69,9 +69,12 @@ class UploadProductViewModel: ObservableObject {
     }
     
     func cacheProductLocally() {
-        guard let imageData = selectedImage?.jpegData(compressionQuality: 0.8) else {
-            print("Failed to convert image to data")
-            return
+        var imageData: Data? = nil
+        if let selectedImage = selectedImage {
+            imageData = selectedImage.jpegData(compressionQuality: 0.8)
+            if imageData == nil {
+                print("Failed to convert image to data")
+            }
         }
         
         let cachedProduct = ProductCache(
@@ -82,7 +85,7 @@ class UploadProductViewModel: ObservableObject {
             rentalPeriod: rentalPeriod,
             imageData: imageData
         )
-        
+
         // Check if there's already a product in cache
         if loadCachedProduct() != nil {
             showReplaceAlert = true  // Trigger alert in the view
