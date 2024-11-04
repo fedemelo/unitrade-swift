@@ -17,6 +17,17 @@ struct UploadProductView: View {
     
     @FocusState private var focusedField: Field?
     
+    
+    private var SUCCESSFUL_UPLOAD_MESSAGE: String {
+        "Product uploaded successfully"
+    }
+    private var NO_INTERNET_TO_UPLOAD: String {
+        "No internet connection. Product saved locally and will be uploaded when you are back online."
+    }
+    private var NO_INTERNET_NO_QUEUE_MESSAGE: String {
+        "No internet connection. A product is already waiting to upload. Connect to the internet to complete the upload, or replace the existing product with this one."
+    }
+    
     enum Field {
         case name, description, price, rentalPeriod, condition
     }
@@ -94,9 +105,14 @@ struct UploadProductView: View {
                 Button(action: {
                     viewModel.uploadProduct { success in
                         if success {
-                            alertMessage = "Product uploaded successfully!"
+                            alertMessage = self.SUCCESSFUL_UPLOAD_MESSAGE
                         } else {
-                            alertMessage = "No internet connection. Product saved locally and will be uploaded when you are back online."
+                            if viewModel.showReplaceAlert{
+                                alertMessage = self.NO_INTERNET_NO_QUEUE_MESSAGE
+                            } else {
+                                alertMessage = self.NO_INTERNET_TO_UPLOAD
+                            }
+                            
                         }
                         showingAlert = true
                     }
@@ -109,20 +125,21 @@ struct UploadProductView: View {
                 }
                 .disabled(viewModel.isUploading)
                 .alert(isPresented: $showingAlert) {
+                    alertMessage == self.NO_INTERNET_NO_QUEUE_MESSAGE ?
+                    
+                    Alert(
+                        title: Text("Upload Queue Full"),
+                        message: Text(NO_INTERNET_NO_QUEUE_MESSAGE),
+                        primaryButton: .destructive(Text("Replace")) {
+                            viewModel.replaceCachedProduct()
+                        },
+                        secondaryButton: .cancel(Text("Dismiss"))
+                    ) :
+            
                     Alert(title: Text("Status"),
                           message: Text(alertMessage),
                           dismissButton: .default(Text("OK")))
                 }
-                // .alert(isPresented: $viewModel.showReplaceAlert) {
-                //     Alert(
-                //         title: Text("Upload Queue Full"),
-                //         message: Text("No internet connection. A product is already waiting to upload. Connect to the internet to complete the upload, or replace the existing product with this one."),
-                //         primaryButton: .destructive(Text("Replace")) {
-                //             viewModel.replaceCachedProduct()
-                //         },
-                //         secondaryButton: .cancel(Text("Dismiss"))
-                //     )
-                // }
                 
                 Spacer()
             }

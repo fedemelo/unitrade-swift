@@ -286,6 +286,8 @@ class UploadProductViewModel: ObservableObject {
             "condition": condition,
             "categories": categories,
             "review_count": 0,
+            "favorites_category": 0,
+            "favorites_foryou": 0,
             "type": strategy.type,
             "user_id": "m8MoVH4chLRBr2dLEjuPzIe28sf1"  //TODO: get user id
         ]
