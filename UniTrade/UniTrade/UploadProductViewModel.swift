@@ -39,6 +39,7 @@ class UploadProductViewModel: ObservableObject {
     
     @Published var isUploading: Bool = false
     @Published var showReplaceAlert: Bool = false
+    @Published private var isUploadingCachedProduct: Bool = false
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -112,12 +113,15 @@ class UploadProductViewModel: ObservableObject {
     
     
     private func uploadCachedProduct() {
-        guard let cachedProduct = loadCachedProduct() else { return }
+        guard !isUploadingCachedProduct, let cachedProduct = loadCachedProduct() else { return }
+        
+        isUploadingCachedProduct = true  // Set the flag to indicate an upload is in progress
         
         if let imageData = cachedProduct.imageData, let image = UIImage(data: imageData) {
             selectedImage = image
         } else {
             print("Failed to decode image data for cached product")
+            isUploadingCachedProduct = false
             return
         }
         
@@ -129,14 +133,16 @@ class UploadProductViewModel: ObservableObject {
         
         uploadProduct { success in
             if success {
-                // Clear cache after successful upload
-                UserDefaults.standard.removeObject(forKey: self.cacheKey)
                 print("Product uploaded and removed from cache")
             } else {
                 print("Failed to upload cached product")
             }
         }
+        
+        UserDefaults.standard.removeObject(forKey: self.cacheKey)
+        self.isUploadingCachedProduct = false
     }
+    
     
     
     func updatePriceInput(_ input: String) {
