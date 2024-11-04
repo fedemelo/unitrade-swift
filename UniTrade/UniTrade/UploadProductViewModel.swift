@@ -8,6 +8,23 @@
 import SwiftUI
 import FirebaseStorage
 import FirebaseFirestore
+import Foundation
+import Combine
+import FirebaseAuth
+import NotificationCenter
+
+extension Notification.Name {
+    static let connectionRestoredAndProductUploaded = Notification.Name("connectionRestoredAndProductUploaded")
+}
+
+struct ProductCache: Codable {
+    let name: String
+    let description: String
+    let price: String
+    let condition: String
+    let rentalPeriod: String?
+    let imageData: Data?
+}
 
 class UploadProductViewModel: ObservableObject {
     @Published var isImageFromGallery: Bool = true
@@ -27,15 +44,117 @@ class UploadProductViewModel: ObservableObject {
     @Published var conditionError: String? = nil
     
     @Published var isUploading: Bool = false
+    @Published var showReplaceAlert: Bool = false
+    @Published private var isUploadingCachedProduct: Bool = false
+    
+    private var cancellables = Set<AnyCancellable>()
     
     var strategy: UploadProductStrategy
+    private var networkMonitor = NetworkMonitor.shared
+    private let cacheKey = "cachedProduct"
     
     private let storage = Storage.storage()
     private let firestore = Firestore.firestore()
     
     init(strategy: UploadProductStrategy) {
         self.strategy = strategy
+        observeNetworkChanges()
     }
+    
+    func observeNetworkChanges() {
+        networkMonitor.$isConnected
+            .removeDuplicates()
+            .throttle(for: .seconds(1), scheduler: RunLoop.main, latest: true)
+            .sink { isConnected in
+                if isConnected {
+                    self.uploadCachedProduct()
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    func cacheProductLocally() {
+        var imageData: Data? = nil
+        if let selectedImage = selectedImage {
+            imageData = selectedImage.jpegData(compressionQuality: 0.8)
+            if imageData == nil {
+                print("Failed to convert image to data")
+            }
+        }
+        
+        let cachedProduct = ProductCache(
+            name: name,
+            description: description,
+            price: price,
+            condition: condition,
+            rentalPeriod: rentalPeriod,
+            imageData: imageData
+        )
+
+        // Check if there's already a product in cache
+        if loadCachedProduct() != nil {
+            showReplaceAlert = true  // Trigger alert in the view
+            return
+        }
+        
+        do {
+            let data = try JSONEncoder().encode(cachedProduct)
+            UserDefaults.standard.set(data, forKey: cacheKey)
+            print("Product cached successfully")
+        } catch {
+            print("Error encoding cached product: \(error)")
+        }
+    }
+    
+    func replaceCachedProduct() {
+        // Clear the old product and cache the new one
+        UserDefaults.standard.removeObject(forKey: cacheKey)
+        cacheProductLocally()
+    }
+    
+    private func loadCachedProduct() -> ProductCache? {
+        guard let data = UserDefaults.standard.data(forKey: cacheKey),
+              let cachedProduct = try? JSONDecoder().decode(ProductCache.self, from: data) else {
+            return nil
+        }
+        return cachedProduct
+    }
+    
+    private func uploadCachedProduct() {
+        guard !isUploadingCachedProduct, let cachedProduct = loadCachedProduct() else { return }
+        
+        isUploadingCachedProduct = true  // Set the flag to indicate an upload is in progress
+        
+        if let imageData = cachedProduct.imageData, let image = UIImage(data: imageData) {
+            selectedImage = image
+        } else {
+            print("Failed to decode image data for cached product")
+            isUploadingCachedProduct = false
+            return
+        }
+        
+        name = cachedProduct.name
+        description = cachedProduct.description
+        price = cachedProduct.price
+        condition = cachedProduct.condition
+        rentalPeriod = cachedProduct.rentalPeriod ?? ""
+        
+        uploadProduct { success in
+            if success {
+                print("Product uploaded and removed from cache")
+                
+                NotificationCenter.default.post(name: .connectionRestoredAndProductUploaded, object: nil)
+                
+                UserDefaults.standard.removeObject(forKey: self.cacheKey)
+            } else {
+                print("Failed to upload cached product")
+            }
+            
+            self.isUploadingCachedProduct = false
+        }
+    }
+    
+    
     
     func updatePriceInput(_ input: String) {
         let cleanedInput = input.filter { "0123456789".contains($0) }
@@ -104,21 +223,30 @@ class UploadProductViewModel: ObservableObject {
     func uploadProduct(completion: @escaping (Bool) -> Void) {
         if validateFields() {
             self.isUploading = true
-            fetchCategories { categories in
-                guard let categories = categories else {
-                    print("Failed to fetch categories, aborting product upload.")
-                    self.isUploading = false
-                    completion(false)
-                    return
-                }
-                
-                if let image = self.selectedImage {
-                    self.uploadImage(image) { imageURL in
-                        self.saveProductData(imageURL: imageURL, categories: categories, completion: completion)
+            
+            if networkMonitor.isConnected {
+                fetchCategories { categories in
+                    guard let categories = categories else {
+                        print("Failed to fetch categories, aborting product upload.")
+                        self.isUploading = false
+                        completion(false)
+                        return
                     }
-                } else {
-                    self.saveProductData(imageURL: nil, categories: categories, completion: completion)
+                    
+                    if let image = self.selectedImage {
+                        self.uploadImage(image) { imageURL in
+                            self.saveProductData(imageURL: imageURL, categories: categories, completion: completion)
+                        }
+                    } else {
+                        self.saveProductData(imageURL: nil, categories: categories, completion: completion)
+                    }
                 }
+            } else {
+                // Try to cache product locally
+                cacheProductLocally()
+                self.isUploading = false
+                completion(false)
+                print("No internet connection. Product saved locally.")
             }
         } else {
             completion(false)
@@ -158,7 +286,13 @@ class UploadProductViewModel: ObservableObject {
         }
     }
     
+    
     private func saveProductData(imageURL: String?, categories: [String], completion: @escaping (Bool) -> Void) {
+        let userId = Auth.auth().currentUser?.uid ?? ""
+        if userId.isEmpty {
+            print("User is not authenticated")
+        }
+        
         var productData: [String: Any] = [
             "name": name,
             "description": description,
@@ -168,8 +302,11 @@ class UploadProductViewModel: ObservableObject {
             "condition": condition,
             "categories": categories,
             "review_count": 0,
+            "favorites_category": 0,
+            "favorites_foryou": 0,
+            "favorites": 0,
             "type": strategy.type,
-            "user_id": "m8MoVH4chLRBr2dLEjuPzIe28sf1"  //TODO: get user id
+            "user_id": userId,
         ]
         
         if strategy is LeaseProductUploadStrategy {
@@ -198,7 +335,7 @@ class UploadProductViewModel: ObservableObject {
     
     
     
-    private func validateFields() -> Bool {
+    func validateFields() -> Bool {
         var isValid = true
         
         nameError = nil
@@ -218,22 +355,22 @@ class UploadProductViewModel: ObservableObject {
         }
         
         if price.isEmpty {
-                priceError = "Please enter a price for the product"
+            priceError = "Please enter a price for the product"
+            isValid = false
+        } else {
+            let cleanedPrice = price.replacingOccurrences(of: "$", with: "")
+                .replacingOccurrences(of: ".", with: "")
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            if Float(cleanedPrice) == nil {
+                print("The price is:", cleanedPrice)
+                priceError = "Please enter a valid number for the price"
                 isValid = false
-            } else {
-                let cleanedPrice = price.replacingOccurrences(of: "$", with: "")
-                                      .replacingOccurrences(of: ".", with: "")
-                                      .trimmingCharacters(in: .whitespacesAndNewlines)
-                
-                if Float(cleanedPrice) == nil {
-                    print("The price is:", cleanedPrice)
-                    priceError = "Please enter a valid number for the price"
-                    isValid = false
-                } else if Float(cleanedPrice) ?? 100000000 > 90000000 {
-                    priceError = "The price cannot exceed a reasonable amount"
-                    isValid = false
-                }
+            } else if Float(cleanedPrice) ?? 100000000 > 90000000 {
+                priceError = "The price cannot exceed a reasonable amount"
+                isValid = false
             }
+        }
         
         
         if strategy is LeaseProductUploadStrategy && rentalPeriod.isEmpty {

@@ -42,6 +42,8 @@ struct UniTradeApp: App {
     @StateObject var loginViewModel = LoginViewModel()
     @State private var showSplash = true
     @StateObject private var explorerViewModel = ExplorerViewModel()
+
+    @State private var showConnectionRestoredAlert = false
     
     func getColorSchemeBasedOnTime() -> ColorScheme {
         let currentHour = Calendar.current.component(.hour, from: Date())
@@ -65,6 +67,10 @@ struct UniTradeApp: App {
             }
             .onAppear {
 
+                NotificationCenter.default.addObserver(forName: .connectionRestoredAndProductUploaded, object: nil, queue: .main) { _ in
+                    showConnectionRestoredAlert = true
+                }
+
                 explorerViewModel.fetchInitialDataInBackground()
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
@@ -72,6 +78,13 @@ struct UniTradeApp: App {
                         showSplash = false
                     }
                 }
+            }
+            .alert(isPresented: $showConnectionRestoredAlert) {
+                Alert(
+                    title: Text("Connection Restored"),
+                    message: Text("Product uploaded successfully from local memory"),
+                    dismissButton: .default(Text("OK"))
+                )
             }
             .environmentObject(modeSettings)
             .preferredColorScheme(
