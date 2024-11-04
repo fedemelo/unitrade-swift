@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import FirebaseFirestore
 import FirebaseAuth
+import Network
 
 class ExplorerViewModel: ObservableObject {
     @Published var products: [Product] = []
@@ -17,11 +18,15 @@ class ExplorerViewModel: ObservableObject {
     @Published var activeFilter = Filter()
     @Published var isDataLoaded = false
     @Published var forYouCategories: [String] = []  // Holds "For You" categories
+    @Published var isConnected: Bool = true
     
     private var cancellables = Set<AnyCancellable>()
     private let firestore = Firestore.firestore()
+    private let monitor = NWPathMonitor()
+    private let queue = DispatchQueue.global(qos: .background)
     
     init() {
+        setupNetworkMonitor()
         loadForYouCategories { [weak self] success in
             if success {
                 print("✅ 'For You' categories loaded successfully.")
@@ -32,34 +37,61 @@ class ExplorerViewModel: ObservableObject {
         }
     }
     
+    private func setupNetworkMonitor() {
+            monitor.pathUpdateHandler = { [weak self] path in
+                DispatchQueue.main.async {
+                    self?.isConnected = path.status == .satisfied
+                    self?.loadForYouCategories { success in
+                        if success {
+                            print("✅ Loaded 'For You' categories based on network status.")
+                        }
+                    }
+                }
+            }
+            monitor.start(queue: queue)
+        }
+    
     func loadForYouCategories(completion: @escaping (Bool) -> Void) {
-        guard let user = Auth.auth().currentUser else {
-            print("⚠️ User is not authenticated.")
-            completion(false)
-            return
-        }
-        
-        let userDocRef = firestore.collection("users").document(user.uid)
-        userDocRef.getDocument { [weak self] document, error in
-            if let error = error {
-                print("❌ Error fetching user data: \(error.localizedDescription)")
-                completion(false)
-                return
+        if isConnected {
+                    // Fetch categories from Firestore if online
+                    guard let user = Auth.auth().currentUser else {
+                        print("⚠️ User is not authenticated.")
+                        completion(false)
+                        return
+                    }
+                    
+                    let userDocRef = firestore.collection("users").document(user.uid)
+                    userDocRef.getDocument { [weak self] document, error in
+                        if let error = error {
+                            print("❌ Error fetching user data: \(error.localizedDescription)")
+                            completion(false)
+                            return
+                        }
+                        
+                        guard let data = document?.data(),
+                              let categories = data["categories"] as? [String] else {
+                            print("⚠️ No 'For You' categories found for user with id", user.uid)
+                            completion(false)
+                            return
+                        }
+                        
+                        DispatchQueue.main.async {
+                            self?.forYouCategories = categories
+                            UserDefaults.standard.set(categories, forKey: "userCategories") // Save to UserDefaults
+                            completion(true)
+                        }
+                    }
+                } else {
+                    // Fetch categories from UserDefaults if offline
+                    if let savedCategories = UserDefaults.standard.stringArray(forKey: "userCategories") {
+                        forYouCategories = savedCategories
+                        completion(true)
+                    } else {
+                        print("⚠️ No User categories found in UserDefaults.")
+                        completion(false)
+                    }
+                }
             }
-            
-            guard let data = document?.data(),
-                  let categories = data["categories"] as? [String] else {
-                print("⚠️ No 'For You' categories found for user with id", user.uid)
-                completion(false)
-                return
-            }
-            
-            DispatchQueue.main.async {
-                self?.forYouCategories = categories
-                completion(true)
-            }
-        }
-    }
     
     private func applyFilters() {
         guard isDataLoaded else {

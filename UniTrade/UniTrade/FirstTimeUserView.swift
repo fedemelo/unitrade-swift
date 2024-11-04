@@ -16,12 +16,9 @@ extension Array {
 
 struct FirstTimeUserView: View {
     @ObservedObject var loginVM: LoginViewModel
-    @State private var multiSelection = Set<CategoryName>()
-    @State private var selectedMajor: String = "Select your Major"
-    @State private var selectedSemester: String = "Select your Semester"
+    @ObservedObject var userPreferences = UserPreferences()
     @Environment(\.colorScheme) var colorScheme
     
-    // Predefined semester options
     let semesterOptions = ["1-2 semester", "3-4 semester", "5-6 semester", "7-8 semester", "9-10 semester", "+10 semesters"]
     
     var body: some View {
@@ -44,7 +41,7 @@ struct FirstTimeUserView: View {
                     Menu {
                         ForEach(loginVM.majors, id: \.self) { major in
                             Button(action: {
-                                selectedMajor = major.name
+                                userPreferences.preferredMajor = major.name
                             }) {
                                 Text(major.name)
                                     .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
@@ -53,7 +50,7 @@ struct FirstTimeUserView: View {
                         }
                     } label: {
                         HStack {
-                            Text(selectedMajor)
+                            Text(userPreferences.preferredMajor)
                                 .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .font(Font.DesignSystem.headline300)
@@ -63,7 +60,6 @@ struct FirstTimeUserView: View {
                         .padding(.horizontal, 5)
                     }
                     
-                    // Line under the Menu
                     Rectangle()
                         .frame(height: 1)
                         .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() :
@@ -81,7 +77,7 @@ struct FirstTimeUserView: View {
                     Menu {
                         ForEach(semesterOptions, id: \.self) { semester in
                             Button(action: {
-                                selectedSemester = semester
+                                userPreferences.preferredSemester = semester
                             }) {
                                 Text(semester)
                                     .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
@@ -90,7 +86,7 @@ struct FirstTimeUserView: View {
                         }
                     } label: {
                         HStack {
-                            Text(selectedSemester)
+                            Text(userPreferences.preferredSemester)
                                 .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .font(Font.DesignSystem.headline300)
@@ -100,7 +96,6 @@ struct FirstTimeUserView: View {
                         .padding(.horizontal, 5)
                     }
                     
-                    // Line under the Menu
                     Rectangle()
                         .frame(height: 1)
                         .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() :
@@ -118,14 +113,14 @@ struct FirstTimeUserView: View {
                             
                             ForEach(rowCategories, id: \.self) { category in
                                 Button(action: {
-                                    if multiSelection.contains(category) {
-                                        multiSelection.remove(category)
+                                    if userPreferences.preferredCategories.contains(category) {
+                                        userPreferences.preferredCategories.remove(category)
                                     } else {
-                                        multiSelection.insert(category)
+                                        userPreferences.preferredCategories.insert(category)
                                     }
                                 }) {
                                     HStack {
-                                        if multiSelection.contains(category) {
+                                        if userPreferences.preferredCategories.contains(category) {
                                             Image(systemName: "checkmark")
                                                 .foregroundColor(.white)
                                                 .font(.system(size: 10))
@@ -137,8 +132,8 @@ struct FirstTimeUserView: View {
                                     .padding(.vertical, 10)
                                     .padding(.horizontal, 16)
                                     .frame(minWidth: 100)
-                                    .background(multiSelection.contains(category) ? Color.DesignSystem.primary900() : colorScheme == .light ? Color.white : Color.DesignSystem.dark900())
-                                    .foregroundColor(multiSelection.contains(category) ?  Color.white  : colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
+                                    .background(userPreferences.preferredCategories.contains(category) ? Color.DesignSystem.primary900() : colorScheme == .light ? Color.white : Color.DesignSystem.dark900())
+                                    .foregroundColor(userPreferences.preferredCategories.contains(category) ?  Color.white  : colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
                                     .cornerRadius(100)
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 100)
@@ -153,7 +148,7 @@ struct FirstTimeUserView: View {
                 }
                 
                 Button(action: {
-                    loginVM.registerUser(categories: multiSelection, major: selectedMajor, semester: selectedSemester)
+                    loginVM.registerUser(categories: userPreferences.preferredCategories, major: userPreferences.preferredMajor, semester: userPreferences.preferredSemester)
                 }) {
                     Text("DISCOVER")
                         .font(Font.DesignSystem.headline400)
@@ -169,7 +164,7 @@ struct FirstTimeUserView: View {
             .padding(.horizontal, 20)
         }
         .onAppear {
-            loginVM.fetchMajors() // Fetch majors when view appears
+            loginVM.fetchMajors()
         }
     }
 }

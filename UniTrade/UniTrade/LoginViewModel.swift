@@ -30,13 +30,34 @@ final class LoginViewModel: ObservableObject {
         setupNetworkMonitor()
     }
     
-    func setupNetworkMonitor() {
+    private func setupNetworkMonitor() {
         monitor.pathUpdateHandler = { path in
             DispatchQueue.main.async {
                 self.isConnected = path.status == .satisfied
+                if self.isConnected {
+                    self.retryQueuedRegistration()
+                }
             }
         }
         monitor.start(queue: queue)
+    }
+
+    private func retryQueuedRegistration() {
+        // Retrieve each piece of data individually
+        if let categories = UserDefaults.standard.array(forKey: "userCategories") as? [String],
+           let major = UserDefaults.standard.string(forKey: "userMajor"),
+           let semester = UserDefaults.standard.string(forKey: "userSemester") {
+            
+            let categoryNames = Set(categories.map { CategoryName(name: $0) })
+            
+            // Attempt registration and clear data if successful
+            attemptRegisterUser(categories: categoryNames, major: major, semester: semester)
+            
+            // Clear offline data after successful registration
+            UserDefaults.standard.removeObject(forKey: "userCategories")
+            UserDefaults.standard.removeObject(forKey: "userMajor")
+            UserDefaults.standard.removeObject(forKey: "userSemester")
+        }
     }
     
     func fetchCategories() {
@@ -161,27 +182,49 @@ func signIn() {
     }
 
     func registerUser(categories: Set<CategoryName>, major: String, semester: String) {
-        if let user = self.registeredUser {
-            if self.firstTimeUser {
-                let docRef = self.db.collection("users").document(user.uid)
-                
-                docRef.getDocument { document, error in
-                    if let error = error as NSError? {
-                        print("Error while getting document \(error)")
-                    } else {
-                        if let _ = document {
-                            do {
-                                let categoryNames = categories.map(\.name)
-                                let userModel = User(name: user.displayName!, email: user.email!, categories: categoryNames, major: major, semester: semester)
-                                try docRef.setData(from: userModel)
-                                self.firstTimeUser = false
-                            } catch {
-                                print("Error while encoding registered User \(error)")
-                            }
-                        }
+        if !isConnected {
+            queueOfflineRegistration(categories: categories, major: major, semester: semester)
+            return
+        }
+        attemptRegisterUser(categories: categories, major: major, semester: semester)
+    }
+
+    private func attemptRegisterUser(categories: Set<CategoryName>, major: String, semester: String) {
+        if let user = registeredUser, firstTimeUser {
+            let docRef = db.collection("users").document(user.uid)
+            
+            docRef.getDocument { document, error in
+                if let error = error as NSError? {
+                    print("Error while getting document \(error)")
+                } else if document != nil {
+                    do {
+                        let categoryNames = categories.map(\.name)
+                        let userModel = User(name: user.displayName!, email: user.email!, categories: categoryNames, major: major, semester: semester)
+                        try docRef.setData(from: userModel)
+                        
+                        self.savePreferencesToUserDefaults(categories: categoryNames, major: major, semester: semester)
+                        self.firstTimeUser = false
+                    } catch {
+                        print("Error while encoding registered User \(error)")
                     }
                 }
             }
         }
+    }
+    
+    private func savePreferencesToUserDefaults(categories: [String], major: String, semester: String) {
+        UserDefaults.standard.set(categories, forKey: "userCategories")
+        UserDefaults.standard.set(major, forKey: "userMajor")
+        UserDefaults.standard.set(semester, forKey: "userSemester")
+        UserDefaults.standard.synchronize()
+    }
+    
+    private func queueOfflineRegistration(categories: Set<CategoryName>, major: String, semester: String) {
+        // Serialize the data to store it
+        let categoryNames = categories.map(\.name)
+        UserDefaults.standard.set(categoryNames, forKey: "userCategories")
+        UserDefaults.standard.set(major, forKey: "userMajor")
+        UserDefaults.standard.set(semester, forKey: "userSemester")
+        UserDefaults.standard.synchronize()
     }
 }
