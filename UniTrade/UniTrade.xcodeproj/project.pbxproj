@@ -157,7 +157,7 @@
 		F1D5BEE82CA34BED00C9DA71 /* Urbanist-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Urbanist-SemiBold.ttf"; sourceTree = "<group>"; };
 		F1D5BEEB2CA34BEE00C9DA71 /* Urbanist-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Urbanist-Regular.ttf"; sourceTree = "<group>"; };
 		F1D5BF1B2CA34C1100C9DA71 /* Inter_24pt-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter_24pt-SemiBold.ttf"; sourceTree = "<group>"; };
-		F1D5BF6C2CA34FAA00C9DA71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F1D5BF6C2CA34FAA00C9DA71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F1D5BF712CA369D200C9DA71 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F1D5BF732CA36A9E00C9DA71 /* TemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -242,6 +242,8 @@
 		F1D5BEA02CA316A100C9DA71 /* UniTrade */ = {
 			isa = PBXGroup;
 			children = (
+				8E75EE6C2CB751540063D01A /* GoogleService-Info.plist */,
+				F1D5BF6C2CA34FAA00C9DA71 /* Info.plist */,
 				F1405C322CC57DEE00FDA818 /* ModeSettings.swift */,
 				F1405C302CC473C300FDA818 /* LightDarkModeSettingsView.swift */,
 				F1405C2E2CC46BC700FDA818 /* MyOrdersView.swift */,
@@ -258,7 +260,6 @@
 				4C8DC6D62CBC59120034A352 /* Filter.swift */,
 				4C8DC6D42CBC3EE70034A352 /* FontTransformerUI.swift */,
 				4C8DC6D22CBC1B990034A352 /* NumericTextField.swift */,
-				8E75EE6C2CB751540063D01A /* GoogleService-Info.plist */,
 				8E2067592CACE6F100673E07 /* LoginView.swift */,
 				8E48C6252CBF6B60003F3EB4 /* SplashScreenView.swift */,
 				8E3557D92CAE039000FD012C /* FirebaseAuthManager.swift */,
@@ -267,7 +268,6 @@
 				4C6726A62CACDAA0007B1FB6 /* ProductCategoryGroupManager.swift */,
 				4C32BA252CACCDD00060EB5A /* ExplorerViewModel.swift */,
 				4C32BA232CACCDBF0060EB5A /* Product.swift */,
-				F1D5BF6C2CA34FAA00C9DA71 /* Info.plist */,
 				F1D5BEA12CA316A100C9DA71 /* UniTradeApp.swift */,
 				F1D5BF712CA369D200C9DA71 /* MainView.swift */,
 				F1D5BED12CA31DE700C9DA71 /* ChooseUploadTypeView.swift */,

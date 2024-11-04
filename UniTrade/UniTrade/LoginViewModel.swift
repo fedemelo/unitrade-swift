@@ -64,7 +64,7 @@ var user: FirebaseAuth.User? {
 
 var provider = OAuthProvider(providerID: "microsoft.com")
 
-func signIn() {
+func signIn(completion: @escaping () -> Void) {
     self.provider.customParameters = ["prompt": "select_account"]
     self.provider.getCredentialWith(nil) { credential, error in
         if error != nil {
@@ -80,6 +80,7 @@ func signIn() {
                 self.registeredUser = FirebaseAuthManager.shared.auth.currentUser
                 if let user = self.registeredUser {
                     self.logSignInStats(for: user)
+                    completion()
                 }
             }
         }
@@ -140,7 +141,7 @@ func signIn() {
         }
     }
 
-    func registerUser(categories: Set<CategoryName>) {
+    func registerUser(categories: Set<CategoryName>, completion: @escaping () -> Void) {
         if let user = self.registeredUser {
             if self.firstTimeUser {
                 let docRef = self.db.collection("users").document(user.uid)
@@ -155,6 +156,7 @@ func signIn() {
                                 let userModel = User(name: user.displayName!, email: user.email!, categories: categoryNames)
                                 try docRef.setData(from: userModel)
                                 self.firstTimeUser = false
+                                completion()
                             } catch {
                                 print("Error while encoding registered User \(error)")
                             }
@@ -163,5 +165,6 @@ func signIn() {
                 }
             }
         }
+        
     }
 }
