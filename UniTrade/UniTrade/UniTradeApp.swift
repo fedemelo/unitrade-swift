@@ -26,10 +26,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct UniTradeApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
+    @StateObject var modeSettings = ModeSettings()
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema()
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
+        
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
         } catch {
@@ -38,13 +40,14 @@ struct UniTradeApp: App {
     }()
     
     @StateObject var loginViewModel = LoginViewModel()
-    @State private var showSplash = true // State to show or hide the splash screen
-
+    @State private var showSplash = true
+    @StateObject private var explorerViewModel = ExplorerViewModel()
+    
     func getColorSchemeBasedOnTime() -> ColorScheme {
         let currentHour = Calendar.current.component(.hour, from: Date())
         return (currentHour >= 6 && currentHour < 18) ? .light : .dark
     }
-
+    
     var body: some Scene {
         WindowGroup {
             Group {
@@ -60,7 +63,22 @@ struct UniTradeApp: App {
                     LoginView(loginViewModel: loginViewModel)
                 }
             }
-            .preferredColorScheme(getColorSchemeBasedOnTime()) // Apply time-based color scheme
+            .onAppear {
+
+                explorerViewModel.fetchInitialDataInBackground()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    withAnimation {
+                        showSplash = false
+                    }
+                }
+            }
+            .environmentObject(modeSettings)
+            .preferredColorScheme(
+                modeSettings.selectedMode == .automatic
+                ? getColorSchemeBasedOnTime()
+                : (modeSettings.selectedMode == .light ? .light : .dark)
+            )
         }
         .modelContainer(sharedModelContainer)
     }

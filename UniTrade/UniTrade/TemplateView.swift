@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct TemplateView: View {
-    @ObservedObject var loginViewModel: LoginViewModel
     var name: String
 
     var body: some View {
@@ -17,10 +16,6 @@ struct TemplateView: View {
             Text("TODO: Implement \(name) View")
                 .font(Font.DesignSystem.headline600)
             Spacer()
-            Button("Log out") {
-                
-                loginViewModel.signOut()
-            }
         }
         .padding()
     }
