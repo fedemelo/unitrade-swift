@@ -1,3 +1,11 @@
+//
+//  MyListingsViewModel.swift
+//  UniTrade
+//
+//  Created by Santiago Martinez on 4/11/24.
+//
+
+
 import SwiftUI
 import FirebaseFirestore
 import FirebaseAuth
@@ -15,6 +23,7 @@ class MyListingsViewModel: ObservableObject {
         }
         
         isLoading = true
+        print("USER ID: \(userId)")
         
         firestore.collection("products")
             .whereField("user_id", isEqualTo: userId)
@@ -26,18 +35,38 @@ class MyListingsViewModel: ObservableObject {
                     }
                     return
                 }
-
+                
+                // Check if the snapshot contains any documents
+                guard let documents = snapshot?.documents, !documents.isEmpty else {
+                    print("No products found for user with ID \(userId)")
+                    DispatchQueue.main.async {
+                        self.isLoading = false
+                    }
+                    return
+                }
+                
+                print("Successfully fetched user products from Firestore")
+                print("Number of documents fetched: \(documents.count)")
+                
                 // Map documents to UserProduct objects
-                self.userProducts = snapshot?.documents.compactMap { doc -> UserProduct? in
-                    guard let title = doc["title"] as? String,
+                self.userProducts = documents.compactMap { doc -> UserProduct? in
+                    guard let title = doc["name"] as? String,
                           let priceString = doc["price"] as? String,
                           let price = Float(priceString),
-                          let favoritesCategory = doc["favorites_category"] as? Int,
-                          let favoritesForYou = doc["favorites_foryou"] as? Int,
-                          let imageUrl = doc["image_url"] as? String,
                           let type = doc["type"] as? String else {
+                        print("⚠️ Document \(doc.documentID) missing required fields")
                         return nil
                     }
+                    
+                    // Default to 0 if fields are missing or cannot be cast
+                    let favoritesCategory = doc["favorites_category"] as? Int ?? 0
+                    let favoritesForYou = doc["favorites_foryou"] as? Int ?? 0
+                    
+                    // Default to an empty string if imageUrl is missing or cannot be cast
+                    let imageUrl = (doc["image_url"] as? String) ?? "dummy"
+
+                    // Calculate the save count
+                    let saveCount = doc["favorites"] as? Int ?? 0
                     
                     return UserProduct(
                         id: doc.documentID,
@@ -46,13 +75,16 @@ class MyListingsViewModel: ObservableObject {
                         favoritesCategory: favoritesCategory,
                         favoritesForYou: favoritesForYou,
                         imageUrl: imageUrl,
-                        type: type
+                        type: type,
+                        saveCount: saveCount
                     )
-                } ?? []
+                }
+                    
                 
                 DispatchQueue.main.async {
                     self.isLoading = false
                 }
             }
     }
+
 }
