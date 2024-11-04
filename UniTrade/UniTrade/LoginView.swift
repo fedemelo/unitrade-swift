@@ -5,7 +5,7 @@ struct LoginView: View {
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        ZStack(alignment: .bottom) { // Overlay ZStack for banner
+        ZStack(alignment: .bottom) {
             VStack(spacing: 20) {
                 Spacer()
                 
@@ -52,13 +52,26 @@ struct LoginView: View {
             
             // Warning banner at the bottom
             if loginViewModel.showBanner && !loginViewModel.isConnected {
-                Text("No internet connection. Please try again when connected.")
-                    .font(Font.DesignSystem.headline500)
-                    .foregroundColor(Color.white)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.red)
-                    .transition(.move(edge: .bottom))
+                ZStack {
+                    HStack {
+                        Text("No internet connection. Please try again when connected.")
+                            .font(Font.DesignSystem.headline500)
+                            .foregroundColor(Color.white)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        // X button to close the banner
+                        Button(action: {
+                            loginViewModel.showBanner = false
+                        }) {
+                            Image(systemName: "xmark")
+                                .foregroundColor(.white)
+                                .padding()
+                        }
+                    }
+                }
+                .background(Color.red)
+                .transition(.move(edge: .bottom))
             }
         }
         .animation(.easeInOut, value: loginViewModel.showBanner && !loginViewModel.isConnected) // Animation for banner
