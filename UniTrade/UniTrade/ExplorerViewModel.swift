@@ -72,11 +72,9 @@ class ExplorerViewModel: ObservableObject {
     var filteredProducts: [Product] {
         guard isDataLoaded else { return [] }
         
-        print("🔍 Filtering products...")
         var filtered = products
         
         if let selectedCategory = selectedCategory {
-            print("📂 Selected Category: \(selectedCategory)")
             
             let categoryTags = getCategories(for: selectedCategory)
             if let tags = categoryTags {
@@ -94,8 +92,6 @@ class ExplorerViewModel: ObservableObject {
             filtered = filtered.filter { $0.title.localizedCaseInsensitiveContains(searchQuery) }
         }
         
-        print("✅ Filtered products count: \(filtered.count)")
-        
         if let minPrice = activeFilter.minPrice, let maxPrice = activeFilter.maxPrice {
             filtered = filtered.filter { product in
                 let price = Double(product.price)
@@ -103,7 +99,6 @@ class ExplorerViewModel: ObservableObject {
                 (maxPrice == 0 || price <= maxPrice)
             }
         }
-        
         if let sortOption = activeFilter.sortOption {
             switch sortOption {
             case "Price":

@@ -13,6 +13,10 @@
 		4C3D480E2CBF7B390080F6AD /* BasePrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D480D2CBF7B390080F6AD /* BasePrice.swift */; };
 		4C3D48102CBF7B820080F6AD /* PriceDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D480F2CBF7B820080F6AD /* PriceDecorator.swift */; };
 		4C3D48122CBF7B8E0080F6AD /* FormatDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D48112CBF7B8E0080F6AD /* FormatDecorator.swift */; };
+		4C3F0AF72CD9120E002FAAF9 /* UserProductItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F0AF62CD9120E002FAAF9 /* UserProductItemView.swift */; };
+		4C3F0AF92CD91226002FAAF9 /* UserProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F0AF82CD91226002FAAF9 /* UserProductViewModel.swift */; };
+		4C3F0AFD2CD917EA002FAAF9 /* UserProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F0AFC2CD917EA002FAAF9 /* UserProduct.swift */; };
+		4C3F0AFF2CD91CBC002FAAF9 /* MyListingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F0AFE2CD91CBC002FAAF9 /* MyListingsViewModel.swift */; };
 		4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4920322CA8D09800F55852 /* ExplorerView.swift */; };
 		4C6726A72CACDAA0007B1FB6 /* ProductCategoryGroupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6726A62CACDAA0007B1FB6 /* ProductCategoryGroupManager.swift */; };
 		4C8DC6D32CBC1B990034A352 /* NumericTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8DC6D22CBC1B990034A352 /* NumericTextField.swift */; };
@@ -107,6 +111,10 @@
 		4C3D480D2CBF7B390080F6AD /* BasePrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePrice.swift; sourceTree = "<group>"; };
 		4C3D480F2CBF7B820080F6AD /* PriceDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceDecorator.swift; sourceTree = "<group>"; };
 		4C3D48112CBF7B8E0080F6AD /* FormatDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatDecorator.swift; sourceTree = "<group>"; };
+		4C3F0AF62CD9120E002FAAF9 /* UserProductItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProductItemView.swift; sourceTree = "<group>"; };
+		4C3F0AF82CD91226002FAAF9 /* UserProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProductViewModel.swift; sourceTree = "<group>"; };
+		4C3F0AFC2CD917EA002FAAF9 /* UserProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProduct.swift; sourceTree = "<group>"; };
+		4C3F0AFE2CD91CBC002FAAF9 /* MyListingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListingsViewModel.swift; sourceTree = "<group>"; };
 		4C4920322CA8D09800F55852 /* ExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerView.swift; sourceTree = "<group>"; };
 		4C6726A62CACDAA0007B1FB6 /* ProductCategoryGroupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCategoryGroupManager.swift; sourceTree = "<group>"; };
 		4C8DC6D22CBC1B990034A352 /* NumericTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericTextField.swift; sourceTree = "<group>"; };
@@ -244,6 +252,10 @@
 		F1D5BEA02CA316A100C9DA71 /* UniTrade */ = {
 			isa = PBXGroup;
 			children = (
+				4C3F0AFE2CD91CBC002FAAF9 /* MyListingsViewModel.swift */,
+				4C3F0AFC2CD917EA002FAAF9 /* UserProduct.swift */,
+				4C3F0AF82CD91226002FAAF9 /* UserProductViewModel.swift */,
+				4C3F0AF62CD9120E002FAAF9 /* UserProductItemView.swift */,
 				F17E58792CD92DF10091351B /* NetworkMonitor.swift */,
 				8E75EE6C2CB751540063D01A /* GoogleService-Info.plist */,
 				F1D5BF6C2CA34FAA00C9DA71 /* Info.plist */,
@@ -510,6 +522,7 @@
 				4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */,
 				4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */,
 				F1D5BED42CA3412C00C9DA71 /* ButtonWithIcon.swift in Sources */,
+				4C3F0AF72CD9120E002FAAF9 /* UserProductItemView.swift in Sources */,
 				8E3557D82CADFDD000FD012C /* FirstTimeUserView.swift in Sources */,
 				4C3D48122CBF7B8E0080F6AD /* FormatDecorator.swift in Sources */,
 				F14716D82CC46256007D673E /* ProfileViewModel.swift in Sources */,
@@ -529,12 +542,15 @@
 				4CB6E9642CAB8C09001CE679 /* CategoryItemView.swift in Sources */,
 				4C8DC6D52CBC3EF40034A352 /* FontTransformerUI.swift in Sources */,
 				F1405C312CC473C300FDA818 /* LightDarkModeSettingsView.swift in Sources */,
+				4C3F0AFF2CD91CBC002FAAF9 /* MyListingsViewModel.swift in Sources */,
 				4CF004E32CA8D33F0001FF53 /* ListingItemView.swift in Sources */,
 				4CF3C14A2CABC1B30091A474 /* FilterView.swift in Sources */,
 				F1D5BEA22CA316A100C9DA71 /* UniTradeApp.swift in Sources */,
 				F14716D62CC46249007D673E /* ProfileView.swift in Sources */,
 				F14EB8822CBF17F700107109 /* CurrencyFormatter.swift in Sources */,
+				4C3F0AFD2CD917EA002FAAF9 /* UserProduct.swift in Sources */,
 				F1D5BED22CA31DE700C9DA71 /* ChooseUploadTypeView.swift in Sources */,
+				4C3F0AF92CD91226002FAAF9 /* UserProductViewModel.swift in Sources */,
 				4CD857C72CBFA23F0046F512 /* CrashLogger.swift in Sources */,
 				F1405C2D2CC46B3900FDA818 /* MyListingsView.swift in Sources */,
 				4C32BA242CACCDBF0060EB5A /* Product.swift in Sources */,
