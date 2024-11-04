@@ -12,6 +12,9 @@ struct UploadProductView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject private var viewModel: UploadProductViewModel
     
+    @State private var showingAlert = false
+    @State private var alertMessage = ""
+    
     @FocusState private var focusedField: Field?
     
     enum Field {
@@ -87,28 +90,47 @@ struct UploadProductView: View {
                 UploadImageButton(height: 160, selectedImage: $viewModel.selectedImage, isImageFromGallery: $viewModel.isImageFromGallery)
                 
                 
+                
                 Button(action: {
                     viewModel.uploadProduct { success in
                         if success {
-                            presentationMode.wrappedValue.dismiss()
-                            print("Product uploaded successfully!")
+                            alertMessage = "Product uploaded successfully!"
                         } else {
-                            print("Failed to upload product")
+                            alertMessage = "No internet connection. Product saved locally and will be uploaded when you are back online."
                         }
+                        showingAlert = true
                     }
                 }) {
                     if viewModel.isUploading {
                         ProgressView()
                     } else {
-                        ButtonWithIcon(text: "UPLOAD PRODUCT", icon: "arrow.up.to.line.square")
+                        Text("Upload Product")
                     }
                 }
                 .disabled(viewModel.isUploading)
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("Status"),
+                          message: Text(alertMessage),
+                          dismissButton: .default(Text("OK")))
+                }
+                // .alert(isPresented: $viewModel.showReplaceAlert) {
+                //     Alert(
+                //         title: Text("Upload Queue Full"),
+                //         message: Text("No internet connection. A product is already waiting to upload. Connect to the internet to complete the upload, or replace the existing product with this one."),
+                //         primaryButton: .destructive(Text("Replace")) {
+                //             viewModel.replaceCachedProduct()
+                //         },
+                //         secondaryButton: .cancel(Text("Dismiss"))
+                //     )
+                // }
                 
                 Spacer()
             }
             .padding()
             .padding(.horizontal)
+            .onAppear {
+                viewModel.observeNetworkChanges()
+            }
         }
         .navigationTitle("Upload Product")
         .navigationBarTitleDisplayMode(.inline)
