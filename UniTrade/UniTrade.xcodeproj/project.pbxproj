@@ -66,6 +66,7 @@
 		F14EB8822CBF17F700107109 /* CurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14EB8812CBF17F700107109 /* CurrencyFormatter.swift */; };
 		F15D0DDE2CA4BFDD00CF9562 /* UploadImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15D0DDD2CA4BFDD00CF9562 /* UploadImageButton.swift */; };
 		F15D0DE02CA4C01D00CF9562 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15D0DDF2CA4C01D00CF9562 /* ImagePicker.swift */; };
+		F17E587A2CD92DF10091351B /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17E58792CD92DF10091351B /* NetworkMonitor.swift */; };
 		F183F94B2CABC7CF00954D00 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F183F94A2CABC7CF00954D00 /* FirebaseFirestore */; };
 		F183F94D2CABC80500954D00 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = F183F94C2CABC80500954D00 /* FirebaseStorage */; };
 		F18F18ED2CA4840C005C4A78 /* TabViewIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */; };
@@ -149,6 +150,7 @@
 		F14EB8812CBF17F700107109 /* CurrencyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyFormatter.swift; sourceTree = "<group>"; };
 		F15D0DDD2CA4BFDD00CF9562 /* UploadImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageButton.swift; sourceTree = "<group>"; };
 		F15D0DDF2CA4C01D00CF9562 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		F17E58792CD92DF10091351B /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		F18F18EC2CA4840C005C4A78 /* TabViewIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewIcon.swift; sourceTree = "<group>"; };
 		F18F18F02CA4A268005C4A78 /* UploadProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProductView.swift; sourceTree = "<group>"; };
 		F1BF06222CBDA27900EC0A91 /* APIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfig.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				4C3F0AFC2CD917EA002FAAF9 /* UserProduct.swift */,
 				4C3F0AF82CD91226002FAAF9 /* UserProductViewModel.swift */,
 				4C3F0AF62CD9120E002FAAF9 /* UserProductItemView.swift */,
+				F17E58792CD92DF10091351B /* NetworkMonitor.swift */,
 				8E75EE6C2CB751540063D01A /* GoogleService-Info.plist */,
 				F1D5BF6C2CA34FAA00C9DA71 /* Info.plist */,
 				F1405C322CC57DEE00FDA818 /* ModeSettings.swift */,
@@ -505,6 +508,7 @@
 				4C8DC6D32CBC1B990034A352 /* NumericTextField.swift in Sources */,
 				F1D5BF742CA36A9E00C9DA71 /* TemplateView.swift in Sources */,
 				F1405C332CC57DEE00FDA818 /* ModeSettings.swift in Sources */,
+				F17E587A2CD92DF10091351B /* NetworkMonitor.swift in Sources */,
 				8E3557CE2CADAC2E00FD012C /* User.swift in Sources */,
 				F18F18F12CA4A268005C4A78 /* UploadProductView.swift in Sources */,
 				8E48C6262CBF6B60003F3EB4 /* SplashScreenView.swift in Sources */,
@@ -715,7 +719,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"UniTrade/Preview Content\"";
-				DEVELOPMENT_TEAM = VA4KHD2W49;
+				DEVELOPMENT_TEAM = 6MG8GCGFUH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UniTrade/Info.plist;
@@ -732,7 +736,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = edu.uniandes.UniTrade.santiago;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.uniandes.UniTrade.fede;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -750,7 +754,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"UniTrade/Preview Content\"";
-				DEVELOPMENT_TEAM = VA4KHD2W49;
+				DEVELOPMENT_TEAM = 6MG8GCGFUH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UniTrade/Info.plist;
@@ -767,7 +771,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = edu.uniandes.UniTrade.santiago;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.uniandes.UniTrade.fede;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;

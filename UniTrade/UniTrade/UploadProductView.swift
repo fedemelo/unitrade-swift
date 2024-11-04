@@ -12,7 +12,21 @@ struct UploadProductView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject private var viewModel: UploadProductViewModel
     
+    @State private var showingAlert = false
+    @State private var alertMessage = ""
+    
     @FocusState private var focusedField: Field?
+    
+    
+    private var SUCCESSFUL_UPLOAD_MESSAGE: String {
+        "Product uploaded successfully"
+    }
+    private var NO_INTERNET_TO_UPLOAD: String {
+        "No internet connection. Product saved locally and will be uploaded when you are back online."
+    }
+    private var NO_INTERNET_NO_QUEUE_MESSAGE: String {
+        "No internet connection. A product is already waiting to upload. Connect to the internet to complete the upload, or replace the existing product with this one."
+    }
     
     enum Field {
         case name, description, price, rentalPeriod, condition
@@ -20,6 +34,10 @@ struct UploadProductView: View {
     
     init(strategy: UploadProductStrategy) {
         _viewModel = StateObject(wrappedValue: UploadProductViewModel(strategy: strategy))
+    }
+    
+    private func closeView() {
+        presentationMode.wrappedValue.dismiss()
     }
     
     var body: some View {
@@ -87,28 +105,54 @@ struct UploadProductView: View {
                 UploadImageButton(height: 160, selectedImage: $viewModel.selectedImage, isImageFromGallery: $viewModel.isImageFromGallery)
                 
                 
+                
                 Button(action: {
-                    viewModel.uploadProduct { success in
-                        if success {
-                            presentationMode.wrappedValue.dismiss()
-                            print("Product uploaded successfully!")
-                        } else {
-                            print("Failed to upload product")
+                    if viewModel.validateFields() {
+                        viewModel.uploadProduct { success in
+                            if success {
+                                alertMessage = self.SUCCESSFUL_UPLOAD_MESSAGE
+                            } else {
+                                alertMessage = viewModel.showReplaceAlert ? self.NO_INTERNET_NO_QUEUE_MESSAGE : self.NO_INTERNET_TO_UPLOAD
+                            }
+                            showingAlert = true
                         }
                     }
                 }) {
                     if viewModel.isUploading {
                         ProgressView()
                     } else {
-                        ButtonWithIcon(text: "UPLOAD PRODUCT", icon: "arrow.up.to.line.square")
+                        Text("Upload Product")
                     }
                 }
                 .disabled(viewModel.isUploading)
+                .alert(isPresented: $showingAlert) {
+                    alertMessage == self.NO_INTERNET_NO_QUEUE_MESSAGE ?
+                    
+                    Alert(
+                        title: Text("Upload Queue Full"),
+                        message: Text(NO_INTERNET_NO_QUEUE_MESSAGE),
+                        primaryButton: .destructive(Text("Replace")) {
+                            viewModel.replaceCachedProduct()
+                            closeView()
+                        },
+                        secondaryButton: .cancel(Text("Dismiss"))
+                    ) :
+                    
+                    Alert(title: Text("Status"),
+                          message: Text(alertMessage),
+                          dismissButton: .default(Text("OK")) {
+                              closeView()
+                          }
+                    )
+                }
                 
                 Spacer()
             }
             .padding()
             .padding(.horizontal)
+            .onAppear {
+                viewModel.observeNetworkChanges()
+            }
         }
         .navigationTitle("Upload Product")
         .navigationBarTitleDisplayMode(.inline)
