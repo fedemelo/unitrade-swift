@@ -20,6 +20,7 @@ final class LoginViewModel: ObservableObject {
     @Published var isConnected: Bool = true
     @Published var showBanner: Bool = false
     @Published var majors: [MajorName] = []
+    @Published var didCheckFirstTimeUser: Bool = false
     
     private let monitor = NWPathMonitor()
     private let queue = DispatchQueue.global(qos: .background)
@@ -28,6 +29,7 @@ final class LoginViewModel: ObservableObject {
         fetchCategories()
         fetchMajors()
         setupNetworkMonitor()
+        isFirstTimeUser()
     }
     
     private func setupNetworkMonitor() {
@@ -163,6 +165,7 @@ func signIn() {
     }
 
     func isFirstTimeUser() {
+        guard !didCheckFirstTimeUser else { return }
         print("Checking if user is first time")
         let key = self.registeredUser?.uid
         if key != nil {
@@ -179,6 +182,7 @@ func signIn() {
             print("No key was found for user")
             
         }
+        didCheckFirstTimeUser = true
     }
 
     func registerUser(categories: Set<CategoryName>, major: String, semester: String) {
