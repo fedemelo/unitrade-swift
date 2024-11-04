@@ -16,18 +16,13 @@ extension Array {
 
 struct FirstTimeUserView: View {
     @ObservedObject var loginVM: LoginViewModel
-<<<<<<< HEAD
-    @ObservedObject var userPreferences = UserPreferences()
-=======
     @State private var multiSelection = Set<CategoryName>()
-    @State private var isLoading = false // Loading state for the Discover button
->>>>>>> develop
+    @State private var isLoading = false 
     @Environment(\.colorScheme) var colorScheme
     
     let semesterOptions = ["1-2 semester", "3-4 semester", "5-6 semester", "7-8 semester", "9-10 semester", "+10 semesters"]
     
     var body: some View {
-<<<<<<< HEAD
         NavigationView {
             VStack(spacing: 10) {
                 
@@ -130,33 +125,6 @@ struct FirstTimeUserView: View {
                                             Image(systemName: "checkmark")
                                                 .foregroundColor(.white)
                                                 .font(.system(size: 10))
-=======
-        ZStack(alignment: .bottom) { // Overlay ZStack for banner
-            
-            NavigationView {
-                VStack(spacing: 40) {
-                    
-                    Text("We want to know you better")
-                        .font(Font.DesignSystem.headline800)
-                        .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() :
-                                            Color.DesignSystem.primary600())
-                        .multilineTextAlignment(.center)
-                    
-                    Text("Choose the items you are interested in")
-                        .font(Font.DesignSystem.bodyText300)
-                    
-                    VStack(spacing: 20) {
-                        ForEach(Array(loginVM.categories.chunked(into: 2)), id: \.self) { rowCategories in
-                            HStack(spacing: 10) {
-                                Spacer()
-                                
-                                ForEach(rowCategories, id: \.self) { category in
-                                    Button(action: {
-                                        if multiSelection.contains(category) {
-                                            multiSelection.remove(category)
-                                        } else {
-                                            multiSelection.insert(category)
->>>>>>> develop
                                         }
                                     }) {
                                         HStack {
@@ -172,52 +140,25 @@ struct FirstTimeUserView: View {
                                         .padding(.vertical, 10)
                                         .padding(.horizontal, 16)
                                         .frame(minWidth: 100)
-                                        .background(multiSelection.contains(category) ? Color.DesignSystem.primary900() : colorScheme == .light ? Color.white : Color.DesignSystem.dark900())
-                                        .foregroundColor(multiSelection.contains(category) ?  Color.white  : colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
+                                        .background(userPreferences.preferredCategories.contains(category) ? Color.DesignSystem.primary900() : colorScheme == .light ? Color.white : Color.DesignSystem.dark900())
+                                        .foregroundColor(userPreferences.preferredCategories.contains(category) ?  Color.white  : colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
                                         .cornerRadius(100)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 100)
                                                 .stroke(Color.DesignSystem.primary900(), lineWidth: 2)
                                         )
                                     }
-<<<<<<< HEAD
-                                    .padding(.vertical, 10)
-                                    .padding(.horizontal, 16)
-                                    .frame(minWidth: 100)
-                                    .background(userPreferences.preferredCategories.contains(category) ? Color.DesignSystem.primary900() : colorScheme == .light ? Color.white : Color.DesignSystem.dark900())
-                                    .foregroundColor(userPreferences.preferredCategories.contains(category) ?  Color.white  : colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
-                                    .cornerRadius(100)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 100)
-                                            .stroke(Color.DesignSystem.primary900(), lineWidth: 2)
-                                    )
-=======
->>>>>>> develop
                                 }
                                 
                                 Spacer()
                             }
                         }
                     }
-<<<<<<< HEAD
-                }
-                
-                Button(action: {
-                    loginVM.registerUser(categories: userPreferences.preferredCategories, major: userPreferences.preferredMajor, semester: userPreferences.preferredSemester)
-                }) {
-                    Text("DISCOVER")
-                        .font(Font.DesignSystem.headline400)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.DesignSystem.primary900())
-                        .foregroundColor(.white)
-                        .cornerRadius(100)
-=======
                     
                     Button(action: {
                         if loginVM.isConnected {
                             isLoading = true
-                            loginVM.registerUser(categories: multiSelection) {
+                            loginVM.registerUser(categories: userPreferences.preferredCategories, major: userPreferences.preferredMajor, semester: userPreferences.preferredSemester) {
                                 // Callback after registration completes
                                 isLoading = false
                                 loginVM.showBanner = true // Show the banner after "Discover" is clicked
@@ -263,7 +204,6 @@ struct FirstTimeUserView: View {
                                 .padding()
                         }
                     }
->>>>>>> develop
                 }
                 .background(Color.red)
                 .transition(.move(edge: .bottom))
