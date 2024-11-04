@@ -107,7 +107,7 @@ var user: FirebaseAuth.User? {
 
 var provider = OAuthProvider(providerID: "microsoft.com")
 
-func signIn() {
+func signIn(completion: @escaping () -> Void) {
     self.provider.customParameters = ["prompt": "select_account"]
     self.provider.getCredentialWith(nil) { credential, error in
         if error != nil {
@@ -123,6 +123,7 @@ func signIn() {
                 self.registeredUser = FirebaseAuthManager.shared.auth.currentUser
                 if let user = self.registeredUser {
                     self.logSignInStats(for: user)
+                    completion()
                 }
             }
         }
@@ -185,6 +186,7 @@ func signIn() {
         didCheckFirstTimeUser = true
     }
 
+<<<<<<< HEAD
     func registerUser(categories: Set<CategoryName>, major: String, semester: String) {
         if !isConnected {
             queueOfflineRegistration(categories: categories, major: major, semester: semester)
@@ -210,10 +212,33 @@ func signIn() {
                         self.firstTimeUser = false
                     } catch {
                         print("Error while encoding registered User \(error)")
+=======
+    func registerUser(categories: Set<CategoryName>, completion: @escaping () -> Void) {
+        if let user = self.registeredUser {
+            if self.firstTimeUser {
+                let docRef = self.db.collection("users").document(user.uid)
+                
+                docRef.getDocument { document, error in
+                    if let error = error as NSError? {
+                        print("Error while getting document \(error)")
+                    } else {
+                        if let _ = document {
+                            do {
+                                let categoryNames = categories.map(\.name)
+                                let userModel = User(name: user.displayName!, email: user.email!, categories: categoryNames)
+                                try docRef.setData(from: userModel)
+                                self.firstTimeUser = false
+                                completion()
+                            } catch {
+                                print("Error while encoding registered User \(error)")
+                            }
+                        }
+>>>>>>> develop
                     }
                 }
             }
         }
+        
     }
     
     private func savePreferencesToUserDefaults(categories: [String], major: String, semester: String) {
