@@ -10,6 +10,7 @@ import FirebaseStorage
 import FirebaseFirestore
 import Foundation
 import Combine
+import FirebaseAuth
 
 struct ProductCache: Codable {
     let name: String
@@ -277,6 +278,11 @@ class UploadProductViewModel: ObservableObject {
     
     
     private func saveProductData(imageURL: String?, categories: [String], completion: @escaping (Bool) -> Void) {
+        let userId = Auth.auth().currentUser?.uid ?? ""
+        if userId.isEmpty {
+            print("User is not authenticated")
+        }
+        
         var productData: [String: Any] = [
             "name": name,
             "description": description,
@@ -289,7 +295,7 @@ class UploadProductViewModel: ObservableObject {
             "favorites_category": 0,
             "favorites_foryou": 0,
             "type": strategy.type,
-            "user_id": "m8MoVH4chLRBr2dLEjuPzIe28sf1"  //TODO: get user id
+            "user_id": userId,
         ]
         
         if strategy is LeaseProductUploadStrategy {
