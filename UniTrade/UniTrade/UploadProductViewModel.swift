@@ -11,6 +11,11 @@ import FirebaseFirestore
 import Foundation
 import Combine
 import FirebaseAuth
+import NotificationCenter
+
+extension Notification.Name {
+    static let connectionRestoredAndProductUploaded = Notification.Name("connectionRestoredAndProductUploaded")
+}
 
 struct ProductCache: Codable {
     let name: String
@@ -115,7 +120,6 @@ class UploadProductViewModel: ObservableObject {
         return cachedProduct
     }
     
-    
     private func uploadCachedProduct() {
         guard !isUploadingCachedProduct, let cachedProduct = loadCachedProduct() else { return }
         
@@ -138,13 +142,16 @@ class UploadProductViewModel: ObservableObject {
         uploadProduct { success in
             if success {
                 print("Product uploaded and removed from cache")
+                
+                NotificationCenter.default.post(name: .connectionRestoredAndProductUploaded, object: nil)
+                
+                UserDefaults.standard.removeObject(forKey: self.cacheKey)
             } else {
                 print("Failed to upload cached product")
             }
+            
+            self.isUploadingCachedProduct = false
         }
-        
-        UserDefaults.standard.removeObject(forKey: self.cacheKey)
-        self.isUploadingCachedProduct = false
     }
     
     
@@ -297,6 +304,7 @@ class UploadProductViewModel: ObservableObject {
             "review_count": 0,
             "favorites_category": 0,
             "favorites_foryou": 0,
+            "favorites": 0,
             "type": strategy.type,
             "user_id": userId,
         ]
