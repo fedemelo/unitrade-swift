@@ -4,6 +4,8 @@ import Network
 struct ExplorerView: View {
     @Environment(\.colorScheme) var colorScheme
     @StateObject private var viewModel = ExplorerViewModel()
+    @StateObject private var screenTimeViewModel = ScreenTimeViewModel()
+
     @ObservedObject private var networkMonitor = NetworkMonitor.shared
     @State private var isFilterPresented: Bool = false  // Filter modal flag
     @State private var isLoading = true  // Track loading state
@@ -85,11 +87,15 @@ struct ExplorerView: View {
                 )
             }
             .onAppear {
+                screenTimeViewModel.startTrackingTime()
+                setupNetworkMonitoring()
                 if !viewModel.isDataLoaded {
                     loadInitialData()
                 }
             }
-            
+            .onDisappear {
+                screenTimeViewModel.stopAndRecordTime(for: "ExplorerView")
+                monitor.cancel()}
         }
     }
     

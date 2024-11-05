@@ -12,6 +12,9 @@ struct ProfileView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
     @StateObject private var viewModel = ProfileViewModel()
+    @State private var isSignedOut = false
+    @StateObject private var screenTimeViewModel = ScreenTimeViewModel()
+    @StateObject private var loginViewModel = LoginViewModel()
     
     let profileImageDiameter: CGFloat = 220
     
@@ -83,6 +86,7 @@ struct ProfileView: View {
                 viewModel.signOut { success in
                     if success {
                         presentationMode.wrappedValue.dismiss()
+                        isSignedOut = true
                         print("Successfully signed out")
                     } else {
                         print("Failed to sign out")
@@ -98,11 +102,16 @@ struct ProfileView: View {
             .disabled(viewModel.isSigningOut)
             .padding(.bottom, 20)
         }
+        .fullScreenCover(isPresented: $isSignedOut) {
+            LoginView(loginViewModel: LoginViewModel(), isSignedOut: $isSignedOut)
+        }
         .onAppear {
             viewModel.fetchUserName()
+            screenTimeViewModel.startTrackingTime()
         }
         .padding()
         .navigationTitle("Profile")
         .navigationBarTitleDisplayMode(.inline)
+        .onDisappear {screenTimeViewModel.stopAndRecordTime(for: "ProfileView")}
     }
 }

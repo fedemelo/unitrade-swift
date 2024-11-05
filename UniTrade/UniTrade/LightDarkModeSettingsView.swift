@@ -10,6 +10,7 @@ import SwiftUI
 struct LightDarkModeSettingsView: View {
     @EnvironmentObject var modeSettings: ModeSettings
     @Environment(\.colorScheme) var colorScheme
+    @StateObject private var screenTimeViewModel = ScreenTimeViewModel()
     
     enum Mode {
         case light, dark, automatic
@@ -63,6 +64,8 @@ struct LightDarkModeSettingsView: View {
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Light/Dark Mode")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {screenTimeViewModel.startTrackingTime()}
+        .onDisappear {screenTimeViewModel.stopAndRecordTime(for: "LightDarkSettingsView")}
     }
 }
 

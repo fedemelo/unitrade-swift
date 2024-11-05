@@ -11,6 +11,7 @@ struct UploadProductView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
     @StateObject private var viewModel: UploadProductViewModel
+    @StateObject private var screenTimeViewModel = ScreenTimeViewModel()
     
     @State private var showingAlert = false
     @State private var alertMessage = ""
@@ -156,6 +157,8 @@ struct UploadProductView: View {
         }
         .navigationTitle("Upload Product")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {screenTimeViewModel.startTrackingTime()}
+        .onDisappear {screenTimeViewModel.stopAndRecordTime(for: "UploadProductView")}
     }
     
     private func fieldForIndex(_ index: Int) -> Field {

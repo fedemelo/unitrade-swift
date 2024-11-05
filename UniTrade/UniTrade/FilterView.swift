@@ -4,6 +4,7 @@ struct FilterView: View {
     @Environment(\.colorScheme) var colorScheme
     @Binding var isPresented: Bool
     @Binding var filter: Filter
+    @StateObject private var screenTimeViewModel = ScreenTimeViewModel()
     
     @State private var selectedSortOption: String = ""  // Change to non-optional
     @State private var isAscending: Bool = true
@@ -143,7 +144,12 @@ struct FilterView: View {
             .padding(.top, 10)
         }
         .padding(.top, 20)
-        .onAppear(perform: loadCurrentFilter)  // Load existing filter values on appear
+        .onAppear {
+            loadCurrentFilter()
+            screenTimeViewModel.startTrackingTime()
+        }
+        .onDisappear {screenTimeViewModel.stopAndRecordTime(for: "FilterView")}
+
     }
     
     // Dismiss the keyboard by unfocusing the TextFields

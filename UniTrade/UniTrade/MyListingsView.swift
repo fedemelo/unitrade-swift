@@ -11,6 +11,7 @@ import Network
 struct MyListingsView: View {
     @StateObject private var viewModel = MyListingsViewModel()
     @State private var isLoading = true
+    @StateObject private var screenTimeViewModel = ScreenTimeViewModel()
     @State private var isConnected = true
     
     private let monitor = NWPathMonitor()
@@ -44,6 +45,10 @@ struct MyListingsView: View {
             .onAppear {
                 setupNetworkMonitoring()
                 loadUserProducts()
+                screenTimeViewModel.startTrackingTime()
+            }
+            .onDisappear{
+                screenTimeViewModel.stopAndRecordTime(for:"ListingView")
             }
             .onDisappear {
                 monitor.cancel()
