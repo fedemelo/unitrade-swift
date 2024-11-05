@@ -10,6 +10,7 @@ import SwiftUI
 struct MyListingsView: View {
     @StateObject private var viewModel = MyListingsViewModel()
     @State private var isLoading = true
+    @StateObject private var screenTimeViewModel = ScreenTimeViewModel()
     
     var body: some View {
         NavigationStack {
@@ -34,6 +35,10 @@ struct MyListingsView: View {
             }
             .onAppear {
                 loadUserProducts()
+                screenTimeViewModel.startTrackingTime()
+            }
+            .onDisappear{
+                screenTimeViewModel.stopAndRecordTime(for:"ListingView")
             }
             .navigationTitle("My Products")
         }

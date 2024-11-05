@@ -145,6 +145,11 @@ struct FirstTimeUserView: View {
                                 }
                             }
                         }
+                        .onAppear {
+                            screenTimeViewModel.startTrackingTime()
+                            loginVM.showAlert = !loginVM.isConnected
+                            }
+                        .onDisappear {screenTimeViewModel.stopAndRecordTime(for: "CategoryPicker")}
                         
                         Button(action: {
                             loginVM.registerUser(categories: selectedCategories, major: selectedMajor, semester: selectedSemester)
@@ -191,15 +196,6 @@ struct FirstTimeUserView: View {
                         .zIndex(1) // Ensures banner is on top
                     }
                 }
-                .padding()
-                .onAppear {
-                    screenTimeViewModel.startTrackingTime()
-                    loginVM.showAlert = !loginVM.isConnected
-                    }
-                .onDisappear {screenTimeViewModel.stopAndRecordTime(for: "FirstTimeUserView")}
-                
-                .background(Color.red)
-                .transition(.move(edge: .bottom))
             }
         }
     }

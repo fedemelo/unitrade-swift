@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
 
 struct CategoryScroll: View {
     @Environment(\.colorScheme) var colorScheme

@@ -19,8 +19,8 @@ class ScreenTimeViewModel: ObservableObject {
             "time_spent": timeSpent
         ])
         
-        let collectionRef = db.collection("analytics").document("screen_time").collection(screenName)
-        let docRef = collectionRef.document("statistics")
+        let collectionRef = db.collection("analytics").document("screen_time").collection("all")
+        let docRef = collectionRef.document(screenName)
         
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
