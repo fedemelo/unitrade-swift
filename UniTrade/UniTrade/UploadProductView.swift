@@ -122,7 +122,7 @@ struct UploadProductView: View {
                     if viewModel.isUploading {
                         ProgressView()
                     } else {
-                        Text("Upload Product")
+                        ButtonWithIcon(text: "UPLOAD PRODUCT", icon: "arrow.up.to.line.square")
                     }
                 }
                 .disabled(viewModel.isUploading)

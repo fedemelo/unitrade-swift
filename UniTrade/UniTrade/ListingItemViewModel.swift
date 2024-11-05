@@ -12,9 +12,12 @@ import SwiftUI
 class ListingItemViewModel: ObservableObject {
     @Published var isFavorite: Bool = false  // Track favorite state
     private let product: Product
+    private let toggleFavoriteAction: (UUID) -> Void
     
-    init(product: Product) {
+    init(product: Product, toggleFavoriteAction: @escaping (UUID) -> Void) {
         self.product = product
+        self.toggleFavoriteAction = toggleFavoriteAction
+        self.isFavorite = product.isFavorite
     }
     
     // MARK: - Public Properties
@@ -37,7 +40,7 @@ class ListingItemViewModel: ObservableObject {
     var stockStatus: String {
         product.isInStock == "lease" ? "For Rent" : "For Sale"
     }
-        
+    
     // MARK: - Price Formatting Logic
     func getDecoratedPrice() -> String {
         let basePrice = BasePrice(price: Double(product.price))
@@ -49,5 +52,6 @@ class ListingItemViewModel: ObservableObject {
     // Toggle favorite state
     func toggleFavorite() {
         isFavorite.toggle()
+        toggleFavoriteAction(product.id)  // Notify ExplorerViewModel to update the product's `isFavorite`
     }
 }

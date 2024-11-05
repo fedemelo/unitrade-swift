@@ -6,12 +6,11 @@ struct ExplorerView: View {
     @StateObject private var viewModel = ExplorerViewModel()
     @StateObject private var screenTimeViewModel = ScreenTimeViewModel()
 
-    
+    @ObservedObject private var networkMonitor = NetworkMonitor.shared
     @State private var isFilterPresented: Bool = false  // Filter modal flag
     @State private var isLoading = true  // Track loading state
     @State private var showAlert = false
     @State private var alertMessage = "Failed to load the latest version of the products. Please check your connection and try again."  // Alert message
-    @State private var isConnected = true  // Track network connectivity
     
     private let monitor = NWPathMonitor()
     let columns = [
@@ -49,14 +48,16 @@ struct ExplorerView: View {
                                 
                                 LazyVGrid(columns: columns, spacing: 32) {
                                     ForEach(viewModel.filteredProducts) { product in
-                                        ListingItemView(viewModel: ListingItemViewModel(product: product))
+                                        ListingItemView(viewModel: ListingItemViewModel(product: product) { productId in
+                                            viewModel.toggleFavorite(for: productId)
+                                        })
                                     }
                                 }
                                 .padding()
                             }
                         }
                         .refreshable {
-                            if isConnected {
+                            if networkMonitor.isConnected {
                                 loadInitialData()
                             } else {
                                 showAlert = true
@@ -87,14 +88,13 @@ struct ExplorerView: View {
             }
             .onAppear {
                 screenTimeViewModel.startTrackingTime()
-                setupNetworkMonitoring()
                 if !viewModel.isDataLoaded {
                     loadInitialData()
                 }
             }
             .onDisappear {
                 screenTimeViewModel.stopAndRecordTime(for: "ExplorerView")
-                monitor.cancel()}
+            }
         }
     }
     
@@ -130,20 +130,6 @@ struct ExplorerView: View {
             // Stop loading once both are ready
             isLoading = false
         }
-    }
-    
-    private func setupNetworkMonitoring() {
-        monitor.pathUpdateHandler = { path in
-            DispatchQueue.main.async {
-                self.isConnected = path.status == .satisfied
-                if !self.isConnected {
-                    self.showAlert = true
-                }
-            }
-        }
-        
-        let queue = DispatchQueue(label: "NetworkMonitor")
-        monitor.start(queue: queue)
     }
     
 }

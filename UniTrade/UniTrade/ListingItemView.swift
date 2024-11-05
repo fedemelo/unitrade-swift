@@ -58,7 +58,6 @@ struct ListingItemView: View {
                 // Favorite button
                 Button(action: {
                     viewModel.toggleFavorite()
-                    print("HOLAHOLAHOLAHOLAHOLA")
                 }) {
                     Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
                         .padding(6)
