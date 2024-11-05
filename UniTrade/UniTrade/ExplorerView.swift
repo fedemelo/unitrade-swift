@@ -5,14 +5,15 @@ struct ExplorerView: View {
     @StateObject private var viewModel = ExplorerViewModel()
     @StateObject private var screenTimeViewModel = ScreenTimeViewModel()
 
+    
     @State private var isFilterPresented: Bool = false  // Filter modal flag
     @State private var isLoading = true  // Track loading state
-
+    
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -31,7 +32,7 @@ struct ExplorerView: View {
                         .onChange(of: viewModel.searchQuery) {
                             viewModel.selectedCategory = nil
                         }
-
+                        
                         // Scroll View with categories and product listings
                         ScrollView {
                             VStack {
@@ -39,7 +40,7 @@ struct ExplorerView: View {
                                     selectedCategory: $viewModel.selectedCategory,
                                     categories: createCategories()
                                 )
-
+                                
                                 LazyVGrid(columns: columns, spacing: 32) {
                                     ForEach(viewModel.filteredProducts) { product in
                                         ListingItemView(viewModel: ListingItemViewModel(product: product))
@@ -48,8 +49,12 @@ struct ExplorerView: View {
                                 .padding()
                             }
                         }
+                        .refreshable {
+                            // Reload the products when the user performs a pull-to-refresh gesture
+                            loadInitialData()
+                        }
                     }
-
+                    
                     // Filter modal aligned to the bottom
                     if isFilterPresented {
                         VStack {
@@ -66,18 +71,20 @@ struct ExplorerView: View {
                 }
             }
             .onAppear {
-                loadInitialData()
                 screenTimeViewModel.startTrackingTime()
+                if !viewModel.isDataLoaded {
+                    loadInitialData()
+                }
             }
             .onDisappear {screenTimeViewModel.stopAndRecordTime(for: "ExplorerView")}
         }
     }
-
+    
     // Helper to create category list
     private func createCategories() -> [Category] {
         let forYouCount = viewModel.forYouCategories.count  // Use ViewModel's "For You" categories
         let forYouCategory = Category(name: "For You", itemCount: forYouCount, systemImage: "star.circle")
-
+        
         return [
             forYouCategory,
             Category(name: "Study", itemCount: 43, systemImage: "book"),
@@ -88,7 +95,7 @@ struct ExplorerView: View {
             Category(name: "Others", itemCount: 120, systemImage: "sportscourt")
         ]
     }
-
+    
     // Load initial data
     private func loadInitialData() {
         viewModel.loadForYouCategories { success in
@@ -98,13 +105,13 @@ struct ExplorerView: View {
             } else {
                 print("Failed to load 'For You' categories.")
             }
-
+            
             // Once categories are loaded, load the products
             viewModel.loadProductsFromFirestore()
-
+            
             // Stop loading once both are ready
             isLoading = false
         }
     }
-
+    
 }

@@ -6,18 +6,23 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
+import FirebaseAuth
 
 class ModeSettings: ObservableObject {
     @Published var selectedMode: LightDarkModeSettingsView.Mode {
         didSet {
-            // Save the selected mode to UserDefaults whenever it changes
+            // Save selected mode to UserDefaults for persistence
             switch selectedMode {
             case .light:
                 UserDefaults.standard.set("light", forKey: "modeSetting")
+                updateFirestoreThemePreference(isAutomatic: false)
             case .dark:
                 UserDefaults.standard.set("dark", forKey: "modeSetting")
+                updateFirestoreThemePreference(isAutomatic: false)
             case .automatic:
                 UserDefaults.standard.set("automatic", forKey: "modeSetting")
+                updateFirestoreThemePreference(isAutomatic: true)
             }
         }
     }
@@ -37,6 +42,20 @@ class ModeSettings: ObservableObject {
             }
         } else {
             self.selectedMode = .automatic
+        }
+    }
+    
+    private func updateFirestoreThemePreference(isAutomatic: Bool) {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        
+        let db = Firestore.firestore()
+        
+        db.collection("users").document(userId).setData(["time_aware_theme": isAutomatic], merge: true) { error in
+            if let error = error {
+                print("Error updating theme preference: \(error)")
+            } else {
+                print("Theme preference successfully updated.")
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ struct ListingItemView: View {
                     .frame(width: 150, height: 150)
                     .overlay(
                         Group {
-                            if viewModel.imageUrl == "dummy.png" {
+                            if viewModel.imageUrl == "dummy" {
                                 Rectangle()
                                     .foregroundColor(Color.DesignSystem.light200(for: colorScheme))
                                     .overlay(
