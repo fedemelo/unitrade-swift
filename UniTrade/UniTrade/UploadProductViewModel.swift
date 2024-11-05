@@ -90,7 +90,7 @@ class UploadProductViewModel: ObservableObject {
             rentalPeriod: rentalPeriod,
             imageData: imageData
         )
-
+        
         // Check if there's already a product in cache
         if loadCachedProduct() != nil {
             showReplaceAlert = true  // Trigger alert in the view
@@ -225,6 +225,8 @@ class UploadProductViewModel: ObservableObject {
             self.isUploading = true
             
             if networkMonitor.isConnected {
+                let startTime = Date() // Start timing
+                
                 fetchCategories { categories in
                     guard let categories = categories else {
                         print("Failed to fetch categories, aborting product upload.")
@@ -235,14 +237,26 @@ class UploadProductViewModel: ObservableObject {
                     
                     if let image = self.selectedImage {
                         self.uploadImage(image) { imageURL in
-                            self.saveProductData(imageURL: imageURL, categories: categories, completion: completion)
+                            self.saveProductData(imageURL: imageURL, categories: categories) { success in
+                                let endTime = Date()
+                                let duration = endTime.timeIntervalSince(startTime)*1000
+                                self.logUploadTimeToFirebase(duration: duration)
+                                completion(success)
+                                self.isUploading = false
+                            }
                         }
                     } else {
-                        self.saveProductData(imageURL: nil, categories: categories, completion: completion)
+                        self.saveProductData(imageURL: nil, categories: categories) { success in
+                            let endTime = Date()
+                            let duration = endTime.timeIntervalSince(startTime)*1000
+                            self.logUploadTimeToFirebase(duration: duration)
+                            completion(success)
+                            self.isUploading = false
+                        }
                     }
                 }
             } else {
-                // Try to cache product locally
+                // Cache product locally
                 cacheProductLocally()
                 self.isUploading = false
                 completion(false)
@@ -252,6 +266,23 @@ class UploadProductViewModel: ObservableObject {
             completion(false)
         }
     }
+    
+    private func logUploadTimeToFirebase(duration: TimeInterval) {
+        let db = Firestore.firestore()
+        let analyticsRef = db.collection("analytics").document("upload_time")
+        
+        // Append the new duration to `listing_times`
+        analyticsRef.updateData([
+            "listing_times": FieldValue.arrayUnion([duration])
+        ]) { error in
+            if let error = error {
+                print("Error logging upload time to Firebase: \(error)")
+            } else {
+                print("Successfully logged upload time to Firebase: \(duration) miliseconds")
+            }
+        }
+    }
+    
     
     
     private func uploadImage(_ image: UIImage, completion: @escaping (String?) -> Void) {
