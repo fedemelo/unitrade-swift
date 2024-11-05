@@ -42,6 +42,7 @@ class ProfileViewModel: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { // Simulate a delay
             self.isSigningOut = false
             let wasSignedOut = Auth.auth().currentUser == nil
+            self.loginViewModel.registeredUser = nil
             completion(wasSignedOut)
         }
     }
