@@ -27,6 +27,7 @@ struct UniTradeApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     @StateObject var modeSettings = ModeSettings()
+    @State private var isSignedOut = false
     
     var sharedModelContainer: ModelContainer = {
         let schema = Schema()
@@ -62,7 +63,7 @@ struct UniTradeApp: App {
                         MainView(loginViewModel: loginViewModel)
                     }
                 } else {
-                    LoginView(loginViewModel: loginViewModel)
+                    LoginView(loginViewModel: loginViewModel, isSignedOut: $isSignedOut)
                 }
             }
             .onAppear {
