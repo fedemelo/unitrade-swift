@@ -1,4 +1,5 @@
 import SwiftUI
+import Network
 
 struct ExplorerView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -6,11 +7,16 @@ struct ExplorerView: View {
     
     @State private var isFilterPresented: Bool = false  // Filter modal flag
     @State private var isLoading = true  // Track loading state
+    @State private var showAlert = false
+    @State private var alertMessage = "Failed to load the latest version of the products. Please check your connection and try again."  // Alert message
+    @State private var isConnected = true  // Track network connectivity
     
+    private let monitor = NWPathMonitor()
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
+    
     
     var body: some View {
         NavigationStack {
@@ -48,8 +54,11 @@ struct ExplorerView: View {
                             }
                         }
                         .refreshable {
-                            // Reload the products when the user performs a pull-to-refresh gesture
-                            loadInitialData()
+                            if isConnected {
+                                loadInitialData()
+                            } else {
+                                showAlert = true
+                            }
                         }
                     }
                     
@@ -68,10 +77,20 @@ struct ExplorerView: View {
                     }
                 }
             }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Status"),
+                      message: Text(alertMessage),
+                      dismissButton: .default(Text("OK"))
+                )
+            }
             .onAppear {
+                setupNetworkMonitoring()
                 if !viewModel.isDataLoaded {
                     loadInitialData()
                 }
+            }
+            .onDisappear {
+                monitor.cancel()
             }
         }
     }
@@ -108,6 +127,20 @@ struct ExplorerView: View {
             // Stop loading once both are ready
             isLoading = false
         }
+    }
+    
+    private func setupNetworkMonitoring() {
+        monitor.pathUpdateHandler = { path in
+            DispatchQueue.main.async {
+                self.isConnected = path.status == .satisfied
+                if !self.isConnected {
+                    self.showAlert = true
+                }
+            }
+        }
+        
+        let queue = DispatchQueue(label: "NetworkMonitor")
+        monitor.start(queue: queue)
     }
     
 }

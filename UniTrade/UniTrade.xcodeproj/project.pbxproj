@@ -32,6 +32,7 @@
 		4CF3C1462CAB926C0091A474 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3C1452CAB926C0091A474 /* Category.swift */; };
 		4CF3C14A2CABC1B30091A474 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3C1492CABC1B30091A474 /* FilterView.swift */; };
 		4CF3C14C2CABC4E60091A474 /* PriceRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3C14B2CABC4E60091A474 /* PriceRangeView.swift */; };
+		4CF8BD7A2CD9BA7D003E777F /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF8BD792CD9BA7D003E777F /* ErrorView.swift */; };
 		8E20675A2CACE6F100673E07 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2067592CACE6F100673E07 /* LoginView.swift */; };
 		8E20675F2CACEF0400673E07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E20675E2CACEF0400673E07 /* Assets.xcassets */; };
 		8E3557C02CAD0E8B00FD012C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8E3557BF2CAD0E8B00FD012C /* FirebaseAuth */; };
@@ -130,6 +131,7 @@
 		4CF3C1452CAB926C0091A474 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		4CF3C1492CABC1B30091A474 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		4CF3C14B2CABC4E60091A474 /* PriceRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeView.swift; sourceTree = "<group>"; };
+		4CF8BD792CD9BA7D003E777F /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		8E2067592CACE6F100673E07 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		8E20675E2CACEF0400673E07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = UniTrade/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		8E3557CB2CAD18AB00FD012C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 		F1D5BEA02CA316A100C9DA71 /* UniTrade */ = {
 			isa = PBXGroup;
 			children = (
+				4CF8BD792CD9BA7D003E777F /* ErrorView.swift */,
 				4C3F0AFE2CD91CBC002FAAF9 /* MyListingsViewModel.swift */,
 				4C3F0AFC2CD917EA002FAAF9 /* UserProduct.swift */,
 				4C3F0AF82CD91226002FAAF9 /* UserProductViewModel.swift */,
@@ -539,6 +542,7 @@
 				F15D0DE02CA4C01D00CF9562 /* ImagePicker.swift in Sources */,
 				4CF3C1462CAB926C0091A474 /* Category.swift in Sources */,
 				4CB6E95E2CAB85AC001CE679 /* CategoryScroll.swift in Sources */,
+				4CF8BD7A2CD9BA7D003E777F /* ErrorView.swift in Sources */,
 				4CB6E9642CAB8C09001CE679 /* CategoryItemView.swift in Sources */,
 				4C8DC6D52CBC3EF40034A352 /* FontTransformerUI.swift in Sources */,
 				F1405C312CC473C300FDA818 /* LightDarkModeSettingsView.swift in Sources */,
@@ -719,7 +723,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"UniTrade/Preview Content\"";
-				DEVELOPMENT_TEAM = 6MG8GCGFUH;
+				DEVELOPMENT_TEAM = VA4KHD2W49;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UniTrade/Info.plist;
@@ -736,7 +740,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = edu.uniandes.UniTrade.fede;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.uniandes.UniTrade.santiago;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -754,7 +758,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"UniTrade/Preview Content\"";
-				DEVELOPMENT_TEAM = 6MG8GCGFUH;
+				DEVELOPMENT_TEAM = VA4KHD2W49;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UniTrade/Info.plist;
@@ -771,7 +775,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = edu.uniandes.UniTrade.fede;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.uniandes.UniTrade.santiago;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
