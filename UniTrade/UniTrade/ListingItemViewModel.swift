@@ -37,7 +37,7 @@ class ListingItemViewModel: ObservableObject {
     var stockStatus: String {
         product.isInStock == "lease" ? "For Rent" : "For Sale"
     }
-    
+        
     // MARK: - Price Formatting Logic
     func getDecoratedPrice() -> String {
         let basePrice = BasePrice(price: Double(product.price))
