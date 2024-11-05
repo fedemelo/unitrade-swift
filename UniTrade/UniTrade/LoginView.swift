@@ -2,7 +2,8 @@ import SwiftUI
 
 struct LoginView: View {
     @ObservedObject var loginViewModel: LoginViewModel
-    @State private var isLoading = false
+    @StateObject private var screenTimeViewModel = ScreenTimeViewModel()
+    @State private var isLoading = false // Loading state for the Login button
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
@@ -87,6 +88,9 @@ struct LoginView: View {
                 .transition(.move(edge: .bottom))
             }
         }
+        .background(Color.DesignSystem.whitee(for: colorScheme))
+        .onAppear {screenTimeViewModel.startTrackingTime()}
+        .onDisappear {screenTimeViewModel.stopAndRecordTime(for: "LoginView")}
         .animation(.easeInOut, value: loginViewModel.showBanner && !loginViewModel.isConnected) // Animation for banner
     }
 }

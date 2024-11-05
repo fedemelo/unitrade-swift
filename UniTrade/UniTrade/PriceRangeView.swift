@@ -11,6 +11,7 @@ struct PriceRangeView: View {
     @Environment(\.colorScheme) var colorScheme
     @Binding var minPrice: String
     @Binding var maxPrice: String
+    @StateObject private var screenTimeViewModel = ScreenTimeViewModel()
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -73,6 +74,8 @@ struct PriceRangeView: View {
                 Spacer()
             }
             .padding()
+            .onAppear {screenTimeViewModel.startTrackingTime()}
+            .onDisappear {screenTimeViewModel.stopAndRecordTime(for: "PriceRangeView")}
         }
     }
 }

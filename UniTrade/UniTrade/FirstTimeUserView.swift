@@ -20,6 +20,7 @@ struct FirstTimeUserView: View {
     @State private var selectedMajor: String = "Select Major"
     @State private var selectedSemester: String = "Select Semester"
     @Environment(\.colorScheme) var colorScheme
+    @StateObject private var screenTimeViewModel = ScreenTimeViewModel()
     
     let semesterOptions = ["1-2 semester", "3-4 semester", "5-6 semester", "7-8 semester", "9-10 semester", "+10 semesters"]
     
@@ -144,6 +145,11 @@ struct FirstTimeUserView: View {
                                 }
                             }
                         }
+                        .onAppear {
+                            screenTimeViewModel.startTrackingTime()
+                            loginVM.showAlert = !loginVM.isConnected
+                            }
+                        .onDisappear {screenTimeViewModel.stopAndRecordTime(for: "CategoryPicker")}
                         
                         Button(action: {
                             loginVM.registerUser(categories: selectedCategories, major: selectedMajor, semester: selectedSemester)
@@ -190,9 +196,6 @@ struct FirstTimeUserView: View {
                         .zIndex(1) // Ensures banner is on top
                     }
                 }
-            }
-            .onAppear {
-                loginVM.showAlert = !loginVM.isConnected
             }
         }
     }

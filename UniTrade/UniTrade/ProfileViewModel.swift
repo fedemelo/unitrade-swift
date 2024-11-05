@@ -14,6 +14,7 @@ class ProfileViewModel: ObservableObject {
     @Published var isImageFromGallery: Bool = false
     @Published var userName: String? = nil
     @Published var isSigningOut: Bool = false
+    
 
     // Inject the LoginViewModel for managing sign-in and sign-out
     private let loginViewModel = LoginViewModel()
