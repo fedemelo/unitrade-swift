@@ -11,7 +11,6 @@ struct ExplorerView: View {
     @State private var isLoading = true  // Track loading state
     @State private var showAlert = false
     @State private var alertMessage = "Failed to load the latest version of the products. Please check your connection and try again."  // Alert message
-    @State private var isConnected = true
     
     private let monitor = NWPathMonitor()
     let columns = [
@@ -89,14 +88,13 @@ struct ExplorerView: View {
             }
             .onAppear {
                 screenTimeViewModel.startTrackingTime()
-                setupNetworkMonitoring()
                 if !viewModel.isDataLoaded {
                     loadInitialData()
                 }
             }
             .onDisappear {
                 screenTimeViewModel.stopAndRecordTime(for: "ExplorerView")
-                monitor.cancel()}
+            }
         }
     }
     
@@ -132,20 +130,6 @@ struct ExplorerView: View {
             // Stop loading once both are ready
             isLoading = false
         }
-    }
-    
-    private func setupNetworkMonitoring() {
-        monitor.pathUpdateHandler = { path in
-            DispatchQueue.main.async {
-                self.isConnected = path.status == .satisfied
-                if !self.isConnected {
-                    self.showAlert = true
-                }
-            }
-        }
-        
-        let queue = DispatchQueue(label: "NetworkMonitor")
-        monitor.start(queue: queue)
     }
     
 }
