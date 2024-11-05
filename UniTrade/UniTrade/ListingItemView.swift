@@ -3,6 +3,7 @@ import SwiftUI
 struct ListingItemView: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var viewModel: ListingItemViewModel  // Bind to ViewModel
+    @StateObject private var screenTimeViewModel = ScreenTimeViewModel()
     
     var body: some View {
         VStack(spacing: 5) {
@@ -13,7 +14,7 @@ struct ListingItemView: View {
                     .frame(width: 150, height: 150)
                     .overlay(
                         Group {
-                            if viewModel.imageUrl == "dummy.png" {
+                            if viewModel.imageUrl == "dummy" {
                                 Rectangle()
                                     .foregroundColor(Color.DesignSystem.light200(for: colorScheme))
                                     .overlay(

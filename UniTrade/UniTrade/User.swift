@@ -14,4 +14,6 @@ struct User: Hashable, Codable, Identifiable {
     var name: String
     var email: String
     var categories: [String]
+    var major: String?
+    var semester: String?
 }

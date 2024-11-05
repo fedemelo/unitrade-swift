@@ -16,6 +16,10 @@ struct Product: Identifiable {
     let isInStock: String
     let categories: String
     let imageUrl: String?
+    var isFavorite: Bool = false
+    let favorites: Int
+    let favoritesCategory: Int
+    let favoritesForYou : Int
 
     init(
         id: UUID = UUID(),
@@ -25,7 +29,11 @@ struct Product: Identifiable {
         reviewCount: Int,
         isInStock: String,
         categories: String,
-        imageUrl: String? = nil
+        imageUrl: String? = nil,
+        isFavorite: Bool = false,
+        favorites: Int = 0,
+        favoritesCategory: Int = 0,
+        favoritesForYou: Int = 0
     ) {
         self.id = id
         self.title = title
@@ -35,6 +43,10 @@ struct Product: Identifiable {
         self.isInStock = isInStock
         self.categories = categories
         self.imageUrl = imageUrl
+        self.isFavorite = isFavorite
+        self.favorites = favorites
+        self.favoritesCategory = favoritesCategory
+        self.favoritesForYou = favoritesForYou
     }
 }
 
