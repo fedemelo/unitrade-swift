@@ -53,9 +53,9 @@ struct UniTradeApp: App {
             Group {
                 if showSplash {
                     SplashScreenView(showSplash: $showSplash)
-                } else if loginViewModel.registeredUser != nil && loginViewModel.firstTimeUser {
+                } else if loginViewModel.registeredUser != nil && loginViewModel.firstTimeUser && !loginViewModel.isPendingRegistration {
                     FirstTimeUserView(loginVM: loginViewModel)
-                } else if loginViewModel.registeredUser != nil {
+                } else if loginViewModel.registeredUser != nil || loginViewModel.isPendingRegistration {
                     NavigationView {
                         MainView(loginViewModel: loginViewModel)
                     }

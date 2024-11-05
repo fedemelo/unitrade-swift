@@ -19,8 +19,11 @@ final class LoginViewModel: ObservableObject {
     @Published var categories: [CategoryName] = []
     @Published var isConnected: Bool = true
     @Published var showBanner: Bool = false
+    @Published var showAlert: Bool = true
     @Published var majors: [MajorName] = []
     @Published var didCheckFirstTimeUser: Bool = false
+    @Published var isPendingRegistration: Bool = false
+    private var checkedFirstTimeUser: Bool = false
     
     private let monitor = NWPathMonitor()
     private let queue = DispatchQueue.global(qos: .background)
@@ -29,7 +32,6 @@ final class LoginViewModel: ObservableObject {
         fetchCategories()
         fetchMajors()
         setupNetworkMonitor()
-        isFirstTimeUser()
     }
     
     private func setupNetworkMonitor() {
@@ -38,11 +40,16 @@ final class LoginViewModel: ObservableObject {
                 self.isConnected = path.status == .satisfied
                 if self.isConnected {
                     self.retryQueuedRegistration()
+                    self.showBanner = false
+                }
+                else if !self.isConnected {
+                    self.showAlert = true
                 }
             }
         }
         monitor.start(queue: queue)
     }
+        
 
     private func retryQueuedRegistration() {
         // Retrieve each piece of data individually
@@ -166,31 +173,35 @@ func signIn(completion: @escaping () -> Void) {
     }
 
     func isFirstTimeUser() {
-        guard !didCheckFirstTimeUser else { return }
-        print("Checking if user is first time")
-        let key = self.registeredUser?.uid
-        if key != nil {
-            let docRef = self.db.collection("users").document(key!)
-            docRef.getDocument { document, _ in
-                if let document = document, document.exists {
-                    print("User already exists")
-                    self.firstTimeUser = false
-                } else {
-                    self.firstTimeUser = true
+        if !self.checkedFirstTimeUser {
+            print("Checking if user is first time")
+            let key = self.registeredUser?.uid
+            if key != nil {
+                let docRef = self.db.collection("users").document(key!)
+                docRef.getDocument { document, _ in
+                    if let document = document, document.exists {
+                        print("User already exists")
+                        self.firstTimeUser = false
+                    } else {
+                        self.firstTimeUser = true
+                    }
                 }
+            } else {
+                print("No key was found for user")
+                
             }
-        } else {
-            print("No key was found for user")
-            
         }
-        didCheckFirstTimeUser = true
+        self.checkedFirstTimeUser = true
+      
     }
 
     func registerUser(categories: Set<CategoryName>, major: String, semester: String) {
         if !isConnected {
+            print("Not connected to the internet")
             queueOfflineRegistration(categories: categories, major: major, semester: semester)
             return
         }
+        print("Connected to the internet")
         attemptRegisterUser(categories: categories, major: major, semester: semester)
     }
 
@@ -209,7 +220,6 @@ func signIn(completion: @escaping () -> Void) {
                         
                         self.savePreferencesToUserDefaults(categories: categoryNames, major: major, semester: semester)
                         self.firstTimeUser = false
-                        completion()
                     } catch {
                         print("Error while encoding registered User \(error)")
                     }
@@ -227,7 +237,9 @@ func signIn(completion: @escaping () -> Void) {
     }
     
     private func queueOfflineRegistration(categories: Set<CategoryName>, major: String, semester: String) {
-        // Serialize the data to store it
+        isPendingRegistration = true
+        
+        print("Queuing registration for \(registeredUser?.displayName ?? "Unknown User")")
         let categoryNames = categories.map(\.name)
         UserDefaults.standard.set(categoryNames, forKey: "userCategories")
         UserDefaults.standard.set(major, forKey: "userMajor")

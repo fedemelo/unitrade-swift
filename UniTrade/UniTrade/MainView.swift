@@ -17,11 +17,8 @@ struct MainView: View {
     ) {
         let appearance = UITabBarAppearance()
         self.loginViewModel = loginViewModel
-        if !loginViewModel.didCheckFirstTimeUser {
-            loginViewModel.isFirstTimeUser()
-            }
+        loginViewModel.isFirstTimeUser()
         
-
         appearance.backgroundColor = UIColor(Color.DesignSystem.primary900(for: colorScheme))
 
         let normalIconColor = UIColor(Color.DesignSystem.contrast900(for: colorScheme))

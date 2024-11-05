@@ -2,7 +2,7 @@ import SwiftUI
 
 struct LoginView: View {
     @ObservedObject var loginViewModel: LoginViewModel
-    @State private var isLoading = false // Loading state for the Login button
+    @State private var isLoading = false
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
