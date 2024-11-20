@@ -259,7 +259,6 @@ class UploadProductViewModel: ObservableObject {
     
     
     func uploadProduct(completion: @escaping (Bool) -> Void) {
-        
         if !self.hasValidationErrors {
             self.isUploading = true
             
