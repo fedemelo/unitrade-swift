@@ -14,7 +14,7 @@ struct ButtonWithIcon: View {
     
     let text: String
     let icon: String
-    var isDisabled: Bool = false // Default is enabled
+    var isDisabled: Bool = false
     
     var body: some View {
         HStack {

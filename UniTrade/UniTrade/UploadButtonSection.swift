@@ -12,7 +12,7 @@ struct UploadButtonSection: View {
     @Binding var showingAlert: Bool
     @Binding var alertMessage: String
     let closeView: () -> Void
-
+    
     private var SUCCESSFUL_UPLOAD_MESSAGE: String {
         "Product uploaded successfully"
     }
@@ -25,10 +25,15 @@ struct UploadButtonSection: View {
     
     var body: some View {
         Button(action: {
-            viewModel.uploadProduct { success in
-                alertMessage = success ? self.SUCCESSFUL_UPLOAD_MESSAGE:
-                (viewModel.showReplaceAlert ? self.NO_INTERNET_NO_QUEUE_MESSAGE : self.NO_INTERNET_TO_UPLOAD)
-                showingAlert = true
+            if !viewModel.hasValidationErrors {
+                viewModel.uploadProduct { success in
+                    if success {
+                        alertMessage = self.SUCCESSFUL_UPLOAD_MESSAGE
+                    } else {
+                        alertMessage = viewModel.showReplaceAlert ? self.NO_INTERNET_NO_QUEUE_MESSAGE : self.NO_INTERNET_TO_UPLOAD
+                    }
+                    showingAlert = true
+                }
             }
         }) {
             if viewModel.isUploading {

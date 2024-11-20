@@ -87,11 +87,16 @@ class UploadProductViewModel: ObservableObject {
     }
     
     var hasValidationErrors: Bool {
-        return name.isEmpty || description.isEmpty || price.isEmpty || 
-        (strategy is LeaseProductUploadStrategy && rentalPeriod.isEmpty) || 
-        condition.isEmpty || 
-        nameError != nil || descriptionError != nil || priceError != nil || 
-        rentalPeriodError != nil || conditionError != nil
+        return name.isEmpty 
+        || description.isEmpty 
+        || price.isEmpty 
+        || (strategy is LeaseProductUploadStrategy && rentalPeriod.isEmpty) 
+        || condition.isEmpty 
+        || nameError != nil 
+        || descriptionError != nil 
+        || priceError != nil 
+        || rentalPeriodError != nil 
+        || conditionError != nil
     }
     
     func observeNetworkChanges() {
@@ -254,22 +259,33 @@ class UploadProductViewModel: ObservableObject {
     
     
     func uploadProduct(completion: @escaping (Bool) -> Void) {
-        self.isUploading = true
         
-        if networkMonitor.isConnected {
-            let startTime = Date()
+        if !self.hasValidationErrors {
+            self.isUploading = true
             
-            fetchCategories { categories in
-                guard let categories = categories else {
-                    print("Failed to fetch categories, aborting product upload.")
-                    self.isUploading = false
-                    completion(false)
-                    return
-                }
+            if networkMonitor.isConnected {
+                let startTime = Date()
                 
-                if let image = self.selectedImage {
-                    self.uploadImage(image) { imageURL in
-                        self.saveProductData(imageURL: imageURL, categories: categories) { success in
+                fetchCategories { categories in
+                    guard let categories = categories else {
+                        print("Failed to fetch categories, aborting product upload.")
+                        self.isUploading = false
+                        completion(false)
+                        return
+                    }
+                    
+                    if let image = self.selectedImage {
+                        self.uploadImage(image) { imageURL in
+                            self.saveProductData(imageURL: imageURL, categories: categories) { success in
+                                let endTime = Date()
+                                let duration = endTime.timeIntervalSince(startTime)*1000
+                                self.logUploadTimeToFirebase(duration: duration)
+                                completion(success)
+                                self.isUploading = false
+                            }
+                        }
+                    } else {
+                        self.saveProductData(imageURL: nil, categories: categories) { success in
                             let endTime = Date()
                             let duration = endTime.timeIntervalSince(startTime)*1000
                             self.logUploadTimeToFirebase(duration: duration)
@@ -277,21 +293,15 @@ class UploadProductViewModel: ObservableObject {
                             self.isUploading = false
                         }
                     }
-                } else {
-                    self.saveProductData(imageURL: nil, categories: categories) { success in
-                        let endTime = Date()
-                        let duration = endTime.timeIntervalSince(startTime)*1000
-                        self.logUploadTimeToFirebase(duration: duration)
-                        completion(success)
-                        self.isUploading = false
-                    }
                 }
+            } else {
+                cacheProductLocally()
+                self.isUploading = false
+                completion(false)
+                print("No internet connection. Product saved locally.")
             }
         } else {
-            cacheProductLocally()
-            self.isUploading = false
             completion(false)
-            print("No internet connection. Product saved locally.")
         }
     }
     
