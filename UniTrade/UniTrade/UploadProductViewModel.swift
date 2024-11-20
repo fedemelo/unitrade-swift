@@ -29,12 +29,7 @@ struct ProductCache: Codable {
 class UploadProductViewModel: ObservableObject {
     @Published var isImageFromGallery: Bool = true
     
-    @Published var name: String = ""
-    @Published var description: String = ""
-    @Published var price: String = ""
     @Published var formattedPrice: String = ""
-    @Published var rentalPeriod: String = ""
-    @Published var condition: String = ""
     @Published var selectedImage: UIImage?
     
     @Published var nameError: String? = nil
@@ -59,6 +54,44 @@ class UploadProductViewModel: ObservableObject {
     init(strategy: UploadProductStrategy) {
         self.strategy = strategy
         observeNetworkChanges()
+    }
+    
+    @Published var name: String = "" {
+        didSet {
+            validateName()
+        }
+    }
+    
+    @Published var description: String = "" {
+        didSet {
+            validateDescription()
+        }
+    }
+    
+    @Published var price: String = "" {
+        didSet {
+            validatePrice()
+        }
+    }
+    
+    @Published var rentalPeriod: String = "" {
+        didSet {
+            validateRentalPeriod()
+        }
+    }
+    
+    @Published var condition: String = "" {
+        didSet {
+            validateCondition()
+        }
+    }
+    
+    var hasValidationErrors: Bool {
+        return name.isEmpty || description.isEmpty || price.isEmpty || 
+        (strategy is LeaseProductUploadStrategy && rentalPeriod.isEmpty) || 
+        condition.isEmpty || 
+        nameError != nil || descriptionError != nil || priceError != nil || 
+        rentalPeriodError != nil || conditionError != nil
     }
     
     func observeNetworkChanges() {
@@ -221,32 +254,22 @@ class UploadProductViewModel: ObservableObject {
     
     
     func uploadProduct(completion: @escaping (Bool) -> Void) {
-        if validateFields() {
-            self.isUploading = true
+        self.isUploading = true
+        
+        if networkMonitor.isConnected {
+            let startTime = Date() // Start timing
             
-            if networkMonitor.isConnected {
-                let startTime = Date() // Start timing
+            fetchCategories { categories in
+                guard let categories = categories else {
+                    print("Failed to fetch categories, aborting product upload.")
+                    self.isUploading = false
+                    completion(false)
+                    return
+                }
                 
-                fetchCategories { categories in
-                    guard let categories = categories else {
-                        print("Failed to fetch categories, aborting product upload.")
-                        self.isUploading = false
-                        completion(false)
-                        return
-                    }
-                    
-                    if let image = self.selectedImage {
-                        self.uploadImage(image) { imageURL in
-                            self.saveProductData(imageURL: imageURL, categories: categories) { success in
-                                let endTime = Date()
-                                let duration = endTime.timeIntervalSince(startTime)*1000
-                                self.logUploadTimeToFirebase(duration: duration)
-                                completion(success)
-                                self.isUploading = false
-                            }
-                        }
-                    } else {
-                        self.saveProductData(imageURL: nil, categories: categories) { success in
+                if let image = self.selectedImage {
+                    self.uploadImage(image) { imageURL in
+                        self.saveProductData(imageURL: imageURL, categories: categories) { success in
                             let endTime = Date()
                             let duration = endTime.timeIntervalSince(startTime)*1000
                             self.logUploadTimeToFirebase(duration: duration)
@@ -254,16 +277,22 @@ class UploadProductViewModel: ObservableObject {
                             self.isUploading = false
                         }
                     }
+                } else {
+                    self.saveProductData(imageURL: nil, categories: categories) { success in
+                        let endTime = Date()
+                        let duration = endTime.timeIntervalSince(startTime)*1000
+                        self.logUploadTimeToFirebase(duration: duration)
+                        completion(success)
+                        self.isUploading = false
+                    }
                 }
-            } else {
-                // Cache product locally
-                cacheProductLocally()
-                self.isUploading = false
-                completion(false)
-                print("No internet connection. Product saved locally.")
             }
         } else {
+            // Cache product locally
+            cacheProductLocally()
+            self.isUploading = false
             completion(false)
+            print("No internet connection. Product saved locally.")
         }
     }
     
@@ -365,61 +394,68 @@ class UploadProductViewModel: ObservableObject {
     }
     
     
-    
-    func validateFields() -> Bool {
-        var isValid = true
-        
-        nameError = nil
-        descriptionError = nil
-        priceError = nil
-        rentalPeriodError = nil
-        conditionError = nil
-        
+    func validateName() {
         if name.isEmpty {
             nameError = "Please enter a name for the product"
-            isValid = false
+        } else {
+            let nameRegex = "^[\\w]+( [\\w]+)*$"
+            let namePredicate = NSPredicate(format: "SELF MATCHES %@", nameRegex)
+            nameError = !namePredicate.evaluate(with: name) ?
+            "Product name must contain one or more words composed of alphanumeric characters with no trailing or leading spaces" : nil
         }
-        
+    }
+    
+    func validateDescription() {
         if description.isEmpty {
             descriptionError = "Please enter a description for the product"
-            isValid = false
+        } else if description.count > 140 {
+            descriptionError = "Description cannot exceed 140 characters"
+        } else {
+            descriptionError = nil
         }
-        
+    }
+    
+    func validatePrice() {
         if price.isEmpty {
             priceError = "Please enter a price for the product"
-            isValid = false
         } else {
-            let cleanedPrice = price.replacingOccurrences(of: "$", with: "")
-                .replacingOccurrences(of: ".", with: "")
+            let cleanedPrice = price
+                .replacingOccurrences(of: "$", with: "")
+                .replacingOccurrences(of: ",", with: "")
                 .trimmingCharacters(in: .whitespacesAndNewlines)
             
-            if Float(cleanedPrice) == nil {
-                print("The price is:", cleanedPrice)
-                priceError = "Please enter a valid number for the price"
-                isValid = false
-            } else if Float(cleanedPrice) ?? 100000000 > 90000000 {
-                priceError = "The price cannot exceed a reasonable amount"
-                isValid = false
+            if let priceValue = Float(cleanedPrice), priceValue > 0, priceValue <= 90000000 {
+                priceError = nil
+            } else {
+                priceError = cleanedPrice.isEmpty || Float(cleanedPrice) == nil
+                ? "Please enter a valid number for the price"
+                : "The price must be greater than $0 and less than $90,000,000"
             }
         }
-        
-        
-        if strategy is LeaseProductUploadStrategy && rentalPeriod.isEmpty {
-            rentalPeriodError = "Please enter a rental period"
-            isValid = false
-        } else if strategy is LeaseProductUploadStrategy && Double(rentalPeriod) == nil {
-            rentalPeriodError = "Please enter a valid number for the rental period"
-            isValid = false
-        } else if strategy is LeaseProductUploadStrategy && Double(rentalPeriod) ?? 366 > 365 {
-            rentalPeriodError = "The rental period cannot exceed a year"
-            isValid = false
+    }
+    
+    func validateRentalPeriod() {
+        if strategy is LeaseProductUploadStrategy {
+            if rentalPeriod.isEmpty {
+                rentalPeriodError = "Please enter a rental period"
+            } else if let periodValue = Double(rentalPeriod), periodValue > 0, periodValue <= 365 {
+                rentalPeriodError = nil
+            } else {
+                rentalPeriodError = rentalPeriod.isEmpty || Double(rentalPeriod) == nil
+                ? "Please enter a valid number for the rental period"
+                : "The rental period must be between 1 and 365 days"
+            }
         }
-        
+    }
+    
+    func validateCondition() {
         if condition.isEmpty {
             conditionError = "Please enter a condition for the product"
-            isValid = false
+        } else {
+            let conditionRegex = "^[\\w]+( [\\w]+)*$"
+            let conditionPredicate = NSPredicate(format: "SELF MATCHES %@", conditionRegex)
+            conditionError = !conditionPredicate.evaluate(with: condition) ?
+            "The product condition must contain one or more words composed of alphanumeric characters with no trailing or leading spaces" : nil
         }
-        
-        return isValid
     }
 }
