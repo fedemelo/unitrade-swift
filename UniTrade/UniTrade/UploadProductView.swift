@@ -78,6 +78,7 @@ struct UploadProductView: View {
             viewModel.validateDescription()
         case 2:
             viewModel.validatePrice()
+            viewModel.updatePriceInput(newValue)
         case 3:
             if viewModel.strategy is LeaseProductUploadStrategy {
                 viewModel.validateRentalPeriod()

@@ -257,7 +257,7 @@ class UploadProductViewModel: ObservableObject {
         self.isUploading = true
         
         if networkMonitor.isConnected {
-            let startTime = Date() // Start timing
+            let startTime = Date()
             
             fetchCategories { categories in
                 guard let categories = categories else {
@@ -288,7 +288,6 @@ class UploadProductViewModel: ObservableObject {
                 }
             }
         } else {
-            // Cache product locally
             cacheProductLocally()
             self.isUploading = false
             completion(false)
@@ -421,7 +420,7 @@ class UploadProductViewModel: ObservableObject {
         } else {
             let cleanedPrice = price
                 .replacingOccurrences(of: "$", with: "")
-                .replacingOccurrences(of: ",", with: "")
+                .replacingOccurrences(of: ".", with: "")
                 .trimmingCharacters(in: .whitespacesAndNewlines)
             
             if let priceValue = Float(cleanedPrice), priceValue > 0, priceValue <= 90000000 {
