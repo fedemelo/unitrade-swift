@@ -16,23 +16,28 @@ struct UploadButtonSection: View {
     private var SUCCESSFUL_UPLOAD_MESSAGE: String {
         "Product uploaded successfully"
     }
-    private var NO_INTERNET_TO_UPLOAD: String {
+    private var PRODUCT_CACHED_NO_INTERNET: String {
         "No internet connection. Product saved locally and will be uploaded when you are back online."
     }
-    private var NO_INTERNET_NO_QUEUE_MESSAGE: String {
+    private var NO_INTERNET_FULL_CACHE: String {
         "No internet connection. A product is already waiting to upload. Connect to the internet to complete the upload, or replace the existing product with this one."
     }
     
     var body: some View {
         Button(action: {
+            if UploadProductViewModel.hasCachedProduct {
+                alertMessage = self.NO_INTERNET_FULL_CACHE
+                showingAlert = true
+            } else {
                 viewModel.uploadProduct { success in
                     if success {
                         alertMessage = self.SUCCESSFUL_UPLOAD_MESSAGE
                     } else {
-                        alertMessage = viewModel.showReplaceAlert ? self.NO_INTERNET_NO_QUEUE_MESSAGE : self.NO_INTERNET_TO_UPLOAD
+                        alertMessage = self.PRODUCT_CACHED_NO_INTERNET
                     }
                     showingAlert = true
                 }
+            }
         }) {
             if viewModel.isUploading {
                 ProgressView()
@@ -51,7 +56,7 @@ struct UploadButtonSection: View {
     }
     
     private func createAlert() -> Alert {
-        if alertMessage == self.NO_INTERNET_NO_QUEUE_MESSAGE {
+        if alertMessage == self.NO_INTERNET_FULL_CACHE {
             return Alert(
                 title: Text("Upload Queue Full"),
                 message: Text(alertMessage),
