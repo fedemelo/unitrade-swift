@@ -25,7 +25,6 @@ struct UploadButtonSection: View {
     
     var body: some View {
         Button(action: {
-            if !viewModel.hasValidationErrors {
                 viewModel.uploadProduct { success in
                     if success {
                         alertMessage = self.SUCCESSFUL_UPLOAD_MESSAGE
@@ -34,7 +33,6 @@ struct UploadButtonSection: View {
                     }
                     showingAlert = true
                 }
-            }
         }) {
             if viewModel.isUploading {
                 ProgressView()
@@ -61,13 +59,17 @@ struct UploadButtonSection: View {
                     viewModel.replaceCachedProduct()
                     closeView()
                 },
-                secondaryButton: .cancel(Text("Dismiss"))
+                secondaryButton: .cancel(Text("Dismiss")) {
+                    closeView()
+                }
             )
         } else {
             return Alert(
                 title: Text("Status"),
                 message: Text(alertMessage),
-                dismissButton: .default(Text("OK")) { closeView() }
+                dismissButton: .default(Text("OK")) {
+                    closeView()
+                }
             )
         }
     }
