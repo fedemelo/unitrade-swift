@@ -416,6 +416,8 @@ class UploadProductViewModel: ObservableObject {
     func validateDescription() {
         if description.isEmpty {
             descriptionError = "Please enter a description for the product"
+        } else if description.count < 3 {
+            descriptionError = "Description must be at least 3 characters long"
         } else if description.count > 140 {
             descriptionError = "Description cannot exceed 140 characters"
         } else {
@@ -432,12 +434,12 @@ class UploadProductViewModel: ObservableObject {
                 .replacingOccurrences(of: ".", with: "")
                 .trimmingCharacters(in: .whitespacesAndNewlines)
             
-            if let priceValue = Float(cleanedPrice), priceValue > 0, priceValue <= 90000000 {
+            if let priceValue = Float(cleanedPrice), priceValue > 50, priceValue <= 90000000 {
                 priceError = nil
             } else {
                 priceError = cleanedPrice.isEmpty || Float(cleanedPrice) == nil
                 ? "Please enter a valid number for the price"
-                : "The price must be greater than $0 and less than $90,000,000"
+                : "The price must be greater than $50 and less than $90.000.000"
             }
         }
     }
