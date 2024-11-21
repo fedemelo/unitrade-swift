@@ -437,11 +437,12 @@ class UploadProductViewModel: ObservableObject {
     }
     
     func validateDescription() {
-        if description.isEmpty {
+        let trimmedDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmedDescription.isEmpty {
             descriptionError = "Please enter a description for the product"
-        } else if description.count < 3 {
+        } else if trimmedDescription.count < 3 {
             descriptionError = "Description must be at least 3 characters long"
-        } else if description.count > 140 {
+        } else if trimmedDescription.count > 140 {
             descriptionError = "Description cannot exceed 140 characters"
         } else {
             descriptionError = nil
