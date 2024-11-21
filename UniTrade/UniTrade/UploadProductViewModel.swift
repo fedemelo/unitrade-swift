@@ -12,6 +12,7 @@ import Foundation
 import Combine
 import FirebaseAuth
 import NotificationCenter
+import CryptoKit
 
 extension Notification.Name {
     static let connectionRestoredAndProductUploaded = Notification.Name("connectionRestoredAndProductUploaded")
@@ -49,7 +50,7 @@ class UploadProductViewModel: ObservableObject {
     
     private let storage = Storage.storage()
     private let firestore = Firestore.firestore()
-
+    
     static var hasCachedProduct: Bool {
         return UserDefaults.standard.data(forKey: "cachedProduct") != nil
     }
@@ -90,15 +91,15 @@ class UploadProductViewModel: ObservableObject {
     }
     
     var hasValidationErrors: Bool {
-        return name.isEmpty 
-        || description.isEmpty 
-        || price.isEmpty 
-        || (strategy is LeaseProductUploadStrategy && rentalPeriod.isEmpty) 
-        || condition.isEmpty 
-        || nameError != nil 
-        || descriptionError != nil 
-        || priceError != nil 
-        || rentalPeriodError != nil 
+        return name.isEmpty
+        || description.isEmpty
+        || price.isEmpty
+        || (strategy is LeaseProductUploadStrategy && rentalPeriod.isEmpty)
+        || condition.isEmpty
+        || nameError != nil
+        || descriptionError != nil
+        || priceError != nil
+        || rentalPeriodError != nil
         || conditionError != nil
     }
     
@@ -165,7 +166,7 @@ class UploadProductViewModel: ObservableObject {
         guard !self.isUploadingCachedProduct, let cachedProduct = loadCachedProduct() else { return }
         
         self.isUploadingCachedProduct = true
-
+        
         if let imageData = cachedProduct.imageData, let image = UIImage(data: imageData) {
             selectedImage = image
         } else {
@@ -179,7 +180,7 @@ class UploadProductViewModel: ObservableObject {
         rentalPeriod = cachedProduct.rentalPeriod ?? ""
         
         uploadProduct { success in
-            if success {                
+            if success {
                 NotificationCenter.default.post(name: .connectionRestoredAndProductUploaded, object: nil)
                 UserDefaults.standard.removeObject(forKey: self.cacheKey)
             }
@@ -349,8 +350,11 @@ class UploadProductViewModel: ObservableObject {
         let userId = Auth.auth().currentUser?.uid ?? ""
         if userId.isEmpty {
             print("User is not authenticated")
+            completion(false)
+            return
         }
         
+        // Prepare the product data
         var productData: [String: Any] = [
             "name": name,
             "description": description,
@@ -376,9 +380,22 @@ class UploadProductViewModel: ObservableObject {
             productData["image_source"] = isImageFromGallery ? "gallery" : "camera"
         }
         
+        // Generate a deterministic UUID from the product's characteristics
+        let identifierComponents = [
+            name,
+            description,
+            price,
+            condition,
+            categories.sorted().joined(separator: ","),
+            userId
+        ]
+        let identifierString = identifierComponents.joined(separator: "|")
+        let productID = UUIDFromString(identifierString)
+        
+        // Upload the product data
         firestore
             .collection("products")
-            .document(UUID().uuidString.lowercased())
+            .document(productID)
             .setData(productData) { error in
                 self.isUploading = false
                 if let error = error {
@@ -389,6 +406,12 @@ class UploadProductViewModel: ObservableObject {
                     completion(true)
                 }
             }
+    }
+    
+    // Helper function to generate UUID from a string
+    private func UUIDFromString(_ string: String) -> String {
+        let hashedData = SHA256.hash(data: string.data(using: .utf8) ?? Data())
+        return hashedData.compactMap { String(format: "%02x", $0) }.joined()
     }
     
     
