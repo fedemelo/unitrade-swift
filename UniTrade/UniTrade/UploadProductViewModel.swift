@@ -41,7 +41,6 @@ class UploadProductViewModel: ObservableObject {
     
     @Published var isUploading: Bool = false
     @Published var showReplaceAlert: Bool = false
-    private var isUploadingCachedProduct: Bool = false
     private var cancellables = Set<AnyCancellable>()
     
     var strategy: UploadProductStrategy
@@ -50,7 +49,9 @@ class UploadProductViewModel: ObservableObject {
     
     private let storage = Storage.storage()
     private let firestore = Firestore.firestore()
+
     static var cachedProdWaiting = false
+    static var isUploadingCachedProduct: Bool = false
     
     static var hasCachedProduct: Bool {
         return UserDefaults.standard.data(forKey: "cachedProduct") != nil
@@ -111,7 +112,7 @@ class UploadProductViewModel: ObservableObject {
             .sink { isConnected in
                 if isConnected 
                 && UploadProductViewModel.cachedProdWaiting
-                && !self.isUploadingCachedProduct {
+                && !UploadProductViewModel.isUploadingCachedProduct {
                     self.uploadCachedProduct{ success in
                         if success {
                             UploadProductViewModel.cachedProdWaiting = false
@@ -170,8 +171,8 @@ class UploadProductViewModel: ObservableObject {
     }
     
     private func uploadCachedProduct(completion: @escaping (Bool) -> Void) {
-        guard !self.isUploadingCachedProduct, let cachedProduct = loadCachedProduct() else { return }
-        self.isUploadingCachedProduct = true
+        guard !UploadProductViewModel.isUploadingCachedProduct, let cachedProduct = loadCachedProduct() else { return }
+        UploadProductViewModel.isUploadingCachedProduct = true
         
         if let imageData = cachedProduct.imageData, let image = UIImage(data: imageData) {
             selectedImage = image
@@ -195,7 +196,7 @@ class UploadProductViewModel: ObservableObject {
             }
         }
 
-        self.isUploadingCachedProduct = false
+        UploadProductViewModel.isUploadingCachedProduct = false
     }
     
     func updatePriceInput(_ input: String) {
