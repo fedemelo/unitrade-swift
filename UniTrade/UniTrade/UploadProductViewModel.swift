@@ -41,7 +41,7 @@ class UploadProductViewModel: ObservableObject {
     
     @Published var isUploading: Bool = false
     @Published var showReplaceAlert: Bool = false
-    @Published private var isUploadingCachedProduct: Bool = false
+    private var isUploadingCachedProduct: Bool = false
     private var cancellables = Set<AnyCancellable>()
     
     var strategy: UploadProductStrategy
@@ -50,6 +50,7 @@ class UploadProductViewModel: ObservableObject {
     
     private let storage = Storage.storage()
     private let firestore = Firestore.firestore()
+    static var cachedProdWaiting = false
     
     static var hasCachedProduct: Bool {
         return UserDefaults.standard.data(forKey: "cachedProduct") != nil
@@ -108,8 +109,14 @@ class UploadProductViewModel: ObservableObject {
             .removeDuplicates()
             .throttle(for: .seconds(1), scheduler: RunLoop.main, latest: true)
             .sink { isConnected in
-                if isConnected {
-                    self.uploadCachedProduct()
+                if isConnected 
+                && UploadProductViewModel.cachedProdWaiting
+                && !self.isUploadingCachedProduct {
+                    self.uploadCachedProduct{ success in
+                        if success {
+                            UploadProductViewModel.cachedProdWaiting = false
+                        }
+                    }
                 }
             }
             .store(in: &cancellables)
@@ -142,7 +149,7 @@ class UploadProductViewModel: ObservableObject {
         do {
             let data = try JSONEncoder().encode(cachedProduct)
             UserDefaults.standard.set(data, forKey: cacheKey)
-            print("Product cached successfully")
+            UploadProductViewModel.cachedProdWaiting = true
         } catch {
             print("Error encoding cached product: \(error)")
         }
@@ -162,9 +169,8 @@ class UploadProductViewModel: ObservableObject {
         return cachedProduct
     }
     
-    private func uploadCachedProduct() {
+    private func uploadCachedProduct(completion: @escaping (Bool) -> Void) {
         guard !self.isUploadingCachedProduct, let cachedProduct = loadCachedProduct() else { return }
-        
         self.isUploadingCachedProduct = true
         
         if let imageData = cachedProduct.imageData, let image = UIImage(data: imageData) {
@@ -183,10 +189,13 @@ class UploadProductViewModel: ObservableObject {
             if success {
                 NotificationCenter.default.post(name: .connectionRestoredAndProductUploaded, object: nil)
                 UserDefaults.standard.removeObject(forKey: self.cacheKey)
+                completion(true)
+            } else {
+                completion(false)
             }
-            
-            self.isUploadingCachedProduct = false
         }
+
+        self.isUploadingCachedProduct = false
     }
     
     func updatePriceInput(_ input: String) {

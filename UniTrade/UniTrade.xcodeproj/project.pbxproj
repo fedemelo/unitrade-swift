@@ -206,14 +206,6 @@
 				F183F94B2CABC7CF00954D00 /* FirebaseFirestore in Frameworks */,
 				8E3557C22CAD0E8B00FD012C /* FirebaseAuthCombine-Community in Frameworks */,
 				8E3557CA2CAD0E8B00FD012C /* FirebaseFirestoreCombine-Community in Frameworks */,
-				F123D9AA2CABC2A800FDBB2A /* FirebaseAnalytics in Frameworks */,
-				F123D9AC2CABC2A800FDBB2A /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
-				F1D5BED82CA343A000C9DA71 /* DesignSystem in Frameworks */,
-				F123D9B02CABC2A800FDBB2A /* FirebaseAppCheck in Frameworks */,
-				F123D9AE2CABC2A800FDBB2A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
-				F183F94D2CABC80500954D00 /* FirebaseStorage in Frameworks */,
-				F123D9B22CABC2A800FDBB2A /* FirebaseAppDistribution-Beta in Frameworks */,
-				F183F94B2CABC7CF00954D00 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,7 +436,7 @@
 					New,
 				);
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1610;
 				TargetAttributes = {
 					F1D5BE9D2CA316A100C9DA71 = {
 						CreatedOnToolsVersion = 15.4;
@@ -538,12 +530,8 @@
 				8E48C6262CBF6B60003F3EB4 /* SplashScreenView.swift in Sources */,
 				F1373C0C2CAB70E8001181DC /* UploadProductStrategies.swift in Sources */,
 				F123D9B62CABC49800FDBB2A /* UploadProductViewModel.swift in Sources */,
-				F18F18F12CA4A268005C4A78 /* UploadProductView.swift in Sources */,
-				F1373C0C2CAB70E8001181DC /* UploadProductStrategies.swift in Sources */,
 				4C8DC6D72CBC59120034A352 /* Filter.swift in Sources */,
-				F123D9B62CABC49800FDBB2A /* UploadProductViewModel.swift in Sources */,
 				F1BF06232CBDA27900EC0A91 /* APIConfig.swift in Sources */,
-				4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */,
 				4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */,
 				F1D5BED42CA3412C00C9DA71 /* ButtonWithIcon.swift in Sources */,
 				4C3F0AF72CD9120E002FAAF9 /* UserProductItemView.swift in Sources */,
