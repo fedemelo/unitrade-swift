@@ -8,7 +8,7 @@
 import Foundation
 
 struct Product: Identifiable {
-    let id: UUID
+    let id: String
     let title: String
     let price: Float
     let rating: Float       
@@ -22,7 +22,7 @@ struct Product: Identifiable {
     let favoritesForYou : Int
 
     init(
-        id: UUID = UUID(),
+        id: String,
         title: String,
         price: Float,
         rating: Float,

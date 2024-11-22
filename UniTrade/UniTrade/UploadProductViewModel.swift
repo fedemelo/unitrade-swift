@@ -390,7 +390,6 @@ class UploadProductViewModel: ObservableObject {
             productData["image_source"] = isImageFromGallery ? "gallery" : "camera"
         }
         
-        // Generate a deterministic UUID from the product's characteristics
         let identifierComponents = [
             name,
             description,
@@ -400,7 +399,7 @@ class UploadProductViewModel: ObservableObject {
             userId
         ]
         let identifierString = identifierComponents.joined(separator: "|")
-        let productID = UUIDFromString(identifierString)
+        let productID = HashFromString(identifierString)
         
         // Upload the product data
         firestore
@@ -418,8 +417,7 @@ class UploadProductViewModel: ObservableObject {
             }
     }
     
-    // Helper function to generate UUID from a string
-    private func UUIDFromString(_ string: String) -> String {
+    private func HashFromString(_ string: String) -> String {
         let hashedData = SHA256.hash(data: string.data(using: .utf8) ?? Data())
         return hashedData.compactMap { String(format: "%02x", $0) }.joined()
     }

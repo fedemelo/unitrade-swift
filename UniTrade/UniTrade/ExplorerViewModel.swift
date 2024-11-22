@@ -36,7 +36,7 @@ class ExplorerViewModel: ObservableObject {
             }
         }
     }
-    func toggleFavorite(for productID: UUID) {
+    func toggleFavorite(for productID: String) {
         print("🔄 Toggling favorite for product with ID: \(productID)")
         if let index = products.firstIndex(where: { $0.id == productID }) {
             products[index].isFavorite.toggle()
@@ -167,7 +167,7 @@ class ExplorerViewModel: ObservableObject {
     }
     
     private func updateFavoriteInFirestore(for product: Product) {
-        let productRef = firestore.collection("products").document(product.id.uuidString.lowercased())
+        let productRef = firestore.collection("products").document(product.id.lowercased())
         
         // Determine the increment value based on the favorite status
         let incrementValue: Int64 = product.isFavorite ? 1 : 0
@@ -211,8 +211,7 @@ class ExplorerViewModel: ObservableObject {
             }
             
             let fetchedProducts = documents.compactMap { doc -> Product? in
-                let documentID = doc.documentID
-                let productID = UUID(uuidString: documentID) ?? UUID()
+                let productID = doc.documentID
                 guard let name = doc["name"] as? String,
                       let priceString = doc["price"] as? String,
                       let price = Float(priceString),

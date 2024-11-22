@@ -12,9 +12,9 @@ import SwiftUI
 class ListingItemViewModel: ObservableObject {
     @Published var isFavorite: Bool = false  // Track favorite state
     private let product: Product
-    private let toggleFavoriteAction: (UUID) -> Void
+    private let toggleFavoriteAction: (String) -> Void
     
-    init(product: Product, toggleFavoriteAction: @escaping (UUID) -> Void) {
+    init(product: Product, toggleFavoriteAction: @escaping (String) -> Void) {
         self.product = product
         self.toggleFavoriteAction = toggleFavoriteAction
         self.isFavorite = product.isFavorite
