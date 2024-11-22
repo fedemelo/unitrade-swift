@@ -12,6 +12,7 @@ import Foundation
 import Combine
 import FirebaseAuth
 import NotificationCenter
+import CryptoKit
 
 extension Notification.Name {
     static let connectionRestoredAndProductUploaded = Notification.Name("connectionRestoredAndProductUploaded")
@@ -29,12 +30,7 @@ struct ProductCache: Codable {
 class UploadProductViewModel: ObservableObject {
     @Published var isImageFromGallery: Bool = true
     
-    @Published var name: String = ""
-    @Published var description: String = ""
-    @Published var price: String = ""
     @Published var formattedPrice: String = ""
-    @Published var rentalPeriod: String = ""
-    @Published var condition: String = ""
     @Published var selectedImage: UIImage?
     
     @Published var nameError: String? = nil
@@ -45,8 +41,6 @@ class UploadProductViewModel: ObservableObject {
     
     @Published var isUploading: Bool = false
     @Published var showReplaceAlert: Bool = false
-    @Published private var isUploadingCachedProduct: Bool = false
-    
     private var cancellables = Set<AnyCancellable>()
     
     var strategy: UploadProductStrategy
@@ -55,10 +49,60 @@ class UploadProductViewModel: ObservableObject {
     
     private let storage = Storage.storage()
     private let firestore = Firestore.firestore()
+
+    static var cachedProdWaiting = false
+    static var isUploadingCachedProduct: Bool = false
+    
+    static var hasCachedProduct: Bool {
+        return UserDefaults.standard.data(forKey: "cachedProduct") != nil
+    }
     
     init(strategy: UploadProductStrategy) {
         self.strategy = strategy
         observeNetworkChanges()
+    }
+    
+    @Published var name: String = "" {
+        didSet {
+            validateName()
+        }
+    }
+    
+    @Published var description: String = "" {
+        didSet {
+            validateDescription()
+        }
+    }
+    
+    @Published var price: String = "" {
+        didSet {
+            validatePrice()
+        }
+    }
+    
+    @Published var rentalPeriod: String = "" {
+        didSet {
+            validateRentalPeriod()
+        }
+    }
+    
+    @Published var condition: String = "" {
+        didSet {
+            validateCondition()
+        }
+    }
+    
+    var hasValidationErrors: Bool {
+        return name.isEmpty
+        || description.isEmpty
+        || price.isEmpty
+        || (strategy is LeaseProductUploadStrategy && rentalPeriod.isEmpty)
+        || condition.isEmpty
+        || nameError != nil
+        || descriptionError != nil
+        || priceError != nil
+        || rentalPeriodError != nil
+        || conditionError != nil
     }
     
     func observeNetworkChanges() {
@@ -66,8 +110,14 @@ class UploadProductViewModel: ObservableObject {
             .removeDuplicates()
             .throttle(for: .seconds(1), scheduler: RunLoop.main, latest: true)
             .sink { isConnected in
-                if isConnected {
-                    self.uploadCachedProduct()
+                if isConnected 
+                && UploadProductViewModel.cachedProdWaiting
+                && !UploadProductViewModel.isUploadingCachedProduct {
+                    self.uploadCachedProduct{ success in
+                        if success {
+                            UploadProductViewModel.cachedProdWaiting = false
+                        }
+                    }
                 }
             }
             .store(in: &cancellables)
@@ -100,7 +150,7 @@ class UploadProductViewModel: ObservableObject {
         do {
             let data = try JSONEncoder().encode(cachedProduct)
             UserDefaults.standard.set(data, forKey: cacheKey)
-            print("Product cached successfully")
+            UploadProductViewModel.cachedProdWaiting = true
         } catch {
             print("Error encoding cached product: \(error)")
         }
@@ -120,17 +170,14 @@ class UploadProductViewModel: ObservableObject {
         return cachedProduct
     }
     
-    private func uploadCachedProduct() {
-        guard !isUploadingCachedProduct, let cachedProduct = loadCachedProduct() else { return }
-        
-        isUploadingCachedProduct = true  // Set the flag to indicate an upload is in progress
+    private func uploadCachedProduct(completion: @escaping (Bool) -> Void) {
+        guard !UploadProductViewModel.isUploadingCachedProduct, let cachedProduct = loadCachedProduct() else { return }
+        UploadProductViewModel.isUploadingCachedProduct = true
         
         if let imageData = cachedProduct.imageData, let image = UIImage(data: imageData) {
             selectedImage = image
         } else {
-            print("Failed to decode image data for cached product")
-            isUploadingCachedProduct = false
-            return
+            selectedImage = nil
         }
         
         name = cachedProduct.name
@@ -141,20 +188,16 @@ class UploadProductViewModel: ObservableObject {
         
         uploadProduct { success in
             if success {
-                print("Product uploaded and removed from cache")
-                
                 NotificationCenter.default.post(name: .connectionRestoredAndProductUploaded, object: nil)
-                
                 UserDefaults.standard.removeObject(forKey: self.cacheKey)
+                completion(true)
             } else {
-                print("Failed to upload cached product")
+                completion(false)
             }
-            
-            self.isUploadingCachedProduct = false
         }
+
+        UploadProductViewModel.isUploadingCachedProduct = false
     }
-    
-    
     
     func updatePriceInput(_ input: String) {
         let cleanedInput = input.filter { "0123456789".contains($0) }
@@ -219,13 +262,12 @@ class UploadProductViewModel: ObservableObject {
         task.resume()
     }
     
-    
     func uploadProduct(completion: @escaping (Bool) -> Void) {
-        if validateFields() {
+        if !self.hasValidationErrors {
             self.isUploading = true
             
             if networkMonitor.isConnected {
-                let startTime = Date() // Start timing
+                let startTime = Date()
                 
                 fetchCategories { categories in
                     guard let categories = categories else {
@@ -256,7 +298,6 @@ class UploadProductViewModel: ObservableObject {
                     }
                 }
             } else {
-                // Cache product locally
                 cacheProductLocally()
                 self.isUploading = false
                 completion(false)
@@ -282,8 +323,6 @@ class UploadProductViewModel: ObservableObject {
             }
         }
     }
-    
-    
     
     private func uploadImage(_ image: UIImage, completion: @escaping (String?) -> Void) {
         let uuid: String = UUID().uuidString.lowercased()
@@ -317,13 +356,15 @@ class UploadProductViewModel: ObservableObject {
         }
     }
     
-    
     private func saveProductData(imageURL: String?, categories: [String], completion: @escaping (Bool) -> Void) {
         let userId = Auth.auth().currentUser?.uid ?? ""
         if userId.isEmpty {
             print("User is not authenticated")
+            completion(false)
+            return
         }
         
+        // Prepare the product data
         var productData: [String: Any] = [
             "name": name,
             "description": description,
@@ -349,9 +390,22 @@ class UploadProductViewModel: ObservableObject {
             productData["image_source"] = isImageFromGallery ? "gallery" : "camera"
         }
         
+        // Generate a deterministic UUID from the product's characteristics
+        let identifierComponents = [
+            name,
+            description,
+            price,
+            condition,
+            categories.sorted().joined(separator: ","),
+            userId
+        ]
+        let identifierString = identifierComponents.joined(separator: "|")
+        let productID = UUIDFromString(identifierString)
+        
+        // Upload the product data
         firestore
             .collection("products")
-            .document(UUID().uuidString.lowercased())
+            .document(productID)
             .setData(productData) { error in
                 self.isUploading = false
                 if let error = error {
@@ -364,62 +418,78 @@ class UploadProductViewModel: ObservableObject {
             }
     }
     
+    // Helper function to generate UUID from a string
+    private func UUIDFromString(_ string: String) -> String {
+        let hashedData = SHA256.hash(data: string.data(using: .utf8) ?? Data())
+        return hashedData.compactMap { String(format: "%02x", $0) }.joined()
+    }
     
     
-    func validateFields() -> Bool {
-        var isValid = true
-        
-        nameError = nil
-        descriptionError = nil
-        priceError = nil
-        rentalPeriodError = nil
-        conditionError = nil
-        
+    func validateName() {
         if name.isEmpty {
             nameError = "Please enter a name for the product"
-            isValid = false
+        } else {
+            let nameRegex = "^[\\w]+( [\\w]+)*$"
+            let namePredicate = NSPredicate(format: "SELF MATCHES %@", nameRegex)
+            nameError = !namePredicate.evaluate(with: name) ?
+            "Product name must contain one or more words composed of alphanumeric characters with no trailing or leading spaces" : nil
         }
-        
-        if description.isEmpty {
+    }
+    
+    func validateDescription() {
+        let trimmedDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmedDescription.isEmpty {
             descriptionError = "Please enter a description for the product"
-            isValid = false
+        } else if trimmedDescription.count < 3 {
+            descriptionError = "Description must be at least 3 characters long"
+        } else if trimmedDescription.count > 140 {
+            descriptionError = "Description cannot exceed 140 characters"
+        } else {
+            descriptionError = nil
         }
-        
+    }
+    
+    func validatePrice() {
         if price.isEmpty {
             priceError = "Please enter a price for the product"
-            isValid = false
         } else {
-            let cleanedPrice = price.replacingOccurrences(of: "$", with: "")
+            let cleanedPrice = price
+                .replacingOccurrences(of: "$", with: "")
                 .replacingOccurrences(of: ".", with: "")
                 .trimmingCharacters(in: .whitespacesAndNewlines)
             
-            if Float(cleanedPrice) == nil {
-                print("The price is:", cleanedPrice)
-                priceError = "Please enter a valid number for the price"
-                isValid = false
-            } else if Float(cleanedPrice) ?? 100000000 > 90000000 {
-                priceError = "The price cannot exceed a reasonable amount"
-                isValid = false
+            if let priceValue = Float(cleanedPrice), priceValue > 50, priceValue <= 90000000 {
+                priceError = nil
+            } else {
+                priceError = cleanedPrice.isEmpty || Float(cleanedPrice) == nil
+                ? "Please enter a valid number for the price"
+                : "The price must be greater than $50 and less than $90.000.000"
             }
         }
-        
-        
-        if strategy is LeaseProductUploadStrategy && rentalPeriod.isEmpty {
-            rentalPeriodError = "Please enter a rental period"
-            isValid = false
-        } else if strategy is LeaseProductUploadStrategy && Double(rentalPeriod) == nil {
-            rentalPeriodError = "Please enter a valid number for the rental period"
-            isValid = false
-        } else if strategy is LeaseProductUploadStrategy && Double(rentalPeriod) ?? 366 > 365 {
-            rentalPeriodError = "The rental period cannot exceed a year"
-            isValid = false
+    }
+    
+    func validateRentalPeriod() {
+        if strategy is LeaseProductUploadStrategy {
+            if rentalPeriod.isEmpty {
+                rentalPeriodError = "Please enter a rental period"
+            } else if let periodValue = Double(rentalPeriod), periodValue > 0, periodValue <= 365 {
+                rentalPeriodError = nil
+            } else {
+                rentalPeriodError = rentalPeriod.isEmpty || Double(rentalPeriod) == nil
+                ? "Please enter a valid number for the rental period"
+                : "The rental period must be between 1 and 365 days"
+            }
         }
-        
+    }
+    
+    func validateCondition() {
         if condition.isEmpty {
             conditionError = "Please enter a condition for the product"
-            isValid = false
+        } else {
+            let conditionRegex = "^[\\w]+( [\\w]+)*$"
+            let conditionPredicate = NSPredicate(format: "SELF MATCHES %@", conditionRegex)
+            conditionError = !conditionPredicate.evaluate(with: condition) ?
+            "The product condition must contain one or more words composed of alphanumeric characters with no trailing or leading spaces" : nil
         }
-        
-        return isValid
     }
 }

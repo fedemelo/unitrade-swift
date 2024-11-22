@@ -60,6 +60,10 @@
 		F123D9B22CABC2A800FDBB2A /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = F123D9B12CABC2A800FDBB2A /* FirebaseAppDistribution-Beta */; };
 		F123D9B62CABC49800FDBB2A /* UploadProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F123D9B52CABC49800FDBB2A /* UploadProductViewModel.swift */; };
 		F1373C0C2CAB70E8001181DC /* UploadProductStrategies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1373C0B2CAB70E8001181DC /* UploadProductStrategies.swift */; };
+		F13AE1022CED54EF00261BD1 /* UploadProductHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13AE1012CED54EF00261BD1 /* UploadProductHeaderView.swift */; };
+		F13AE1042CED54F800261BD1 /* FormFieldsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13AE1032CED54F800261BD1 /* FormFieldsSection.swift */; };
+		F13AE1062CED550000261BD1 /* FormFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13AE1052CED550000261BD1 /* FormFieldView.swift */; };
+		F13AE1082CED550600261BD1 /* UploadButtonSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13AE1072CED550600261BD1 /* UploadButtonSection.swift */; };
 		F1405C2D2CC46B3900FDA818 /* MyListingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1405C2C2CC46B3500FDA818 /* MyListingsView.swift */; };
 		F1405C2F2CC46BC800FDA818 /* MyOrdersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1405C2E2CC46BC700FDA818 /* MyOrdersView.swift */; };
 		F1405C312CC473C300FDA818 /* LightDarkModeSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1405C302CC473C300FDA818 /* LightDarkModeSettingsView.swift */; };
@@ -147,6 +151,10 @@
 		8EF6EA3A2CBCDE8A003C7F0F /* CategoryName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryName.swift; sourceTree = "<group>"; };
 		F123D9B52CABC49800FDBB2A /* UploadProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProductViewModel.swift; sourceTree = "<group>"; };
 		F1373C0B2CAB70E8001181DC /* UploadProductStrategies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProductStrategies.swift; sourceTree = "<group>"; };
+		F13AE1012CED54EF00261BD1 /* UploadProductHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProductHeaderView.swift; sourceTree = "<group>"; };
+		F13AE1032CED54F800261BD1 /* FormFieldsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFieldsSection.swift; sourceTree = "<group>"; };
+		F13AE1052CED550000261BD1 /* FormFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFieldView.swift; sourceTree = "<group>"; };
+		F13AE1072CED550600261BD1 /* UploadButtonSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadButtonSection.swift; sourceTree = "<group>"; };
 		F1405C2C2CC46B3500FDA818 /* MyListingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListingsView.swift; sourceTree = "<group>"; };
 		F1405C2E2CC46BC700FDA818 /* MyOrdersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersView.swift; sourceTree = "<group>"; };
 		F1405C302CC473C300FDA818 /* LightDarkModeSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightDarkModeSettingsView.swift; sourceTree = "<group>"; };
@@ -198,14 +206,6 @@
 				F183F94B2CABC7CF00954D00 /* FirebaseFirestore in Frameworks */,
 				8E3557C22CAD0E8B00FD012C /* FirebaseAuthCombine-Community in Frameworks */,
 				8E3557CA2CAD0E8B00FD012C /* FirebaseFirestoreCombine-Community in Frameworks */,
-				F123D9AA2CABC2A800FDBB2A /* FirebaseAnalytics in Frameworks */,
-				F123D9AC2CABC2A800FDBB2A /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
-				F1D5BED82CA343A000C9DA71 /* DesignSystem in Frameworks */,
-				F123D9B02CABC2A800FDBB2A /* FirebaseAppCheck in Frameworks */,
-				F123D9AE2CABC2A800FDBB2A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
-				F183F94D2CABC80500954D00 /* FirebaseStorage in Frameworks */,
-				F123D9B22CABC2A800FDBB2A /* FirebaseAppDistribution-Beta in Frameworks */,
-				F183F94B2CABC7CF00954D00 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +258,10 @@
 		F1D5BEA02CA316A100C9DA71 /* UniTrade */ = {
 			isa = PBXGroup;
 			children = (
+				F13AE1072CED550600261BD1 /* UploadButtonSection.swift */,
+				F13AE1052CED550000261BD1 /* FormFieldView.swift */,
+				F13AE1032CED54F800261BD1 /* FormFieldsSection.swift */,
+				F13AE1012CED54EF00261BD1 /* UploadProductHeaderView.swift */,
 				4CF8BD792CD9BA7D003E777F /* ErrorView.swift */,
 				4C3F0AFE2CD91CBC002FAAF9 /* MyListingsViewModel.swift */,
 				4C3F0AFC2CD917EA002FAAF9 /* UserProduct.swift */,
@@ -432,7 +436,7 @@
 					New,
 				);
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1610;
 				TargetAttributes = {
 					F1D5BE9D2CA316A100C9DA71 = {
 						CreatedOnToolsVersion = 15.4;
@@ -510,6 +514,7 @@
 			files = (
 				4C3D480E2CBF7B390080F6AD /* BasePrice.swift in Sources */,
 				F18F18ED2CA4840C005C4A78 /* TabViewIcon.swift in Sources */,
+				F13AE1022CED54EF00261BD1 /* UploadProductHeaderView.swift in Sources */,
 				F1D5BF722CA369D200C9DA71 /* MainView.swift in Sources */,
 				F1405C2F2CC46BC800FDA818 /* MyOrdersView.swift in Sources */,
 				4CF004E52CAB20010001FF53 /* SearchandFilterBar.swift in Sources */,
@@ -517,6 +522,7 @@
 				4C8DC6D32CBC1B990034A352 /* NumericTextField.swift in Sources */,
 				F1D5BF742CA36A9E00C9DA71 /* TemplateView.swift in Sources */,
 				8E6993CC2CD89A08003C2804 /* MajorName.swift in Sources */,
+				F13AE1082CED550600261BD1 /* UploadButtonSection.swift in Sources */,
 				F1405C332CC57DEE00FDA818 /* ModeSettings.swift in Sources */,
 				F17E587A2CD92DF10091351B /* NetworkMonitor.swift in Sources */,
 				8E3557CE2CADAC2E00FD012C /* User.swift in Sources */,
@@ -524,12 +530,8 @@
 				8E48C6262CBF6B60003F3EB4 /* SplashScreenView.swift in Sources */,
 				F1373C0C2CAB70E8001181DC /* UploadProductStrategies.swift in Sources */,
 				F123D9B62CABC49800FDBB2A /* UploadProductViewModel.swift in Sources */,
-				F18F18F12CA4A268005C4A78 /* UploadProductView.swift in Sources */,
-				F1373C0C2CAB70E8001181DC /* UploadProductStrategies.swift in Sources */,
 				4C8DC6D72CBC59120034A352 /* Filter.swift in Sources */,
-				F123D9B62CABC49800FDBB2A /* UploadProductViewModel.swift in Sources */,
 				F1BF06232CBDA27900EC0A91 /* APIConfig.swift in Sources */,
-				4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */,
 				4C4920332CA8D09800F55852 /* ExplorerView.swift in Sources */,
 				F1D5BED42CA3412C00C9DA71 /* ButtonWithIcon.swift in Sources */,
 				4C3F0AF72CD9120E002FAAF9 /* UserProductItemView.swift in Sources */,
@@ -548,10 +550,12 @@
 				4CF3C14C2CABC4E60091A474 /* PriceRangeView.swift in Sources */,
 				F15D0DE02CA4C01D00CF9562 /* ImagePicker.swift in Sources */,
 				4CF3C1462CAB926C0091A474 /* Category.swift in Sources */,
+				F13AE1062CED550000261BD1 /* FormFieldView.swift in Sources */,
 				4CB6E95E2CAB85AC001CE679 /* CategoryScroll.swift in Sources */,
 				4CF8BD7A2CD9BA7D003E777F /* ErrorView.swift in Sources */,
 				4CB6E9642CAB8C09001CE679 /* CategoryItemView.swift in Sources */,
 				4C8DC6D52CBC3EF40034A352 /* FontTransformerUI.swift in Sources */,
+				F13AE1042CED54F800261BD1 /* FormFieldsSection.swift in Sources */,
 				F1405C312CC473C300FDA818 /* LightDarkModeSettingsView.swift in Sources */,
 				4C3F0AFF2CD91CBC002FAAF9 /* MyListingsViewModel.swift in Sources */,
 				4CF004E32CA8D33F0001FF53 /* ListingItemView.swift in Sources */,
