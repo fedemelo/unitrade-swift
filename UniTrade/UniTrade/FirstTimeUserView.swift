@@ -27,7 +27,7 @@ struct FirstTimeUserView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                VStack(spacing: 10) {
+                VStack(spacing: 20) {
                     
                     Text("We want to know you better")
                         .font(Font.DesignSystem.headline800)
@@ -35,10 +35,11 @@ struct FirstTimeUserView: View {
                         .multilineTextAlignment(.center)
                     
                     // Major selection
-                    VStack(alignment: .leading, spacing: 5) {
+                    VStack(alignment: .leading, spacing: 10) {
                         Text("Major")
-                            .font(Font.DesignSystem.headline500)
-                            .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.light300())
+                            .font(Font.DesignSystem.headline400)
+                            .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
+                            .padding(.horizontal, 30)
                         
                         Menu {
                             ForEach(loginVM.majors, id: \.self) { major in
@@ -46,33 +47,34 @@ struct FirstTimeUserView: View {
                                     selectedMajor = major.name
                                 }) {
                                     Text(major.name)
-                                        .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
+                                        .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.light300())
                                         .font(Font.DesignSystem.headline300)
                                 }
                             }
                         } label: {
                             HStack {
                                 Text(selectedMajor)
-                                    .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
+                                    .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.light300())
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .font(Font.DesignSystem.headline300)
                                 Image(systemName: "chevron.down")
-                                    .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
+                                    .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.light300())
                             }
-                            .padding(.horizontal, 20)
+                            .padding(.horizontal, 30)
                         }
                         
                         Rectangle()
                             .frame(height: 1)
                             .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.light300())
-                            .padding(.horizontal, 20)
+                            .padding(.horizontal, 30)
                     }
                     
                     // Semester selection
-                    VStack(alignment: .leading, spacing: 5) {
+                    VStack(alignment: .leading, spacing: 10) {
                         Text("Semester")
-                            .font(Font.DesignSystem.headline500)
-                            .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.light300())
+                            .font(Font.DesignSystem.headline400)
+                            .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
+                            .padding(.horizontal, 30)
                         
                         Menu {
                             ForEach(semesterOptions, id: \.self) { semester in
@@ -80,35 +82,35 @@ struct FirstTimeUserView: View {
                                     selectedSemester = semester
                                 }) {
                                     Text(semester)
-                                        .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
+                                        .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.light300())
                                         .font(Font.DesignSystem.headline300)
                                 }
                             }
                         } label: {
                             HStack {
                                 Text(selectedSemester)
-                                    .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
+                                    .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.light300())
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .font(Font.DesignSystem.headline300)
                                 Image(systemName: "chevron.down")
-                                    .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.white)
+                                    .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.light300())
                             }
-                            .padding(.horizontal, 20)
-                        }
+                            
+                        }.padding(.horizontal, 30)
                         
                         Rectangle()
                             .frame(height: 1)
                             .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.light300())
-                            .padding(.horizontal, 20)
+                            .padding(.horizontal, 30)
                     }
                     
                     Text("Choose the items you are interested in")
                         .font(Font.DesignSystem.bodyText300)
                     
                     // Category selection
-                    VStack(spacing: 20) {
+                    VStack(spacing: 10) {
                         ForEach(Array(loginVM.categories.chunked(into: 2)), id: \.self) { rowCategories in
-                            HStack(spacing: 10) {
+                            HStack(spacing: 5) {
                                 Spacer()
                                 
                                 ForEach(rowCategories, id: \.self) { category in
@@ -137,7 +139,7 @@ struct FirstTimeUserView: View {
                                         .cornerRadius(100)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 100)
-                                                .stroke(Color.DesignSystem.primary900(), lineWidth: 2)
+                                                .stroke(Color.DesignSystem.primary900(), lineWidth: 1)
                                         )
                                     }
                                     
