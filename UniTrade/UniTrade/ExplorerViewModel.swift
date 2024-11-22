@@ -167,22 +167,21 @@ class ExplorerViewModel: ObservableObject {
     }
     
     private func updateFavoriteInFirestore(for product: Product) {
-        guard let selectedCategory = selectedCategory else { return }
-        
         let productRef = firestore.collection("products").document(product.id.uuidString.lowercased())
         
         // Determine the increment value based on the favorite status
-        let incrementValue: Int64 = product.isFavorite ? 1 : -1
+        let incrementValue: Int64 = product.isFavorite ? 1 : 0
+        let changeValue: Int64 = product.isFavorite ? 1 : -1
         
         // Prepare the updates dictionary with dynamic increment
         var updates: [String: FieldValue] = [
-            "favorites": FieldValue.increment(incrementValue)
+            "favorites": FieldValue.increment(changeValue)
         ]
-        
+
         if selectedCategory == "For You" {
             updates["favorites_foryou"] = FieldValue.increment(incrementValue)
             print("🔄 \(incrementValue > 0 ? "Incrementing" : "Decrementing") favorites_foryou for product: \(product.title)")
-        } else {
+        } else if selectedCategory != nil {
             updates["favorites_category"] = FieldValue.increment(incrementValue)
             print("🔄 \(incrementValue > 0 ? "Incrementing" : "Decrementing") favorites_category for product: \(product.title)")
         }
