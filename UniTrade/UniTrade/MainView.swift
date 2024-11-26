@@ -43,9 +43,8 @@ struct MainView: View {
     let tabsNamesAndIcons:
     [(title: String, unselectedIcon: String, selectedIcon: String, tag: BottomMenuScreenEnum)] =
     [("Home", "house", "house.fill", .home),
-     ("Cart", "cart", "cart.fill", .cart),
      ("Upload", "plus.circle", "plus.circle.fill", .uploadProduct),
-     ("Alerts", "bell", "bell.fill", .notifications),
+     ("Favorites", "heart", "heart.fill", .favorites),
      ("Profile", "person", "person.fill", .profile)
     ]
 
@@ -72,14 +71,12 @@ struct MainView: View {
                 NavigationStack {
                     ExplorerView()
                 }
-            case .cart:
-                TemplateView(name: "Cart")
             case .uploadProduct:
                 NavigationStack {
                     ChooseUploadTypeView()
                 }
-            case .notifications:
-                TemplateView(name: "Alerts")
+            case .favorites:
+                TemplateView(name: "Favorites")
             case .profile:
                 NavigationStack {
                     ProfileView()
@@ -90,8 +87,7 @@ struct MainView: View {
 
 enum BottomMenuScreenEnum: Hashable {
     case home
-    case cart
     case uploadProduct
-    case notifications
+    case favorites
     case profile
 }
