@@ -11,10 +11,14 @@ struct Product: Identifiable {
     let id: String
     let title: String
     let price: Float
-    let rating: Float       
+    let rating: Float
+    let condition: String
+    let description: String
     let reviewCount: Int
+    let type: String
     let isInStock: String
     let categories: String
+    let rentalPeriod: Int?
     let imageUrl: String?
     var isFavorite: Bool = false
     let favorites: Int
@@ -26,9 +30,13 @@ struct Product: Identifiable {
         title: String,
         price: Float,
         rating: Float,
+        condition: String,
+        description: String,
         reviewCount: Int,
+        type: String,
         isInStock: String,
         categories: String,
+        rentalPeriod: Int? = nil,
         imageUrl: String? = nil,
         isFavorite: Bool = false,
         favorites: Int = 0,
@@ -39,9 +47,13 @@ struct Product: Identifiable {
         self.title = title
         self.price = price
         self.rating = rating
+        self.condition = condition
+        self.description = description
         self.reviewCount = reviewCount
+        self.type = type
         self.isInStock = isInStock
         self.categories = categories
+        self.rentalPeriod = rentalPeriod
         self.imageUrl = imageUrl
         self.isFavorite = isFavorite
         self.favorites = favorites

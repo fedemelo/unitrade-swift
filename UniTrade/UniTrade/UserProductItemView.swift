@@ -11,7 +11,7 @@ import SwiftUI
 struct UserProductItemView: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var viewModel: UserProductViewModel
-
+    
     var body: some View {
         HStack(spacing: 15) {
             // Product Image
