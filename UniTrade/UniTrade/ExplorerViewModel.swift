@@ -220,8 +220,10 @@ class ExplorerViewModel: ObservableObject {
                     print("⚠️ Invalid data in document \(doc.documentID)")
                     return nil
                 }
-                
+
+                let rentalPeriod = Int(doc["rental_period"] as? String ?? "1")
                 let condition = (doc["condition"] as? String) ?? "New"
+                let description = (doc["description"] as? String) ?? "No description available"
                 let reviewCount = (doc["review_count"] as? NSNumber)?.intValue ?? 0
                 let rating = (doc["rating"] as? NSNumber)?.floatValue ?? 0.0
                 let imageUrl = (doc["image_url"] as? String) ?? "dummy"
@@ -230,21 +232,25 @@ class ExplorerViewModel: ObservableObject {
                 let favoritesCategory = (doc["favorites_category"] as? NSNumber)?.intValue ?? 0
                 let favoritesForYou = (doc["favorites_foryou"] as? NSNumber)?.intValue ?? 0
                 
-                return Product(
+                let product = Product(
                     id: productID,
                     title: name,
                     price: price,
                     rating: rating,
                     condition: condition,
+                    description: description,
                     reviewCount: reviewCount,
                     type: type,
                     isInStock: type,
                     categories: categories,
+                    rentalPeriod: rentalPeriod,
                     imageUrl: imageUrl,
                     favorites: favorites,
                     favoritesCategory: favoritesCategory,
                     favoritesForYou: favoritesForYou
                 )
+                
+                return product
             }
             
             DispatchQueue.main.async {

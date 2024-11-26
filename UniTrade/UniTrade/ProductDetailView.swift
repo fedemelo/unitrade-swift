@@ -13,104 +13,178 @@ struct ProductDetailView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 16) {
-                // Product Image
-                AsyncImage(url: URL(string: product.imageUrl ?? "")) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                } placeholder: {
-                    ProgressView()
-                }
-                .frame(height: 300)
-                .cornerRadius(10)
-                
-                // Product Title
+            VStack(alignment: .leading, spacing: 20) {
+            // Product Image
+            AsyncImage(url: URL(string: product.imageUrl ?? "")) { image in
+                image
+                .resizable()
+                .scaledToFill()
+            } placeholder: {
+                ProgressView()
+            }
+            .frame(width: 350, height: 300)
+            .clipped()
+            .cornerRadius(10)
+            
+            // Title and type
+            HStack {
                 Text(product.title)
-                    .font(.largeTitle)
+                .font(Font.DesignSystem.headline700)
+                .fontWeight(.bold)
+                .multilineTextAlignment(.leading)
+                
+                HStack {
+                Text("•")
+                    .font(Font.DesignSystem.headline700)
+                    .foregroundColor(Color.DesignSystem.primary900())
+                
+                Text(product.type == "sale" ? "For Sale" : "For Rent")
+                    .font(Font.DesignSystem.headline700)
                     .fontWeight(.bold)
-                    .multilineTextAlignment(.center)
-                
-                // Product Condition
-                Text("Condition: \(product.condition.capitalized)")
-                    .font(.headline)
-                    .foregroundColor(.secondary)
-                
-                // Product Description
-                Text(product.categories)
-                    .font(.body)
-                    .foregroundColor(.secondary)
-                    .padding(.horizontal)
-                
-                // Additional details for Sale or Rent
-                if product.type.lowercased() == "sale" {
-                    // For Sale
-                    saleDetails
-                } else if product.type.lowercased() == "rent" {
-                    // For Rent
-                    rentDetails
+                    .foregroundColor(Color.DesignSystem.primary900())
                 }
-                
                 Spacer()
             }
+            
+            // Condition
+            VStack(alignment: .leading) {
+                Text("Condition")
+                .font(Font.DesignSystem.headline500)
+                .fontWeight(.bold)
+                Text(product.condition)
+                .font(Font.DesignSystem.bodyText200)
+            }
+            
+            // Description
+            VStack(alignment: .leading) {
+                Text("Description")
+                .font(Font.DesignSystem.headline500)
+                .fontWeight(.bold)
+                Text(product.description)
+                .font(Font.DesignSystem.bodyText200)
+            }
+            
+            // Sale or Rent details
+            if product.type.lowercased() == "sale" {
+                saleDetails
+            } else {
+                rentDetails
+            }
+            
+            Spacer()
+            }
             .padding()
+            .frame(maxWidth: .infinity, alignment: .center)
         }
         .navigationTitle(product.title)
         .navigationBarTitleDisplayMode(.inline)
     }
     
+    
     // View for products for sale
-    private var saleDetails: some View {
-        VStack(spacing: 16) {
-            Text("Price")
-                .font(.title2)
-                .fontWeight(.bold)
-            Text("COP $\(String(format: "%.0f", product.price))")
-                .font(.title)
-                .foregroundColor(.blue)
-            
-            Button(action: {
-                // Handle purchase action
-                print("Buy Now tapped for \(product.title)")
-            }) {
-                Text("BUY NOW")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity, maxHeight: 50)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+    var saleDetails: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                price
+                Spacer()
+                Button(action: {
+                    print("Buy Now tapped for \(product.title)")
+                }) {
+                    ButtonWithIcon(
+                        text: "BUY NOW",
+                        icon: "cart"
+                        // isDisabled: viewModel.isUploading || viewModel.hasValidationErrors
+                    )
+                }
+                
             }
         }
     }
     
     // View for products for rent
-    private var rentDetails: some View {
-        VStack(spacing: 16) {
-            Text("Rental Period")
-                .font(.title2)
-                .fontWeight(.bold)
-            Text("29 days") // Adjust based on real data if available
-                .font(.headline)
-                .foregroundColor(.secondary)
+    var rentDetails: some View {
+        VStack(alignment: .leading, spacing: 16) {
             
-            Text("Price")
-                .font(.title2)
-                .fontWeight(.bold)
-            Text("COP $\(String(format: "%.0f", product.price))")
-                .font(.title)
-                .foregroundColor(.blue)
-            
-            Button(action: {
-                // Handle rent action
-                print("Rent Now tapped for \(product.title)")
-            }) {
-                Text("RENT NOW")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity, maxHeight: 50)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+            if let rentalPeriod = product.rentalPeriod {
+                VStack(alignment: .leading) {
+                    Text("Rental Period")
+                        .font(Font.DesignSystem.headline500)
+                        .fontWeight(.bold)
+                    Text("\(rentalPeriod) days")
+                        .font(Font.DesignSystem.bodyText200)
+                }
             }
+            
+            
+            HStack {
+                price
+                Spacer()
+                Button(action: {
+                    print("Rent Now tapped for \(product.title)")
+                }) {
+                    ButtonWithIcon(
+                        text: "RENT NOW",
+                        icon: "cart"
+                        // isDisabled: viewModel.isUploading || viewModel.hasValidationErrors
+                    )
+                }
+            }
+        }
+    }
+    
+    var price: some View {
+        VStack (alignment: .leading) {
+            Text("PRICE")
+                .font(Font.DesignSystem.headline500)
+                .fontWeight(.bold)
+            Text(CurrencyFormatter.formatPrice(product.price, currencySymbol: "COP $"))
+                .font(Font.DesignSystem.bodyText300)
+        }
+    }
+}
+
+
+struct ProductDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            // Preview for a product for sale
+            ProductDetailView(product: Product(
+                id: "1",
+                title: "BatCat",
+                price: 80000000.0,
+                rating: 4.8,
+                condition: "Miau",
+                description: "Un gato único con el espíritu del Caballero Oscuro, listo para defender tu hogar de cualquier villano.",
+                reviewCount: 100,
+                type: "sale",
+                isInStock: "yes",
+                categories: "Pets, Security",
+                imageUrl: "https://via.placeholder.com/300",
+                favorites: 50,
+                favoritesCategory: 20,
+                favoritesForYou: 10
+            ))
+            .previewDisplayName("For Sale")
+            
+            // Preview for a product for rent
+            ProductDetailView(product: Product(
+                id: "2",
+                title: "Everlast Flask",
+                price: 50000.0,
+                rating: 4.5,
+                condition: "Almost new",
+                description: "Black metallic Everlast water flask useful for carrying liquids around.",
+                reviewCount: 25,
+                type: "rent",
+                isInStock: "yes",
+                categories: "Household, Travel",
+                rentalPeriod: 29,
+                imageUrl: "https://via.placeholder.com/300",
+                favorites: 30,
+                favoritesCategory: 15,
+                favoritesForYou: 5
+            ))
+            .previewDisplayName("For Rent")
         }
     }
 }
