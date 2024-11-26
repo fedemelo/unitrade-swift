@@ -221,6 +221,7 @@ class ExplorerViewModel: ObservableObject {
                     return nil
                 }
                 
+                let condition = (doc["condition"] as? String) ?? "New"
                 let reviewCount = (doc["review_count"] as? NSNumber)?.intValue ?? 0
                 let rating = (doc["rating"] as? NSNumber)?.floatValue ?? 0.0
                 let imageUrl = (doc["image_url"] as? String) ?? "dummy"
@@ -234,7 +235,9 @@ class ExplorerViewModel: ObservableObject {
                     title: name,
                     price: price,
                     rating: rating,
+                    condition: condition,
                     reviewCount: reviewCount,
+                    type: type,
                     isInStock: type,
                     categories: categories,
                     imageUrl: imageUrl,

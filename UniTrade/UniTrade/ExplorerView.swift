@@ -48,11 +48,14 @@ struct ExplorerView: View {
                                 
                                 LazyVGrid(columns: columns, spacing: 32) {
                                     ForEach(viewModel.filteredProducts) { product in
-                                        ListingItemView(viewModel: ListingItemViewModel(product: product) { productId in
-                                            viewModel.toggleFavorite(for: productId)
-                                        })
+                                        NavigationLink(destination: ProductDetailView(product: product)) {
+                                            ListingItemView(viewModel: ListingItemViewModel(product: product) { productId in
+                                                viewModel.toggleFavorite(for: productId)
+                                            })
+                                        }
                                     }
                                 }
+                                
                                 .padding()
                             }
                         }
