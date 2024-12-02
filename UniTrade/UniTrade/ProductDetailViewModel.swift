@@ -48,7 +48,9 @@ class ProductDetailViewModel: ObservableObject {
         }
         
         let documentRef = firestore.collection("products").document(product.id)
-        let currentDate = ISO8601DateFormatter().string(from: Date())
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let currentDate = dateFormatter.string(from: Date())
         
         documentRef.updateData([
             "in_stock": false,
