@@ -1,8 +1,8 @@
 //
-//  MyListingsViewModel.swift
+//  MyOrdersViewModel.swift
 //  UniTrade
 //
-//  Created by Santiago Martinez on 4/11/24.
+//  Created by Mariana Ruiz on 1/12/24.
 //
 
 
@@ -10,7 +10,7 @@ import SwiftUI
 import FirebaseFirestore
 import FirebaseAuth
 
-class MyListingsViewModel: ObservableObject {
+class MyOrdersViewModel: ObservableObject {
     @Published var userProducts: [UserProduct] = []
     @Published var isLoading: Bool = false
     private let firestore = Firestore.firestore()
@@ -26,8 +26,8 @@ class MyListingsViewModel: ObservableObject {
         print("USER ID: \(userId)")
         
         firestore.collection("products")
-            .whereField("user_id", isEqualTo: userId)
-            .getDocuments(source: .default) { snapshot, error in
+            .whereField("buyer_id", isEqualTo: userId)
+            .getDocuments(source: .default) { (snapshot, error) in // Add explicit type annotation
                 if let error = error {
                     print("Error fetching user products: \(error.localizedDescription)")
                     DispatchQueue.main.async {
@@ -38,14 +38,14 @@ class MyListingsViewModel: ObservableObject {
                 
                 // Check if the snapshot contains any documents
                 guard let documents = snapshot?.documents, !documents.isEmpty else {
-                    print("No products found for user with ID \(userId)")
+                    print("No orders found for user with ID \(userId)")
                     DispatchQueue.main.async {
                         self.isLoading = false
                     }
                     return
                 }
                 
-                print("Successfully fetched user products from Firestore")
+                print("Successfully fetched user orders from Firestore")
                 print("Number of documents fetched: \(documents.count)")
                 
                 // Map documents to UserProduct objects
@@ -53,7 +53,6 @@ class MyListingsViewModel: ObservableObject {
                     guard let title = doc["name"] as? String,
                           let priceString = doc["price"] as? String,
                           let price = Float(priceString),
-                          let type = doc["type"] as? String,
                           let purchaseDate = doc["purchase_date"] as? String else {
                         print("⚠️ Document \(doc.documentID) missing required fields")
                         return nil
@@ -65,10 +64,12 @@ class MyListingsViewModel: ObservableObject {
                     
                     // Default to an empty string if imageUrl is missing or cannot be cast
                     let imageUrl = (doc["image_url"] as? String) ?? "dummy"
-
+                    
                     // Calculate the save count
                     let saveCount = doc["favorites"] as? Int ?? 0
                     
+                    // Add default for `type` if not present in the document
+                    let type = doc["type"] as? String ?? "default"
                     
                     return UserProduct(
                         id: doc.documentID,
@@ -82,12 +83,10 @@ class MyListingsViewModel: ObservableObject {
                         purchaseDate: purchaseDate
                     )
                 }
-                    
                 
                 DispatchQueue.main.async {
                     self.isLoading = false
                 }
             }
     }
-
 }

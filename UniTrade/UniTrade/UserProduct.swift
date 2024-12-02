@@ -17,4 +17,5 @@ struct UserProduct: Identifiable {
     let imageUrl: String
     let type: String?
     let saveCount: Int
+    let purchaseDate: String?
 }
