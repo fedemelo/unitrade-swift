@@ -24,6 +24,11 @@ class ExplorerViewModel: ObservableObject {
     private let firestore = Firestore.firestore()
     private let monitor = NWPathMonitor()
     private let queue = DispatchQueue.global(qos: .background)
+
+    func reloadProducts() {
+        print("🔄 Reloading products...")
+        loadProductsFromFirestore()
+    }
     
     init() {
         setupNetworkMonitor()
@@ -36,6 +41,7 @@ class ExplorerViewModel: ObservableObject {
             }
         }
     }
+
     func toggleFavorite(for productID: String) {
         print("🔄 Toggling favorite for product with ID: \(productID)")
         if let index = products.firstIndex(where: { $0.id == productID }) {
@@ -114,8 +120,8 @@ class ExplorerViewModel: ObservableObject {
     
     var filteredProducts: [Product] {
         guard isDataLoaded else { return [] }
-        
-        var filtered = products
+
+        var filtered = products.filter { $0.inStock ?? true}
         
         if let selectedCategory = selectedCategory {
             
@@ -221,6 +227,7 @@ class ExplorerViewModel: ObservableObject {
                     return nil
                 }
 
+                let inStock = (doc["in_stock"] as? Bool) ?? true
                 let rentalPeriod = Int(doc["rental_period"] as? String ?? "1")
                 let condition = (doc["condition"] as? String) ?? "New"
                 let description = (doc["description"] as? String) ?? "No description available"
@@ -241,7 +248,7 @@ class ExplorerViewModel: ObservableObject {
                     description: description,
                     reviewCount: reviewCount,
                     type: type,
-                    isInStock: type,
+                    inStock: inStock,
                     categories: categories,
                     rentalPeriod: rentalPeriod,
                     imageUrl: imageUrl,

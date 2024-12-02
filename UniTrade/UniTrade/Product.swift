@@ -16,7 +16,7 @@ struct Product: Identifiable {
     let description: String
     let reviewCount: Int
     let type: String
-    let isInStock: String
+    let inStock: Bool?
     let categories: String
     let rentalPeriod: Int?
     let imageUrl: String?
@@ -34,7 +34,7 @@ struct Product: Identifiable {
         description: String,
         reviewCount: Int,
         type: String,
-        isInStock: String,
+        inStock: Bool? = true,
         categories: String,
         rentalPeriod: Int? = nil,
         imageUrl: String? = nil,
@@ -51,7 +51,7 @@ struct Product: Identifiable {
         self.description = description
         self.reviewCount = reviewCount
         self.type = type
-        self.isInStock = isInStock
+        self.inStock = inStock
         self.categories = categories
         self.rentalPeriod = rentalPeriod
         self.imageUrl = imageUrl
