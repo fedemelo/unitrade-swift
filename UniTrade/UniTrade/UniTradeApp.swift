@@ -56,29 +56,37 @@ struct UniTradeApp: App {
             Group {
                 if showSplash {
                     SplashScreenView(showSplash: $showSplash)
-                } else if loginViewModel.registeredUser != nil && loginViewModel.firstTimeUser && !loginViewModel.isPendingRegistration {
-                    FirstTimeUserView(loginVM: loginViewModel)
-                } else if loginViewModel.registeredUser != nil || loginViewModel.isPendingRegistration {
-                    NavigationView {
-                        MainView(loginViewModel: loginViewModel)
+                } else if let user = loginViewModel.registeredUser {
+                    if loginViewModel.firstTimeUser {
+                        FirstTimeUserView(loginVM: loginViewModel)
+                    } else {
+                        NavigationView {
+                            MainView(loginViewModel: loginViewModel)
+                        }
                     }
                 } else {
                     LoginView(loginViewModel: loginViewModel, isSignedOut: $isSignedOut)
                 }
             }
             .onAppear {
-
                 NotificationCenter.default.addObserver(forName: .connectionRestoredAndProductUploaded, object: nil, queue: .main) { _ in
                     showConnectionRestoredAlert = true
                 }
 
-                explorerViewModel.fetchInitialDataInBackground()
-                
+                // Simulate splash screen display time
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     withAnimation {
                         showSplash = false
                     }
+
+                    // Check session after splash
+                    if let currentUser = FirebaseAuthManager.shared.auth.currentUser {
+                        loginViewModel.registeredUser = currentUser
+                        loginViewModel.isFirstTimeUser()
+                    }
                 }
+
+                explorerViewModel.fetchInitialDataInBackground()
             }
             .alert(isPresented: $showConnectionRestoredAlert) {
                 Alert(
@@ -90,8 +98,8 @@ struct UniTradeApp: App {
             .environmentObject(modeSettings)
             .preferredColorScheme(
                 modeSettings.selectedMode == .automatic
-                ? getColorSchemeBasedOnTime()
-                : (modeSettings.selectedMode == .light ? .light : .dark)
+                    ? getColorSchemeBasedOnTime()
+                    : (modeSettings.selectedMode == .light ? .light : .dark)
             )
         }
         .modelContainer(sharedModelContainer)

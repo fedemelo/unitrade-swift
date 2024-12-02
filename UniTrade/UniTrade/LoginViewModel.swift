@@ -23,6 +23,9 @@ final class LoginViewModel: ObservableObject {
     @Published var majors: [MajorName] = []
     @Published var didCheckFirstTimeUser: Bool = false
     @Published var isPendingRegistration: Bool = false
+    var isUserLoggedOut: Bool {
+        FirebaseAuthManager.shared.auth.currentUser == nil
+    }
     private var checkedFirstTimeUser: Bool = false
     
     private let monitor = NWPathMonitor()
@@ -114,29 +117,39 @@ var user: FirebaseAuth.User? {
 
 var provider = OAuthProvider(providerID: "microsoft.com")
 
-func signIn(completion: @escaping () -> Void) {
-    self.provider.customParameters = ["prompt": "select_account"]
-    self.provider.getCredentialWith(nil) { credential, error in
-        if error != nil {
-            print("An error occurred getting credentials")
+    func signIn(completion: @escaping () -> Void) {
+        if let currentUser = FirebaseAuthManager.shared.auth.currentUser {
+            // If a user is already logged in, complete immediately.
+            self.registeredUser = currentUser
+            self.logSignInStats(for: currentUser)
+            completion()
             return
         }
-        if let credential = credential {
-            FirebaseAuthManager.shared.auth.signIn(with: credential) { result, error in
-                if error != nil {
-                    print("An error occurred signing in")
-                    return
-                }
-                self.registeredUser = FirebaseAuthManager.shared.auth.currentUser
-                if let user = self.registeredUser {
-                    self.logSignInStats(for: user)
-                    completion()
+
+        // Proceed with the normal sign-in flow if no user is logged in.
+        self.provider.customParameters = ["prompt": "select_account"]
+        self.provider.getCredentialWith(nil) { credential, error in
+            if let error = error {
+                print("An error occurred getting credentials: \(error.localizedDescription)")
+                return
+            }
+
+            if let credential = credential {
+                FirebaseAuthManager.shared.auth.signIn(with: credential) { result, error in
+                    if let error = error {
+                        print("An error occurred signing in: \(error.localizedDescription)")
+                        return
+                    }
+
+                    self.registeredUser = FirebaseAuthManager.shared.auth.currentUser
+                    if let user = self.registeredUser {
+                        self.logSignInStats(for: user)
+                        completion()
+                    }
                 }
             }
         }
     }
-}
-
     func signOut() {
         do {
             try FirebaseAuthManager.shared.auth.signOut()

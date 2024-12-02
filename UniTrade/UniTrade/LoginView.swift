@@ -66,7 +66,7 @@ struct LoginView: View {
             .background(Color.DesignSystem.whitee(for: colorScheme))
             
             // Warning banner at the bottom
-            if loginViewModel.showBanner && !loginViewModel.isConnected {
+            if loginViewModel.showBanner && !loginViewModel.isConnected && loginViewModel.isUserLoggedOut {
                 ZStack {
                     HStack {
                         Text("No internet connection. Please try again when connected.")
