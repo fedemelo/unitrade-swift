@@ -56,7 +56,7 @@ struct UniTradeApp: App {
             Group {
                 if showSplash {
                     SplashScreenView(showSplash: $showSplash)
-                } else if let user = loginViewModel.registeredUser {
+                } else if loginViewModel.registeredUser != nil {
                     if loginViewModel.firstTimeUser {
                         FirstTimeUserView(loginVM: loginViewModel)
                     } else {

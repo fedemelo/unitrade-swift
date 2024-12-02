@@ -95,7 +95,7 @@ struct ListingItemView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             // Stock status
-            Text(viewModel.stockStatus)
+            Text(viewModel.productType)
                 .font(Font.DesignSystem.bodyText100)
                 .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.primary600())
                 .frame(maxWidth: .infinity, alignment: .leading)

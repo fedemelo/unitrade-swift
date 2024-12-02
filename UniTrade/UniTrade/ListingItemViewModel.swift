@@ -37,8 +37,8 @@ class ListingItemViewModel: ObservableObject {
         "(\(product.reviewCount) Reviews)"
     }
     
-    var stockStatus: String {
-        product.isInStock == "lease" ? "For Rent" : "For Sale"
+    var productType: String {
+        product.type == "sale" ? "For Sale" : "For Rent"
     }
     
     // MARK: - Price Formatting Logic
