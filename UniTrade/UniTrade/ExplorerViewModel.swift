@@ -24,6 +24,11 @@ class ExplorerViewModel: ObservableObject {
     private let firestore = Firestore.firestore()
     private let monitor = NWPathMonitor()
     private let queue = DispatchQueue.global(qos: .background)
+
+    func reloadProducts() {
+        print("🔄 Reloading products...")
+        loadProductsFromFirestore()
+    }
     
     init() {
         setupNetworkMonitor()

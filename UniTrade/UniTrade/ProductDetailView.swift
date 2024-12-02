@@ -11,6 +11,7 @@ struct ProductDetailView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: ProductDetailViewModel
     let product: Product
+    let onDismiss: () -> Void 
     
     var body: some View {
         ScrollView {
@@ -84,9 +85,8 @@ struct ProductDetailView: View {
                 title: Text("Status"),
                 message: Text(viewModel.alertMessage),
                 dismissButton: .default(Text("OK")) {
-                    viewModel.dismissAction = {
-                        presentationMode.wrappedValue.dismiss()
-                    }
+                    onDismiss()
+                    presentationMode.wrappedValue.dismiss()
                 }
             )
         }

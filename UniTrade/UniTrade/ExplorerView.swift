@@ -18,7 +18,6 @@ struct ExplorerView: View {
         GridItem(.flexible())
     ]
     
-    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -50,7 +49,10 @@ struct ExplorerView: View {
                                     ForEach(viewModel.filteredProducts) { product in
                                         NavigationLink(destination: ProductDetailView(
                                             viewModel: ProductDetailViewModel(),
-                                            product: product
+                                            product: product,
+                                            onDismiss: {
+                                                viewModel.reloadProducts()
+                                            }
                                         )) {
                                             ListingItemView(viewModel: ListingItemViewModel(product: product) { productId in
                                                 viewModel.toggleFavorite(for: productId)
@@ -137,5 +139,4 @@ struct ExplorerView: View {
             isLoading = false
         }
     }
-    
 }
