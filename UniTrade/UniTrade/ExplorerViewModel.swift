@@ -41,6 +41,7 @@ class ExplorerViewModel: ObservableObject {
             }
         }
     }
+
     func toggleFavorite(for productID: String) {
         print("🔄 Toggling favorite for product with ID: \(productID)")
         if let index = products.firstIndex(where: { $0.id == productID }) {

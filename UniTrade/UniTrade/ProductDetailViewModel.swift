@@ -15,7 +15,7 @@ class ProductDetailViewModel: ObservableObject {
     @Published var showAlert = false
     @Published var alertMessage = ""
     var dismissAction: (() -> Void)?
-
+    
     private let firestore = Firestore.firestore()
     private var networkMonitor = NWPathMonitor()
     private var isConnected = true
@@ -52,21 +52,37 @@ class ProductDetailViewModel: ObservableObject {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let currentDate = dateFormatter.string(from: Date())
         
-        documentRef.updateData([
-            "in_stock": false,
-            "buyer_id": userId,
-            "purchase_date": currentDate
-        ]) { [weak self] error in
-            if let error = error {
-                self?.showAlert(message: "Failed to update product: \(error.localizedDescription)")
+        firestore.collection("users").document(userId).getDocument { [weak self] (document, error) in
+            var buyerSemester: String? = nil
+            
+            if let document = document, document.exists {
+                let data = document.data()
+                buyerSemester = data?["semester"] as? String
+            } else if let error = error {
+                self?.showAlert(message: "Failed to retrieve user data: \(error.localizedDescription)")
             } else {
-                let successMessage = isPurchase
+                self?.showAlert(message: "User data not found.")
+            }
+            
+            documentRef.updateData([
+                "in_stock": false,
+                "buyer_id": userId,
+                "buyer_semester": buyerSemester ?? NSNull(),
+                "purchase_date": currentDate,
+                "purchase_screen": "home"
+            ]) { error in
+                if let error = error {
+                    self?.showAlert(message: "Failed to update product: \(error.localizedDescription)")
+                } else {
+                    let successMessage = isPurchase
                     ? "Product purchased successfully!"
                     : "Product rented successfully!"
-                self?.showAlert(message: successMessage)
+                    self?.showAlert(message: successMessage)
+                }
             }
         }
     }
+    
     
     private func showNoInternetAlert() {
         showAlert(message: "Please check your internet connection and try again.")
