@@ -65,7 +65,6 @@ struct ProfileView: View {
                     NavigationLink(destination: MyListingsView()) {
                         Text("My Listings")
                     }
-                    
                     NavigationLink(destination: MyOrdersView()) {
                         Text("My Orders")
                     }
