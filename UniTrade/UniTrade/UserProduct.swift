@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct UserProduct: Identifiable {
+struct UserProduct: Codable, Identifiable {
     let id: String
     let title: String
     let price: Float
@@ -17,4 +17,5 @@ struct UserProduct: Identifiable {
     let imageUrl: String
     let type: String?
     let saveCount: Int
+    let purchaseDate: String?
 }
