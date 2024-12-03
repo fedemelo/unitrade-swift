@@ -21,26 +21,26 @@ struct MainView: View {
         loginViewModel.isFirstTimeUser()
         
         appearance.backgroundColor = UIColor(Color.DesignSystem.primary900(for: colorScheme))
-
+        
         let normalIconColor = UIColor(Color.DesignSystem.contrast900(for: colorScheme))
         appearance.stackedLayoutAppearance.normal.iconColor = normalIconColor
         appearance.inlineLayoutAppearance.normal.iconColor = normalIconColor
         appearance.compactInlineLayoutAppearance.normal.iconColor = normalIconColor
-
+        
         let selectedIconColor = UIColor(Color.DesignSystem.contrast900(for: colorScheme))
         appearance.stackedLayoutAppearance.selected.iconColor = selectedIconColor
         appearance.inlineLayoutAppearance.selected.iconColor = selectedIconColor
         appearance.compactInlineLayoutAppearance.selected.iconColor = selectedIconColor
-
+        
         appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: selectedIconColor]
         appearance.inlineLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: selectedIconColor]
         appearance.compactInlineLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: selectedIconColor]
-
+        
         UITabBar.appearance().scrollEdgeAppearance = appearance
         UITabBar.appearance().standardAppearance = appearance
     }
     let crashLogger = CrashLogger()
-
+    
     let tabsNamesAndIcons:
     [(title: String, unselectedIcon: String, selectedIcon: String, tag: BottomMenuScreenEnum)] =
     [("Home", "house", "house.fill", .home),
@@ -48,7 +48,7 @@ struct MainView: View {
      ("Favorites", "heart", "heart.fill", .favorites),
      ("Profile", "person", "person.fill", .profile)
     ]
-
+    
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
@@ -88,7 +88,7 @@ struct MainView: View {
                     .frame(maxWidth: .infinity)
                     .background(Color.DesignSystem.light100(for: colorScheme))
                     .padding(.bottom, 47) // Position above the TabView
-                    }
+                }
                 .transition(.opacity) // Smooth transition when showing/hiding
             }
         }
@@ -98,20 +98,22 @@ struct MainView: View {
     @ViewBuilder
     func tabView(for tag: BottomMenuScreenEnum) -> some View {
         switch tag {
-            case .home:
-                NavigationStack {
-                    ExplorerView()
-                }
-            case .uploadProduct:
-                NavigationStack {
-                    ChooseUploadTypeView()
-                }
-            case .favorites:
-                TemplateView(name: "Favorites")
-            case .profile:
-                NavigationStack {
-                    ProfileView()
-                }
+        case .home:
+            NavigationStack {
+                ExplorerView()
+            }
+        case .uploadProduct:
+            NavigationStack {
+                ChooseUploadTypeView()
+            }
+        case .favorites:
+            NavigationStack {
+                MyFavoritesView()
+            }
+        case .profile:
+            NavigationStack {
+                ProfileView()
+            }
         }
     }
 }
