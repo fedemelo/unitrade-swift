@@ -21,7 +21,6 @@ class MyFavoritesViewModel: ObservableObject {
             return
         }
         
-        print("ℹ️ Fetching favorites for user ID: \(userId)")
         
         // Fetch the user's favorite product IDs
         let userDocRef = firestore.collection("users").document(userId)
@@ -33,18 +32,15 @@ class MyFavoritesViewModel: ObservableObject {
             }
             
             guard let data = document?.data() else {
-                print("⚠️ No data found in user document.")
                 completion(false, "No favorites found for this user.")
                 return
             }
             
             guard let favoriteProductIds = data["favorites"] as? [String] else {
-                print("⚠️ Favorites field not found or not a [String].")
                 completion(false, "No favorites found for this user.")
                 return
             }
             
-            print("✅ Fetched favorite product IDs: \(favoriteProductIds)")
             
             // Fetch product details for each favorite ID
             self?.fetchProducts(for: favoriteProductIds, completion: completion)
@@ -53,7 +49,6 @@ class MyFavoritesViewModel: ObservableObject {
     
     private func fetchProducts(for productIds: [String], completion: @escaping (Bool, String?) -> Void) {
         guard !productIds.isEmpty else {
-            print("⚠️ No favorite product IDs to fetch.")
             DispatchQueue.main.async {
                 self.favoriteProducts = []
                 completion(true, nil)
@@ -80,7 +75,6 @@ class MyFavoritesViewModel: ObservableObject {
                           let price = Float(priceString),
                           let categoriesArray = doc["categories"] as? [String],
                           let type = doc["type"] as? String else {
-                        print("⚠️ Missing required fields in document \(doc.documentID)")
                         return nil
                     }
                     
@@ -95,7 +89,6 @@ class MyFavoritesViewModel: ObservableObject {
                     let favoritesForYou = doc["favorites_foryou"] as? Int ?? 0
                     
                     guard inStock else {
-                        print("⚠️ Product \(name) is out of stock. Skipping.")
                         return nil
                     }
                     
@@ -128,11 +121,9 @@ class MyFavoritesViewModel: ObservableObject {
     
     func toggleFavorite(productId: String) {
         guard let userId = Auth.auth().currentUser?.uid else {
-            print("⚠️ User is not authenticated.")
             return
         }
         
-        print("ℹ️ Toggling favorite for product ID: \(productId)")
         
         if let index = favoriteProducts.firstIndex(where: { $0.id == productId }) {
             favoriteProducts[index].isFavorite.toggle()
