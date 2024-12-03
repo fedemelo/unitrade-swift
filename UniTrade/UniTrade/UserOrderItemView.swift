@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct UserProductItemView: View {
+struct UserOrderItemView: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var viewModel: UserProductViewModel
     
@@ -60,20 +60,13 @@ struct UserProductItemView: View {
                     .font(Font.DesignSystem.bodyText200)
                     .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.primary600())
                 
-                // Product type (e.g., "For Sale")
-                Text(viewModel.type)
-                    .font(Font.DesignSystem.bodyText200)
-                    .foregroundColor(Color.DesignSystem.secondary900(for: colorScheme))
             }
             
             Spacer()
             
-            // Save count
+            // Purchase Date
             VStack(alignment: .trailing) {
-                Text("\(viewModel.saveCount)")
-                    .font(Font.DesignSystem.headline800)
-                    .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.primary600())
-                Text("Saves")
+                Text("\(String(describing: viewModel.purchaseDate))")
                     .font(Font.DesignSystem.bodyText200)
                     .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.primary600())
             }

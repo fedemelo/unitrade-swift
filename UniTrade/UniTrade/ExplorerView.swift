@@ -18,6 +18,21 @@ struct ExplorerView: View {
         GridItem(.flexible())
     ]
     
+    // Optimized computed property for categories
+    private var categories: [Category] {
+        let forYouCount = viewModel.forYouCategories.count
+        let forYouCategory = Category(name: "For You", itemCount: forYouCount, systemImage: "star.circle")
+        
+        return [
+            forYouCategory,
+            Category(name: "Study", itemCount: 43, systemImage: "book"),
+            Category(name: "Tech", itemCount: 57, systemImage: "desktopcomputer"),
+            Category(name: "Creative", itemCount: 96, systemImage: "paintbrush"),
+            Category(name: "Lab", itemCount: 30, systemImage: "testtube.2"),
+            Category(name: "Personal", itemCount: 78, systemImage: "backpack"),
+            Category(name: "Others", itemCount: 120, systemImage: "sportscourt")
+        ]
+    }
     
     var body: some View {
         NavigationStack {
@@ -43,16 +58,25 @@ struct ExplorerView: View {
                             VStack {
                                 CategoryScroll(
                                     selectedCategory: $viewModel.selectedCategory,
-                                    categories: createCategories()
+                                    categories: categories // Use optimized computed property
                                 )
                                 
                                 LazyVGrid(columns: columns, spacing: 32) {
                                     ForEach(viewModel.filteredProducts) { product in
-                                        ListingItemView(viewModel: ListingItemViewModel(product: product) { productId in
-                                            viewModel.toggleFavorite(for: productId)
-                                        })
+                                        NavigationLink(destination: ProductDetailView(
+                                            viewModel: ProductDetailViewModel(),
+                                            product: product,
+                                            onDismiss: {
+                                                viewModel.reloadProducts()
+                                            }
+                                        )) {
+                                            ListingItemView(viewModel: ListingItemViewModel(product: product) { productId in
+                                                viewModel.toggleFavorite(for: productId)
+                                            })
+                                        }
                                     }
                                 }
+                                
                                 .padding()
                             }
                         }
@@ -98,22 +122,6 @@ struct ExplorerView: View {
         }
     }
     
-    // Helper to create category list
-    private func createCategories() -> [Category] {
-        let forYouCount = viewModel.forYouCategories.count  // Use ViewModel's "For You" categories
-        let forYouCategory = Category(name: "For You", itemCount: forYouCount, systemImage: "star.circle")
-        
-        return [
-            forYouCategory,
-            Category(name: "Study", itemCount: 43, systemImage: "book"),
-            Category(name: "Tech", itemCount: 57, systemImage: "desktopcomputer"),
-            Category(name: "Creative", itemCount: 96, systemImage: "paintbrush"),
-            Category(name: "Lab", itemCount: 30, systemImage: "testtube.2"),
-            Category(name: "Personal", itemCount: 78, systemImage: "backpack"),
-            Category(name: "Others", itemCount: 120, systemImage: "sportscourt")
-        ]
-    }
-    
     // Load initial data
     private func loadInitialData() {
         viewModel.loadForYouCategories { success in
@@ -131,5 +139,4 @@ struct ExplorerView: View {
             isLoading = false
         }
     }
-    
 }
