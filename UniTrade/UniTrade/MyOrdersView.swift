@@ -15,10 +15,25 @@ struct MyOrdersView: View {
                 if isLoading {
                     ProgressView("Loading your orders...")
                         .font(.headline)
-                } else if !isConnected {
-                    // Show error view when offline
-                    ErrorView(message: "Failed to load errors. Please check your connection.") {
-                        loadUserProducts()  // Retry action
+                } else if !isConnected && viewModel.userProducts.isEmpty {
+                    // Show error view when offline and no products loaded
+                    ErrorView(message: "Failed to load user products. Please check your connection.") {
+                        loadUserProducts() // Retry action
+                    }
+                } else if viewModel.userProducts.isEmpty {
+                    // Show "No orders" message when there are no products
+                    VStack {
+                        Image(systemName: "cart")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100, height: 100)
+                            .foregroundColor(.gray)
+                            .padding(.bottom, 16)
+                        
+                        Text("You haven't made any orders yet!")
+                            .font(.title3)
+                            .foregroundColor(.gray)
+                            .multilineTextAlignment(.center)
                     }
                 } else {
                     ScrollView {
@@ -34,16 +49,19 @@ struct MyOrdersView: View {
                         loadUserProducts()
                     }
                 }
+                
+                // Show banner at the bottom when offline
+                if !isConnected {
+                    BannerView(message: "You`re viewing offline data. It may be outdated.")
+                }
             }
             .onAppear {
                 setupNetworkMonitoring()
                 loadUserProducts()
                 screenTimeViewModel.startTrackingTime()
             }
-            .onDisappear{
-                screenTimeViewModel.stopAndRecordTime(for:"OrdersView")
-            }
             .onDisappear {
+                screenTimeViewModel.stopAndRecordTime(for: "OrdersView")
                 monitor.cancel()
             }
             .navigationTitle("My Orders")

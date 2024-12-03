@@ -49,6 +49,7 @@
 		8E48C6262CBF6B60003F3EB4 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E48C6252CBF6B60003F3EB4 /* SplashScreenView.swift */; };
 		8E52148D2CFD642800088547 /* MyOrdersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E52148C2CFD642800088547 /* MyOrdersViewModel.swift */; };
 		8E52148F2CFD69B700088547 /* UserOrderItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E52148E2CFD69B700088547 /* UserOrderItemView.swift */; };
+		8E5214912CFE7A0A00088547 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5214902CFE7A0A00088547 /* BannerView.swift */; };
 		8E6993CC2CD89A08003C2804 /* MajorName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6993CB2CD89A08003C2804 /* MajorName.swift */; };
 		8E75EE6D2CB751540063D01A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E75EE6C2CB751540063D01A /* GoogleService-Info.plist */; };
 		8E75EE6E2CB751540063D01A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E75EE6C2CB751540063D01A /* GoogleService-Info.plist */; };
@@ -151,6 +152,7 @@
 		8E48C6252CBF6B60003F3EB4 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		8E52148C2CFD642800088547 /* MyOrdersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersViewModel.swift; sourceTree = "<group>"; };
 		8E52148E2CFD69B700088547 /* UserOrderItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOrderItemView.swift; sourceTree = "<group>"; };
+		8E5214902CFE7A0A00088547 /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
 		8E6993CB2CD89A08003C2804 /* MajorName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorName.swift; sourceTree = "<group>"; };
 		8E75EE6C2CB751540063D01A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8EAEBE682CD1C83900C62CAC /* ScreenTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTimeViewModel.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 		F1D5BEA02CA316A100C9DA71 /* UniTrade */ = {
 			isa = PBXGroup;
 			children = (
+				8E5214902CFE7A0A00088547 /* BannerView.swift */,
 				F1B516A12CF5526000D420D9 /* ProductDetailView.swift */,
 				F13AE1072CED550600261BD1 /* UploadButtonSection.swift */,
 				F13AE1052CED550000261BD1 /* FormFieldView.swift */,
@@ -552,6 +555,7 @@
 				4C3D48122CBF7B8E0080F6AD /* FormatDecorator.swift in Sources */,
 				F14716D82CC46256007D673E /* ProfileViewModel.swift in Sources */,
 				4C3D480C2CBF7B220080F6AD /* Price.swift in Sources */,
+				8E5214912CFE7A0A00088547 /* BannerView.swift in Sources */,
 				4C3D48102CBF7B820080F6AD /* PriceDecorator.swift in Sources */,
 				8E3557CC2CAD18AB00FD012C /* LoginViewModel.swift in Sources */,
 				4CD857C52CBF7E260046F512 /* ListingItemViewModel.swift in Sources */,
@@ -751,7 +755,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"UniTrade/Preview Content\"";
-				DEVELOPMENT_TEAM = 6MG8GCGFUH;
+				DEVELOPMENT_TEAM = 4AR68S8KC2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UniTrade/Info.plist;
@@ -786,7 +790,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"UniTrade/Preview Content\"";
-				DEVELOPMENT_TEAM = 6MG8GCGFUH;
+				DEVELOPMENT_TEAM = 4AR68S8KC2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UniTrade/Info.plist;

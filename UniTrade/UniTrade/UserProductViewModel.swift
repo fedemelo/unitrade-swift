@@ -22,7 +22,7 @@ class UserProductViewModel: ObservableObject, Identifiable {
     
     // Calculate the total save count
     var saveCount: Int { product.saveCount }
-    var purchaseDate: String? { product.purchaseDate }
+    var purchaseDate: String {"\(product.purchaseDate ?? "Not Available")"}
 
     init(product: UserProduct) {
         self.product = product

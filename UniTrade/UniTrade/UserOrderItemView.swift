@@ -67,9 +67,6 @@ struct UserOrderItemView: View {
             // Purchase Date
             VStack(alignment: .trailing) {
                 Text("\(String(describing: viewModel.purchaseDate))")
-                    .font(Font.DesignSystem.headline800)
-                    .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.primary600())
-                Text("Purchase Date")
                     .font(Font.DesignSystem.bodyText200)
                     .foregroundColor(colorScheme == .light ? Color.DesignSystem.primary900() : Color.DesignSystem.primary600())
             }
