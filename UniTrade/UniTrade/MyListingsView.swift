@@ -24,9 +24,7 @@ struct MyListingsView: View {
                         .font(.headline)
                 } else if !isConnected {
                     // Show error view when offline
-                    ErrorView(message: "Failed to load products. Please check your connection.") {
-                        loadUserProducts()  // Retry action
-                    }
+                    ErrorView(message: "Failed to load products. Please check your connection.")
                 } else {
                     ScrollView {
                         LazyVStack(spacing: 16) {
