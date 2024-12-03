@@ -10,8 +10,6 @@ import SwiftUI
 
 struct ErrorView: View {
     let message: String
-    let retryAction: () -> Void
-    
     var body: some View {
         VStack(spacing: 20) {
             Image(systemName: "wifi.exclamationmark")
@@ -20,16 +18,8 @@ struct ErrorView: View {
             
             Text(message)
                 .font(.headline)
-                .foregroundColor(.red)
+                .foregroundColor(.gray)
                 .multilineTextAlignment(.center)
-            
-            Button(action: retryAction) {
-                Text("Retry")
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-            }
         }
     }
 }
