@@ -21,6 +21,13 @@ class ProductDetailViewModel: ObservableObject {
     private var isConnected = true
     private var cancellables = Set<AnyCancellable>()
     
+    // Optimized DateFormatter to avoid unnecessary object creation
+    private lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
+    
     init() {
         monitorNetwork()
     }
@@ -48,8 +55,6 @@ class ProductDetailViewModel: ObservableObject {
         }
         
         let documentRef = firestore.collection("products").document(product.id)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
         let currentDate = dateFormatter.string(from: Date())
         
         firestore.collection("users").document(userId).getDocument { [weak self] (document, error) in
@@ -82,7 +87,6 @@ class ProductDetailViewModel: ObservableObject {
             }
         }
     }
-    
     
     private func showNoInternetAlert() {
         showAlert(message: "Please check your internet connection and try again.")
