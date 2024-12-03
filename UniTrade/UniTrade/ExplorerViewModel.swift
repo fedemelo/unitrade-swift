@@ -24,7 +24,7 @@ class ExplorerViewModel: ObservableObject {
     private let firestore = Firestore.firestore()
     private let monitor = NWPathMonitor()
     private let queue = DispatchQueue.global(qos: .background)
-
+    
     func reloadProducts() {
         print("🔄 Reloading products...")
         loadProductsFromFirestore()
@@ -108,7 +108,7 @@ class ExplorerViewModel: ObservableObject {
     
     var filteredProducts: [Product] {
         guard isDataLoaded else { return [] }
-
+        
         var filtered = products.filter { $0.inStock ?? true}
         
         if let selectedCategory = selectedCategory {
@@ -171,7 +171,7 @@ class ExplorerViewModel: ObservableObject {
         var updates: [String: FieldValue] = [
             "favorites": FieldValue.increment(changeValue)
         ]
-
+        
         if selectedCategory == "For You" {
             updates["favorites_foryou"] = FieldValue.increment(incrementValue)
             print("🔄 \(incrementValue > 0 ? "Incrementing" : "Decrementing") favorites_foryou for product: \(product.title)")
@@ -195,9 +195,9 @@ class ExplorerViewModel: ObservableObject {
             print("⚠️ User is not authenticated.")
             return
         }
-
+        
         print("📦 Fetching products from Firestore...")
-
+        
         // Step 1: Fetch the user's favorite products
         let userDocRef = firestore.collection("users").document(userId)
         userDocRef.getDocument { [weak self] document, error in
@@ -205,19 +205,19 @@ class ExplorerViewModel: ObservableObject {
                 print("❌ Error fetching user data: \(error.localizedDescription)")
                 return
             }
-
+            
             guard let data = document?.data(),
                   let favoriteProductIds = data["favorites"] as? [String] else {
                 print("⚠️ No favorites found for this user.")
                 self?.fetchAndMarkProducts(favoriteProductIds: [])
                 return
             }
-
+            
             print("ℹ️ User's favorite product IDs: \(favoriteProductIds)")
             self?.fetchAndMarkProducts(favoriteProductIds: favoriteProductIds)
         }
     }
-
+    
     // Step 2: Fetch products and mark favorites
     private func fetchAndMarkProducts(favoriteProductIds: [String]) {
         firestore.collection("products").getDocuments { [weak self] snapshot, error in
@@ -225,12 +225,12 @@ class ExplorerViewModel: ObservableObject {
                 print("❌ Error fetching products: \(error.localizedDescription)")
                 return
             }
-
+            
             guard let documents = snapshot?.documents else {
                 print("⚠️ No products found.")
                 return
             }
-
+            
             let fetchedProducts = documents.compactMap { doc -> Product? in
                 let productID = doc.documentID
                 guard let name = doc["name"] as? String,
@@ -241,7 +241,7 @@ class ExplorerViewModel: ObservableObject {
                     print("⚠️ Invalid data in document \(doc.documentID)")
                     return nil
                 }
-
+                
                 let inStock = (doc["in_stock"] as? Bool) ?? true
                 let condition = (doc["condition"] as? String) ?? "New"
                 let description = (doc["description"] as? String) ?? "No description available"
@@ -252,10 +252,10 @@ class ExplorerViewModel: ObservableObject {
                 let favorites = (doc["favorites"] as? NSNumber)?.intValue ?? 0
                 let favoritesCategory = (doc["favorites_category"] as? NSNumber)?.intValue ?? 0
                 let favoritesForYou = (doc["favorites_foryou"] as? NSNumber)?.intValue ?? 0
-
+                
                 // Check if the product is in the favorites array
                 let isFavorite = favoriteProductIds.contains(productID)
-
+                
                 return Product(
                     id: productID,
                     title: name,
@@ -274,7 +274,7 @@ class ExplorerViewModel: ObservableObject {
                     favoritesForYou: favoritesForYou
                 )
             }
-
+            
             DispatchQueue.main.async {
                 self?.products = fetchedProducts
                 self?.isDataLoaded = true
@@ -303,20 +303,64 @@ class ExplorerViewModel: ObservableObject {
         }
     }
     
+    func fetchFavoritesInBackground() {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            print("⚠️ User is not logged in. Cannot fetch favorites.")
+            return
+        }
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.fetchFavoriteProductIds(for: userId)
+        }
+    }
+    
+    // MARK: - Fetch Favorites
+    private func fetchFavoriteProductIds(for userId: String) {
+        print("🔍 Fetching favorite product IDs for user: \(userId)")
+        let userDocRef = firestore.collection("users").document(userId)
+        userDocRef.getDocument { [weak self] document, error in
+            if let error = error {
+                print("❌ Error fetching user favorites: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let data = document?.data(),
+                  let favoriteProductIds = data["favorites"] as? [String] else {
+                print("⚠️ No favorites found for user \(userId).")
+                return
+            }
+            print("✅ Favorite products successfully fetched in background.")
+            print("ℹ️ Favorite product IDs: \(favoriteProductIds)")
+            self?.markFavorites(for: favoriteProductIds)
+        }
+    }
+    
+    // MARK: - Mark Favorites
+    private func markFavorites(for favoriteProductIds: [String]) {
+        DispatchQueue.main.async {
+            for (index, product) in self.products.enumerated() {
+                if favoriteProductIds.contains(product.id) {
+                    self.products[index].isFavorite = true
+                }
+            }
+            print("✅ Marked favorite products.")
+        }
+    }
+    
     func toggleFavorite(for productID: String) {
         guard let userId = Auth.auth().currentUser?.uid else {
             print("⚠️ User is not authenticated.")
             return
         }
-
+        
         print("🔄 Toggling favorite for product ID: \(productID)")
-
+        
         if let index = products.firstIndex(where: { $0.id == productID }) {
             // Toggle local state
             products[index].isFavorite.toggle()
             let isNowFavorite = products[index].isFavorite
             print("✅ Product \(products[index].title) is now \(isNowFavorite ? "favorited" : "unfavorited")")
-
+            
             let userDocRef = firestore.collection("users").document(userId)
             userDocRef.getDocument { document, error in
                 if let error = error {
@@ -328,7 +372,7 @@ class ExplorerViewModel: ObservableObject {
                     }
                     return
                 }
-
+                
                 guard let data = document?.data(),
                       var favorites = data["favorites"] as? [String] else {
                     print("⚠️ Unable to fetch or parse the 'favorites' array.")
@@ -339,7 +383,7 @@ class ExplorerViewModel: ObservableObject {
                     }
                     return
                 }
-
+                
                 if isNowFavorite {
                     // Add the product to favorites
                     favorites.append(productID)
@@ -347,9 +391,9 @@ class ExplorerViewModel: ObservableObject {
                     // Remove the product from favorites
                     favorites.removeAll { $0 == productID }
                 }
-
+                
                 print("ℹ️ Updating 'favorites' field in Firestore: \(favorites)")
-
+                
                 // Update Firestore
                 userDocRef.updateData(["favorites": favorites]) { error in
                     if let error = error {
@@ -368,7 +412,7 @@ class ExplorerViewModel: ObservableObject {
             print("⚠️ Product with ID \(productID) not found in products.")
         }
     }
-
+    
     
     private func trackCategoryClick(category: String) {
         

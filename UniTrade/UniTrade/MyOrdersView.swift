@@ -17,9 +17,7 @@ struct MyOrdersView: View {
                         .font(.headline)
                 } else if !isConnected && viewModel.userProducts.isEmpty {
                     // Show error view when offline and no products loaded
-                    ErrorView(message: "Failed to load user products. Please check your connection.") {
-                        loadUserProducts() // Retry action
-                    }
+                    ErrorView(message: "Failed to load user products. Please check your connection.")
                 } else if viewModel.userProducts.isEmpty {
                     // Show "No orders" message when there are no products
                     VStack {
