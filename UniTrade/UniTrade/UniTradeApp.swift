@@ -83,6 +83,8 @@ struct UniTradeApp: App {
                     if let currentUser = FirebaseAuthManager.shared.auth.currentUser {
                         loginViewModel.registeredUser = currentUser
                         loginViewModel.isFirstTimeUser()
+                        
+                        explorerViewModel.fetchFavoritesInBackground()
                     }
                 }
 
