@@ -1,4 +1,5 @@
 import SwiftUI
+import Kingfisher
 
 struct ListingItemView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -13,45 +14,8 @@ struct ListingItemView: View {
                     .foregroundColor(.clear)
                     .frame(width: 150, height: 150)
                     .overlay(
-                        Group {
-                            if viewModel.imageUrl == "dummy" {
-                                Rectangle()
-                                    .foregroundColor(Color.DesignSystem.light200(for: colorScheme))
-                                    .overlay(
-                                        Image(systemName: "photo")
-                                            .font(.largeTitle)
-                                            .foregroundColor(.white)
-                                    )
-                                    .clipShape(RoundedRectangle(cornerRadius: 20))
-                            } else {
-                                AsyncImage(url: URL(string: viewModel.imageUrl ?? "")) { phase in
-                                    switch phase {
-                                    case .empty:
-                                        Rectangle()
-                                            .foregroundColor(Color.DesignSystem.light200(for: colorScheme))
-                                            .overlay(ProgressView())
-                                            .clipShape(RoundedRectangle(cornerRadius: 20))
-                                    case .success(let image):
-                                        image
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .frame(width: 150, height: 150)
-                                            .clipShape(RoundedRectangle(cornerRadius: 20))
-                                    case .failure:
-                                        Rectangle()
-                                            .foregroundColor(.gray)
-                                            .overlay(
-                                                Image(systemName: "photo")
-                                                    .font(.largeTitle)
-                                                    .foregroundColor(.white)
-                                            )
-                                            .clipShape(RoundedRectangle(cornerRadius: 20))
-                                    @unknown default:
-                                        EmptyView()
-                                    }
-                                }
-                            }
-                        }
+                        // Separate image handling into a dedicated logic block
+                        imageContent
                     )
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                 
@@ -104,5 +68,35 @@ struct ListingItemView: View {
         .background(Color.DesignSystem.whitee(for: colorScheme))
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .frame(maxWidth: .infinity)
+    }
+
+    // Extracted image rendering logic
+    private var imageContent: some View {
+        if viewModel.imageUrl == "dummy" {
+            // Static placeholder for dummy images
+            return AnyView(
+                Rectangle()
+                    .foregroundColor(Color.DesignSystem.light200(for: colorScheme))
+                    .overlay(
+                        Image(systemName: "photo")
+                            .font(.largeTitle)
+                            .foregroundColor(.white)
+                    )
+            )
+        } else {
+            // Kingfisher for image caching and loading
+            return AnyView(
+                KFImage(URL(string: viewModel.imageUrl ?? ""))
+                    .placeholder {
+                        Rectangle()
+                            .foregroundColor(Color.DesignSystem.light200(for: colorScheme))
+                            .overlay(ProgressView())
+                    }
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 150, height: 150)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+            )
+        }
     }
 }
