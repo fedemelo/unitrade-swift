@@ -14,6 +14,7 @@ import FirebaseAuth
 class ProductDetailViewModel: ObservableObject {
     @Published var showAlert = false
     @Published var alertMessage = ""
+    
     var dismissAction: (() -> Void)?
     
     private let firestore = Firestore.firestore()
@@ -32,21 +33,38 @@ class ProductDetailViewModel: ObservableObject {
         monitorNetwork()
     }
     
-    func handleBuyNow(for product: Product) {
+    func handleBuyNow(for product: Product, from source: String) {
         guard isConnected else {
             showNoInternetAlert()
             return
         }
+        updateAnalytics(for: source)
         updateFirebase(for: product, isPurchase: true)
     }
     
-    func handleRentNow(for product: Product) {
+    func handleRentNow(for product: Product, from source: String) {
         guard isConnected else {
             showNoInternetAlert()
             return
         }
+        updateAnalytics(for: source)
         updateFirebase(for: product, isPurchase: false)
     }
+    
+    private func updateAnalytics(for source: String) {
+            let field = source
+            let analyticsRef = firestore.collection("analytics").document("bought_from")
+            
+            analyticsRef.updateData([
+                field: FieldValue.increment(Int64(1))
+            ]) { error in
+                if let error = error {
+                    print("❌ Error updating analytics: \(error.localizedDescription)")
+                } else {
+                    print("✅ Analytics updated for \(field)")
+                }
+            }
+        }
     
     private func updateFirebase(for product: Product, isPurchase: Bool) {
         guard let userId = Auth.auth().currentUser?.uid else {
