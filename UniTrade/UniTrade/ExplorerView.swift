@@ -66,6 +66,7 @@ struct ExplorerView: View {
                                         NavigationLink(destination: ProductDetailView(
                                             viewModel: ProductDetailViewModel(),
                                             product: product,
+                                            source: "home",
                                             onDismiss: {
                                                 viewModel.reloadProducts()
                                             }
