@@ -11,7 +11,8 @@ struct ProductDetailView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: ProductDetailViewModel
     let product: Product
-    let onDismiss: () -> Void 
+    let source: String
+    let onDismiss: () -> Void
     
     var body: some View {
         ScrollView {
@@ -94,49 +95,48 @@ struct ProductDetailView: View {
     
     // View for products for sale
     var saleDetails: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                price
-                Spacer()
-                Button(action: {
-                    viewModel.handleBuyNow(for: product)
-                }) {
-                    ButtonWithIcon(
-                        text: "BUY NOW",
-                        icon: "cart"
-                    )
+            VStack(alignment: .leading, spacing: 16) {
+                HStack {
+                    price
+                    Spacer()
+                    Button(action: {
+                        viewModel.handleBuyNow(for: product, from: source)
+                    }) {
+                        ButtonWithIcon(
+                            text: "BUY NOW",
+                            icon: "cart"
+                        )
+                    }
                 }
             }
         }
-    }
-    
-    // View for products for rent
-    var rentDetails: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            if let rentalPeriod = product.rentalPeriod {
-                VStack(alignment: .leading) {
-                    Text("Rental Period")
-                        .font(Font.DesignSystem.headline500)
-                        .fontWeight(.bold)
-                    Text("\(rentalPeriod) days")
-                        .font(Font.DesignSystem.bodyText200)
+
+        var rentDetails: some View {
+            VStack(alignment: .leading, spacing: 16) {
+                if let rentalPeriod = product.rentalPeriod {
+                    VStack(alignment: .leading) {
+                        Text("Rental Period")
+                            .font(Font.DesignSystem.headline500)
+                            .fontWeight(.bold)
+                        Text("\(rentalPeriod) days")
+                            .font(Font.DesignSystem.bodyText200)
+                    }
                 }
-            }
-            
-            HStack {
-                price
-                Spacer()
-                Button(action: {
-                    viewModel.handleRentNow(for: product)
-                }) {
-                    ButtonWithIcon(
-                        text: "RENT NOW",
-                        icon: "cart"
-                    )
+                
+                HStack {
+                    price
+                    Spacer()
+                    Button(action: {
+                        viewModel.handleRentNow(for: product, from: source)
+                    }) {
+                        ButtonWithIcon(
+                            text: "RENT NOW",
+                            icon: "cart"
+                        )
+                    }
                 }
             }
         }
-    }
     
     var price: some View {
         VStack(alignment: .leading) {

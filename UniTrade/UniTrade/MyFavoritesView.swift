@@ -56,6 +56,7 @@ struct MyFavoritesView: View {
                                 NavigationLink(destination: ProductDetailView(
                                     viewModel: ProductDetailViewModel(),
                                     product: product,
+                                    source: "favorites",
                                     onDismiss: {
                                         loadFavoriteProducts()  // Reload products when returning
                                     }
