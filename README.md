@@ -2,7 +2,7 @@
   <img src="https://github.com/user-attachments/assets/d9c35359-704d-4514-87fa-d315b5577fb0" />
 </p>
 
-# Team-15-Swifties
+# UniTrade - Swift
 
 This repository hosts the iOS UniTrade application developed in Swift.
 
